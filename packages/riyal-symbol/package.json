@@ -48,11 +48,7 @@
 		"copy clipboard"
 	],
 	"type": "module",
-	"sideEffects": [
-		"./dist/web-component/*",
-		"*.css",
-		"*.scss"
-	],
+	"sideEffects": ["./dist/web-component/*", "*.css", "*.scss"],
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
@@ -105,12 +101,7 @@
 		"./font/arabic/woff2": "./dist/fonts/riyal-arabic.woff2",
 		"./package.json": "./package.json"
 	},
-	"files": [
-		"dist",
-		"src/scss",
-		"README.md",
-		"LICENSE"
-	],
+	"files": ["dist", "src/scss", "README.md", "LICENSE"],
 	"scripts": {
 		"build": "tsup && pnpm run copy:assets",
 		"copy:assets": "node scripts/copy-assets.mjs",

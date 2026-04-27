@@ -1,37 +1,37 @@
 {
-  "name": "riyal",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Monorepo for the riyal npm package (Saudi Riyal currency symbol toolkit).",
-  "license": "MIT",
-  "author": "Pooya Golchian",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pooyagolchian/riyal.git"
-  },
-  "homepage": "https://riyal.js.org",
-  "bugs": {
-    "url": "https://github.com/pooyagolchian/riyal/issues"
-  },
-  "packageManager": "pnpm@9.12.0",
-  "engines": {
-    "node": ">=20"
-  },
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "test": "turbo run test",
-    "lint": "biome check .",
-    "format": "biome format --write .",
-    "typecheck": "turbo run typecheck",
-    "changeset": "changeset",
-    "version-packages": "changeset version",
-    "release": "turbo run build --filter=riyal && changeset publish"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@changesets/cli": "^2.27.9",
-    "turbo": "^2.2.3",
-    "typescript": "^5.6.3"
-  }
+	"name": "riyal",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Monorepo for the riyal npm package (Saudi Riyal currency symbol toolkit).",
+	"license": "MIT",
+	"author": "Pooya Golchian",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/pooyagolchian/riyal.git"
+	},
+	"homepage": "https://riyal.js.org",
+	"bugs": {
+		"url": "https://github.com/pooyagolchian/riyal/issues"
+	},
+	"packageManager": "pnpm@9.12.0",
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"test": "turbo run test",
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"typecheck": "turbo run typecheck",
+		"changeset": "changeset",
+		"version-packages": "changeset version",
+		"release": "turbo run build --filter=riyal && changeset publish"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@changesets/cli": "^2.27.9",
+		"turbo": "^2.2.3",
+		"typescript": "^5.6.3"
+	}
 }
