@@ -35,7 +35,7 @@ jobs:
 
             - run: pnpm install --frozen-lockfile
 
-            - run: pnpm --filter riyal build
+            - run: pnpm --filter @pooyagolchian/riyal build
 
             - run: pnpm --filter @riyal/docs build
 

@@ -21,7 +21,7 @@ pnpm install
 | ----------------- | -------------------------- |
 | Build everything  | `pnpm build`               |
 | Run tests         | `pnpm test`                |
-| Watch the package | `pnpm --filter riyal dev`  |
+| Watch the package | `pnpm --filter @pooyagolchian/riyal dev`  |
 | Type-check        | `pnpm typecheck`           |
 | Lint / Format     | `pnpm lint && pnpm format` |
 | Add a changeset   | `pnpm changeset`           |
