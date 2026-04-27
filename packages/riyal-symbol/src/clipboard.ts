@@ -1,8 +1,4 @@
-import {
-	RIYAL_CSS_CONTENT,
-	RIYAL_HTML_ENTITY,
-	RIYAL_UNICODE,
-} from "./constants";
+import { RIYAL_CSS_CONTENT, RIYAL_HTML_ENTITY, RIYAL_UNICODE } from "./constants";
 import { type FormatRiyalOptions, formatRiyal } from "./format";
 
 export type RiyalCopyFormat = "unicode" | "html" | "css";
@@ -27,11 +23,7 @@ function getClipboard(): { writeText(text: string): Promise<void> } {
  */
 export async function copyRiyalSymbol(format: RiyalCopyFormat = "unicode"): Promise<void> {
 	const value =
-		format === "html"
-			? RIYAL_HTML_ENTITY
-			: format === "css"
-				? RIYAL_CSS_CONTENT
-				: RIYAL_UNICODE;
+		format === "html" ? RIYAL_HTML_ENTITY : format === "css" ? RIYAL_CSS_CONTENT : RIYAL_UNICODE;
 	await getClipboard().writeText(value);
 }
 

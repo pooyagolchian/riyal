@@ -142,7 +142,8 @@ class RiyalInputElement extends HTMLElement {
 
 export function defineRiyalElements(): void {
 	if (typeof customElements === "undefined") return;
-	if (!customElements.get("riyal-symbol")) customElements.define("riyal-symbol", RiyalSymbolElement);
+	if (!customElements.get("riyal-symbol"))
+		customElements.define("riyal-symbol", RiyalSymbolElement);
 	if (!customElements.get("riyal-price")) customElements.define("riyal-price", RiyalPriceElement);
 	if (!customElements.get("riyal-animated-price"))
 		customElements.define("riyal-animated-price", RiyalAnimatedPriceElement);

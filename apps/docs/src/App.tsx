@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from "react";
 import {
 	RIYAL_ARABIC_ABBREVIATION,
 	RIYAL_CODEPOINT,
@@ -13,14 +14,7 @@ import {
 	parseRiyal,
 	removeVAT,
 } from "riyal";
-import {
-	AnimatedRiyalPrice,
-	RiyalIcon,
-	RiyalInput,
-	RiyalPrice,
-	RiyalSymbol,
-} from "riyal/react";
-import { useEffect, useMemo, useState } from "react";
+import { AnimatedRiyalPrice, RiyalIcon, RiyalInput, RiyalPrice, RiyalSymbol } from "riyal/react";
 
 type Locale = "en-SA" | "ar-SA" | "en-US";
 
@@ -29,13 +23,10 @@ export function App() {
 	const [locale, setLocale] = useState<Locale>("en-SA");
 	const [decimals, setDecimals] = useState(2);
 	const [animAmount, setAnimAmount] = useState(1234.5);
-	const [parseInput, setParseInput] = useState(
-		`${RIYAL_SYMBOL_TEXT} 2,500.00`,
-	);
+	const [parseInput, setParseInput] = useState(`${RIYAL_SYMBOL_TEXT} 2,500.00`);
 	const [copyState, setCopyState] = useState<string>("");
 
-	const numeric =
-		typeof amount === "number" && Number.isFinite(amount) ? amount : 0;
+	const numeric = typeof amount === "number" && Number.isFinite(amount) ? amount : 0;
 
 	const parsed = useMemo(() => {
 		try {
@@ -86,20 +77,14 @@ export function App() {
 						rendered today.
 					</h1>
 					<p className="lead">
-						A complete typographic toolkit for the official Saudi Riyal sign —
-						font, React, Web Components, Tailwind, OG cards, VAT &amp; FX.
-						Pixel-precise. Locale-aware. Effortless.
+						A complete typographic toolkit for the official Saudi Riyal sign — font, React, Web
+						Components, Tailwind, OG cards, VAT &amp; FX. Pixel-precise. Locale-aware. Effortless.
 					</p>
 					<div className="hero-actions">
 						<button
 							type="button"
 							className="btn"
-							onClick={() =>
-								handleCopy(
-									"npm install riyal",
-									"install command",
-								)
-							}
+							onClick={() => handleCopy("npm install riyal", "install command")}
 						>
 							npm install riyal
 						</button>
@@ -154,8 +139,8 @@ export function App() {
 					<span className="num">01 — Install</span>
 					<h2>Drop in, ship anywhere.</h2>
 					<p>
-						One package. ESM &amp; CJS. Strict types. Works in Node, Vite,
-						Next, Remix, React Native and the browser.
+						One package. ESM &amp; CJS. Strict types. Works in Node, Vite, Next, Remix, React Native
+						and the browser.
 					</p>
 				</div>
 				<div className="section-body">
@@ -182,27 +167,19 @@ export function App() {
 						<pre className="code">
 							<span className="tok-k">import</span>{" "}
 							<span className="tok-n">{`{ formatRiyal, addVAT }`}</span>{" "}
-							<span className="tok-k">from</span>{" "}
-							<span className="tok-s">"riyal"</span>;{"\n"}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal"</span>;{"\n"}
 							<span className="tok-k">import</span>{" "}
 							<span className="tok-n">{`{ RiyalPrice, RiyalInput }`}</span>{" "}
-							<span className="tok-k">from</span>{" "}
-							<span className="tok-s">"riyal/react"</span>;
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/react"</span>;
 							{"\n"}
-							<span className="tok-k">import</span>{" "}
-							<span className="tok-s">"riyal/font.css"</span>;
+							<span className="tok-k">import</span> <span className="tok-s">"riyal/font.css"</span>;
 							{"\n"}
 							<span className="tok-k">import</span>{" "}
 							<span className="tok-n">{`{ defineRiyalElements }`}</span>{" "}
 							<span className="tok-k">from</span>{" "}
-							<span className="tok-s">
-								"riyal/web-component"
-							</span>
-							;{"\n"}
-							<span className="tok-k">import</span>{" "}
-							<span className="tok-n">riyalPlugin</span>{" "}
-							<span className="tok-k">from</span>{" "}
-							<span className="tok-s">"riyal/tailwind"</span>;
+							<span className="tok-s">"riyal/web-component"</span>;{"\n"}
+							<span className="tok-k">import</span> <span className="tok-n">riyalPlugin</span>{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/tailwind"</span>;
 						</pre>
 					</div>
 				</div>
@@ -213,8 +190,8 @@ export function App() {
 					<span className="num">02 — The Symbol</span>
 					<h2>One glyph. Every surface.</h2>
 					<p>
-						The official SAMA Saudi Riyal mark — vector-perfect, public domain,
-						mapped to U+20C1. Renders inline as SVG; never tofu.
+						The official SAMA Saudi Riyal mark — vector-perfect, public domain, mapped to U+20C1.
+						Renders inline as SVG; never tofu.
 					</p>
 				</div>
 				<div className="section-body">
@@ -248,9 +225,7 @@ export function App() {
 							<button
 								type="button"
 								className="minimal"
-								onClick={() =>
-									handleCopy(`\\${RIYAL_CSS_CONTENT}`, "CSS escape")
-								}
+								onClick={() => handleCopy(`\\${RIYAL_CSS_CONTENT}`, "CSS escape")}
 							>
 								Copy CSS
 							</button>
@@ -308,8 +283,8 @@ export function App() {
 					<span className="num">03 — Formatting</span>
 					<h2>Numbers, with manners.</h2>
 					<p>
-						Locale-aware via <code>Intl.NumberFormat</code>. Choose decimals,
-						currency code, the symbol position — RTL handled.
+						Locale-aware via <code>Intl.NumberFormat</code>. Choose decimals, currency code, the
+						symbol position — RTL handled.
 					</p>
 				</div>
 				<div className="section-body">
@@ -348,9 +323,7 @@ export function App() {
 								<span className="lbl">Decimals</span>
 								<select
 									value={decimals}
-									onChange={(e) =>
-										setDecimals(Number.parseInt(e.target.value, 10))
-									}
+									onChange={(e) => setDecimals(Number.parseInt(e.target.value, 10))}
 								>
 									{[0, 1, 2, 3, 4].map((d) => (
 										<option key={d} value={d}>
@@ -362,18 +335,13 @@ export function App() {
 						</div>
 						<div className="preview">
 							<span className="preview-large">
-								<RiyalPrice
-									amount={numeric}
-									locale={locale}
-									decimals={decimals}
-								/>
+								<RiyalPrice amount={numeric} locale={locale} decimals={decimals} />
 							</span>
 						</div>
 						<pre className="code">
-							<span className="tok-f">formatRiyal</span>(
-							<span className="tok-n">{numeric}</span>,{" "}
-							<span className="tok-n">{`{ locale: "${locale}", decimals: ${decimals} }`}</span>
-							){"\n"}
+							<span className="tok-f">formatRiyal</span>(<span className="tok-n">{numeric}</span>,{" "}
+							<span className="tok-n">{`{ locale: "${locale}", decimals: ${decimals} }`}</span>)
+							{"\n"}
 							<span className="tok-c">{`// → ${formatRiyal(numeric, {
 								locale,
 								decimals,
@@ -420,8 +388,8 @@ export function App() {
 					<span className="num">04 — Animated</span>
 					<h2>Prices, in motion.</h2>
 					<p>
-						Tween smoothly between values. Ideal for dashboards, checkout
-						totals and live FX surfaces.
+						Tween smoothly between values. Ideal for dashboards, checkout totals and live FX
+						surfaces.
 					</p>
 				</div>
 				<div className="section-body">
@@ -432,11 +400,7 @@ export function App() {
 						</div>
 						<div className="preview">
 							<span className="preview-large">
-								<AnimatedRiyalPrice
-									amount={animAmount}
-									durationMs={600}
-									locale={locale}
-								/>
+								<AnimatedRiyalPrice amount={animAmount} durationMs={600} locale={locale} />
 							</span>
 						</div>
 						<div className="row">
@@ -447,11 +411,7 @@ export function App() {
 							>
 								Randomise
 							</button>
-							<button
-								type="button"
-								className="minimal"
-								onClick={() => setAnimAmount(0)}
-							>
+							<button type="button" className="minimal" onClick={() => setAnimAmount(0)}>
 								Reset
 							</button>
 							<button
@@ -508,8 +468,8 @@ export function App() {
 					<span className="num">06 — VAT 15%</span>
 					<h2>Saudi VAT, by default.</h2>
 					<p>
-						Add, remove and isolate the 15% VAT line. Override the rate per
-						call when the regulation moves.
+						Add, remove and isolate the 15% VAT line. Override the rate per call when the regulation
+						moves.
 					</p>
 				</div>
 				<div className="section-body">
@@ -540,24 +500,19 @@ export function App() {
 							<div>
 								<span className="lbl">Reverse</span>
 								<span className="val">
-									<RiyalPrice
-										amount={removeVAT(addVAT(numeric))}
-										locale={locale}
-									/>
+									<RiyalPrice amount={removeVAT(addVAT(numeric))} locale={locale} />
 								</span>
 							</div>
 						</div>
 						<pre className="code">
-							<span className="tok-f">addVAT</span>(
-							<span className="tok-n">{numeric}</span>){" "}
+							<span className="tok-f">addVAT</span>(<span className="tok-n">{numeric}</span>){" "}
 							<span className="tok-c">{`// → ${addVAT(numeric).toFixed(2)}`}</span>
 							{"\n"}
 							<span className="tok-f">removeVAT</span>(
 							<span className="tok-n">{addVAT(numeric).toFixed(2)}</span>){" "}
 							<span className="tok-c">{`// → ${removeVAT(addVAT(numeric)).toFixed(2)}`}</span>
 							{"\n"}
-							<span className="tok-f">getVAT</span>(
-							<span className="tok-n">{numeric}</span>,{" "}
+							<span className="tok-f">getVAT</span>(<span className="tok-n">{numeric}</span>,{" "}
 							<span className="tok-n">{"{ rate: 0.05 }"}</span>){" "}
 							<span className="tok-c">{`// → ${getVAT(numeric, { rate: 0.05 }).toFixed(2)}`}</span>
 						</pre>
@@ -570,8 +525,8 @@ export function App() {
 					<span className="num">07 — Parse</span>
 					<h2>Strings, demystified.</h2>
 					<p>
-						Convert any printed Riyal price — symbol, code, abbreviation,
-						Arabic — back into a plain JavaScript number.
+						Convert any printed Riyal price — symbol, code, abbreviation, Arabic — back into a plain
+						JavaScript number.
 					</p>
 				</div>
 				<div className="section-body">
@@ -601,18 +556,12 @@ export function App() {
 							</div>
 							<div>
 								<span className="lbl">Parsed</span>
-								<span className="val">
-									{Number.isFinite(parsed) ? parsed.toString() : "—"}
-								</span>
+								<span className="val">{Number.isFinite(parsed) ? parsed.toString() : "—"}</span>
 							</div>
 							<div>
 								<span className="lbl">Reformatted</span>
 								<span className="val">
-									{Number.isFinite(parsed) ? (
-										<RiyalPrice amount={parsed} locale={locale} />
-									) : (
-										"—"
-									)}
+									{Number.isFinite(parsed) ? <RiyalPrice amount={parsed} locale={locale} /> : "—"}
 								</span>
 							</div>
 						</div>
@@ -625,9 +574,8 @@ export function App() {
 					<span className="num">08 — FX</span>
 					<h2>SAR, in any tongue.</h2>
 					<p>
-						In-memory cached exchange rates with SAR as the base. Pass{" "}
-						<code>rate</code> to skip the network entirely; swap the fetcher
-						in tests.
+						In-memory cached exchange rates with SAR as the base. Pass <code>rate</code> to skip the
+						network entirely; swap the fetcher in tests.
 					</p>
 				</div>
 				<div className="section-body">
@@ -639,18 +587,13 @@ export function App() {
 						<pre className="code">
 							<span className="tok-k">import</span>{" "}
 							<span className="tok-n">{"{ convertFromSAR }"}</span>{" "}
-							<span className="tok-k">from</span>{" "}
-							<span className="tok-s">"riyal"</span>;{"\n\n"}
-							<span className="tok-k">const</span> usd ={" "}
-							<span className="tok-k">await</span>{" "}
-							<span className="tok-f">convertFromSAR</span>(
-							<span className="tok-n">{numeric}</span>,{" "}
-							<span className="tok-s">"USD"</span>);{"\n"}
-							<span className="tok-k">const</span> aed ={" "}
-							<span className="tok-k">await</span>{" "}
-							<span className="tok-f">convertFromSAR</span>(
-							<span className="tok-n">{numeric}</span>,{" "}
-							<span className="tok-s">"AED"</span>,{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal"</span>;{"\n\n"}
+							<span className="tok-k">const</span> usd = <span className="tok-k">await</span>{" "}
+							<span className="tok-f">convertFromSAR</span>(<span className="tok-n">{numeric}</span>
+							, <span className="tok-s">"USD"</span>);{"\n"}
+							<span className="tok-k">const</span> aed = <span className="tok-k">await</span>{" "}
+							<span className="tok-f">convertFromSAR</span>(<span className="tok-n">{numeric}</span>
+							, <span className="tok-s">"AED"</span>,{" "}
 							<span className="tok-n">{"{ rate: 0.98 }"}</span>);{"\n\n"}
 							<span className="tok-c">
 								// React: const {"{"} convert, loading {"}"} = useRiyalRate("USD")
@@ -665,8 +608,8 @@ export function App() {
 					<span className="num">09 — Surfaces</span>
 					<h2>Wherever pixels live.</h2>
 					<p>
-						Open Graph cards, framework-agnostic Web Components, a Tailwind
-						plugin, a CLI, and Next.js helpers.
+						Open Graph cards, framework-agnostic Web Components, a Tailwind plugin, a CLI, and
+						Next.js helpers.
 					</p>
 				</div>
 				<div className="section-body">
@@ -674,23 +617,17 @@ export function App() {
 						<div className="cell">
 							<span className="n">/REACT</span>
 							<span className="t">Components &amp; hooks</span>
-							<span className="d">
-								Symbol, Icon, Price, AnimatedPrice, Input, useRiyalRate.
-							</span>
+							<span className="d">Symbol, Icon, Price, AnimatedPrice, Input, useRiyalRate.</span>
 						</div>
 						<div className="cell">
 							<span className="n">/WEB-COMPONENT</span>
 							<span className="t">Custom elements</span>
-							<span className="d">
-								&lt;riyal-symbol&gt;, &lt;riyal-price&gt;, framework-free.
-							</span>
+							<span className="d">&lt;riyal-symbol&gt;, &lt;riyal-price&gt;, framework-free.</span>
 						</div>
 						<div className="cell">
 							<span className="n">/TAILWIND</span>
 							<span className="t">Plugin</span>
-							<span className="d">
-								Utilities, components and theme tokens for Tailwind v3+.
-							</span>
+							<span className="d">Utilities, components and theme tokens for Tailwind v3+.</span>
 						</div>
 						<div className="cell">
 							<span className="n">/OG</span>
@@ -716,16 +653,12 @@ export function App() {
 						<div className="cell">
 							<span className="n">/CLI</span>
 							<span className="t">Toolkit</span>
-							<span className="d">
-								Generate fonts, OG images and constants from the CLI.
-							</span>
+							<span className="d">Generate fonts, OG images and constants from the CLI.</span>
 						</div>
 						<div className="cell">
 							<span className="n">/FONT.CSS</span>
 							<span className="t">Pure CSS</span>
-							<span className="d">
-								Drop-in stylesheet that maps U+20C1 to the SAMA glyph.
-							</span>
+							<span className="d">Drop-in stylesheet that maps U+20C1 to the SAMA glyph.</span>
 						</div>
 					</div>
 				</div>
@@ -736,8 +669,8 @@ export function App() {
 					<span className="num">10 — Web Component &amp; Tailwind</span>
 					<h2>Standards-first, always.</h2>
 					<p>
-						The same glyph and price renderer, but as native custom elements
-						and as a first-class Tailwind plugin.
+						The same glyph and price renderer, but as native custom elements and as a first-class
+						Tailwind plugin.
 					</p>
 				</div>
 				<div className="section-body">
@@ -747,28 +680,21 @@ export function App() {
 							<span className="tag">no framework</span>
 						</div>
 						<pre className="code">
-							<span className="tok-k">&lt;script</span>{" "}
-							<span className="tok-n">type</span>=
+							<span className="tok-k">&lt;script</span> <span className="tok-n">type</span>=
 							<span className="tok-s">"module"</span>&gt;{"\n  "}
 							<span className="tok-k">import</span>{" "}
 							<span className="tok-n">{"{ defineRiyalElements }"}</span>{" "}
 							<span className="tok-k">from</span>{" "}
-							<span className="tok-s">
-								"riyal/web-component"
-							</span>
-							;{"\n  "}
+							<span className="tok-s">"riyal/web-component"</span>;{"\n  "}
 							<span className="tok-f">defineRiyalElements</span>();{"\n"}
 							<span className="tok-k">&lt;/script&gt;</span>
 							{"\n\n"}
-							<span className="tok-k">&lt;riyal-symbol</span>{" "}
-							<span className="tok-n">size</span>=
+							<span className="tok-k">&lt;riyal-symbol</span> <span className="tok-n">size</span>=
 							<span className="tok-s">"48"</span>
 							<span className="tok-k">&gt;&lt;/riyal-symbol&gt;</span>
 							{"\n"}
-							<span className="tok-k">&lt;riyal-price</span>{" "}
-							<span className="tok-n">amount</span>=
-							<span className="tok-s">"2499.99"</span>{" "}
-							<span className="tok-n">locale</span>=
+							<span className="tok-k">&lt;riyal-price</span> <span className="tok-n">amount</span>=
+							<span className="tok-s">"2499.99"</span> <span className="tok-n">locale</span>=
 							<span className="tok-s">"ar-SA"</span>
 							<span className="tok-k">&gt;&lt;/riyal-price&gt;</span>
 						</pre>
@@ -779,13 +705,10 @@ export function App() {
 							<span className="tag">tailwind.config</span>
 						</div>
 						<pre className="code">
-							<span className="tok-k">import</span>{" "}
-							<span className="tok-n">riyal</span>{" "}
-							<span className="tok-k">from</span>{" "}
-							<span className="tok-s">"riyal/tailwind"</span>;
+							<span className="tok-k">import</span> <span className="tok-n">riyal</span>{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/tailwind"</span>;
 							{"\n\n"}
-							<span className="tok-k">export default</span>{" "}
-							<span className="tok-n">{"{"}</span>
+							<span className="tok-k">export default</span> <span className="tok-n">{"{"}</span>
 							{"\n  "}plugins: [<span className="tok-f">riyal</span>()],{"\n"}
 							<span className="tok-n">{"}"}</span>;{"\n\n"}
 							<span className="tok-c">{`// <span class="riyal-price">2,499.99</span>`}</span>
@@ -802,10 +725,8 @@ export function App() {
 					<span>Made for the Saudi web</span>
 					<span>
 						<a href="https://github.com/pooyagolchian/riyal">github</a> ·{" "}
-						<a href="https://www.npmjs.com/package/riyal">
-							npm
-						</a>{" "}
-						· <a href="https://riyal.js.org">riyal.js.org</a>
+						<a href="https://www.npmjs.com/package/riyal">npm</a> ·{" "}
+						<a href="https://riyal.js.org">riyal.js.org</a>
 					</span>
 					<span className="muted">© {new Date().getFullYear()} · MIT</span>
 				</div>

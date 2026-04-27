@@ -63,7 +63,15 @@ export const RiyalSymbol: React.FC<RiyalSymbolProps> = ({
 			>
 				{RIYAL_GLYPH_PATHS}
 			</svg>
-			<span style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>
+			<span
+				style={{
+					position: "absolute",
+					width: 1,
+					height: 1,
+					overflow: "hidden",
+					clip: "rect(0 0 0 0)",
+				}}
+			>
 				{RIYAL_SYMBOL_TEXT}
 			</span>
 		</span>

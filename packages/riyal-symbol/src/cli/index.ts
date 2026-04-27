@@ -41,7 +41,8 @@ function copyToClipboard(value: string): void {
 		if (r.status === 0) return;
 	} else {
 		for (const cmd of ["wl-copy", "xclip", "xsel"]) {
-			const args = cmd === "xclip" ? ["-selection", "clipboard"] : cmd === "xsel" ? ["-b", "-i"] : [];
+			const args =
+				cmd === "xclip" ? ["-selection", "clipboard"] : cmd === "xsel" ? ["-b", "-i"] : [];
 			const r = spawnSync(cmd, args, { input: value });
 			if (r.status === 0) return;
 		}
@@ -61,11 +62,7 @@ function main(): void {
 	if (cmd === "copy") {
 		const which = (arg ?? "unicode").toLowerCase();
 		const value =
-			which === "html"
-				? RIYAL_HTML_ENTITY
-				: which === "css"
-					? RIYAL_CSS_CONTENT
-					: RIYAL_UNICODE;
+			which === "html" ? RIYAL_HTML_ENTITY : which === "css" ? RIYAL_CSS_CONTENT : RIYAL_UNICODE;
 		copyToClipboard(value);
 		console.error(`copied ${which}: ${value}`);
 		return;

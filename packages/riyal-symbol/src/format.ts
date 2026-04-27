@@ -1,8 +1,4 @@
-import {
-	RIYAL_CURRENCY_CODE,
-	RIYAL_DEFAULT_LOCALE,
-	RIYAL_SYMBOL_TEXT,
-} from "./constants";
+import { RIYAL_CURRENCY_CODE, RIYAL_DEFAULT_LOCALE, RIYAL_SYMBOL_TEXT } from "./constants";
 
 export interface FormatRiyalOptions {
 	/** BCP-47 locale tag. Defaults to `"en-SA"`. */
@@ -81,7 +77,7 @@ export function parseRiyal(input: string): number {
 	const compactMatch = str.match(/([\d.,\-\u202F\u00A0\s]+)([KMBT])\b/i);
 	let multiplier = 1;
 	if (compactMatch) {
-		const suffix = compactMatch[2]!.toUpperCase();
+		const suffix = compactMatch[2]?.toUpperCase();
 		multiplier = { K: 1e3, M: 1e6, B: 1e9, T: 1e12 }[suffix] ?? 1;
 		str = compactMatch[1]!;
 	}

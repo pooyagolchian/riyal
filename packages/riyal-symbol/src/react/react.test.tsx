@@ -6,9 +6,9 @@ import { RiyalIcon, RiyalPrice, RiyalSymbol } from "./index";
 describe("RiyalSymbol", () => {
 	it("renders the U+20C1 glyph", () => {
 		render(<RiyalSymbol />);
-		expect(
-			screen.getByRole("img", { name: /saudi riyal/i }).textContent,
-		).toContain(RIYAL_SYMBOL_TEXT);
+		expect(screen.getByRole("img", { name: /saudi riyal/i }).textContent).toContain(
+			RIYAL_SYMBOL_TEXT,
+		);
 	});
 
 	it("applies size and color", () => {

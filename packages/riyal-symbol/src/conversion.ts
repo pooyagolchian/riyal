@@ -37,9 +37,7 @@ export async function fetchExchangeRates(
 	} = options;
 
 	if (!fetcher) {
-		throw new Error(
-			"riyal: no global fetch is available. Pass `options.fetcher` explicitly.",
-		);
+		throw new Error("riyal: no global fetch is available. Pass `options.fetcher` explicitly.");
 	}
 
 	const cacheKey = `${baseUrl}/${RIYAL_CURRENCY_CODE}`;
