@@ -1,7 +1,7 @@
 # Saudi Riyal font binaries
 
 This directory holds the WOFF2 / WOFF / TTF artefacts produced by
-`pnpm --filter @pooyagolchian/riyal build:fonts`.
+`pnpm --filter riyal build:fonts`.
 
 The build pipeline maps the official SAMA glyph (Saudi Central Bank, Feb 2025)
 to **U+20C1 (SAUDI RIYAL SIGN)** with the following families/weights:

@@ -17,14 +17,14 @@ pnpm install
 
 ## Common scripts
 
-| Goal              | Command                    |
-| ----------------- | -------------------------- |
-| Build everything  | `pnpm build`               |
-| Run tests         | `pnpm test`                |
-| Watch the package | `pnpm --filter @pooyagolchian/riyal dev`  |
-| Type-check        | `pnpm typecheck`           |
-| Lint / Format     | `pnpm lint && pnpm format` |
-| Add a changeset   | `pnpm changeset`           |
+| Goal              | Command                                  |
+| ----------------- | ---------------------------------------- |
+| Build everything  | `pnpm build`                             |
+| Run tests         | `pnpm test`                              |
+| Watch the package | `pnpm --filter riyal dev` |
+| Type-check        | `pnpm typecheck`                         |
+| Lint / Format     | `pnpm lint && pnpm format`               |
+| Add a changeset   | `pnpm changeset`                         |
 
 ## Code style
 
