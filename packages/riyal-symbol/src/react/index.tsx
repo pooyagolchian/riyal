@@ -3,34 +3,69 @@ import { RIYAL_DEFAULT_LOCALE, RIYAL_SYMBOL_TEXT } from "../constants";
 import { convertFromSAR, fetchExchangeRates } from "../conversion";
 import { type FormatRiyalOptions, formatRiyal } from "../format";
 
+/**
+ * Official SAMA (Saudi Central Bank) Saudi Riyal glyph paths, traced from the
+ * public-domain master at
+ * https://www.sama.gov.sa/ar-sa/Currency/Documents/Saudi_Riyal_Symbol-2.svg
+ *
+ * Drawn with `currentColor` so it inherits the surrounding text color. This is
+ * used as a font-independent fallback so the symbol renders correctly even
+ * when no system font ships U+20C1 (Unicode 17.0, Sept 2025).
+ */
+export const RIYAL_GLYPH_VIEWBOX = "0 0 1124.14 1256.39";
+const RIYAL_GLYPH_PATHS = (
+	<>
+		<path d="M699.62,1113.02h0c-20.06,44.48-33.32,92.75-38.4,143.37l424.51-90.24c20.06-44.47,33.31-92.75,38.4-143.37l-424.51,90.24Z" />
+		<path d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z" />
+	</>
+);
+
 export type RiyalSymbolProps = React.HTMLAttributes<HTMLSpanElement> & {
 	size?: number | string;
 	color?: string;
 };
 
-/** Renders the Saudi Riyal symbol in the bundled web font. */
+/** Renders the Saudi Riyal symbol as an inline SVG glyph. */
 export const RiyalSymbol: React.FC<RiyalSymbolProps> = ({
-	size,
+	size = "1em",
 	color,
 	style,
 	className,
 	...rest
 }) => {
+	const dim = typeof size === "number" ? `${size}px` : size;
 	return (
 		<span
 			aria-label="Saudi Riyal"
 			role="img"
 			className={["riyal-symbol", className].filter(Boolean).join(" ")}
 			style={{
-				fontFamily: "'Riyal', 'Riyal Sans', system-ui, sans-serif",
-				fontSize: typeof size === "number" ? `${size}px` : size,
+				display: "inline-flex",
+				alignItems: "center",
+				justifyContent: "center",
+				width: dim,
+				height: dim,
 				color,
 				lineHeight: 1,
+				verticalAlign: "-0.125em",
 				...style,
 			}}
 			{...rest}
 		>
-			{RIYAL_SYMBOL_TEXT}
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox={RIYAL_GLYPH_VIEWBOX}
+				width="100%"
+				height="100%"
+				fill="currentColor"
+				aria-hidden="true"
+				focusable="false"
+			>
+				{RIYAL_GLYPH_PATHS}
+			</svg>
+			<span style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>
+				{RIYAL_SYMBOL_TEXT}
+			</span>
 		</span>
 	);
 };
@@ -40,7 +75,7 @@ export type RiyalIconProps = React.SVGAttributes<SVGSVGElement> & {
 	title?: string;
 };
 
-/** Inline SVG fallback (resolution-independent). */
+/** Inline SVG icon — same glyph as `RiyalSymbol`, with explicit `<title>`. */
 export const RiyalIcon: React.FC<RiyalIconProps> = ({
 	size = 24,
 	title = "Saudi Riyal",
@@ -49,7 +84,7 @@ export const RiyalIcon: React.FC<RiyalIconProps> = ({
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 24 24"
+			viewBox={RIYAL_GLYPH_VIEWBOX}
 			width={size}
 			height={size}
 			fill="currentColor"
@@ -58,15 +93,7 @@ export const RiyalIcon: React.FC<RiyalIconProps> = ({
 			{...rest}
 		>
 			<title>{title}</title>
-			<text
-				x="12"
-				y="18"
-				textAnchor="middle"
-				fontSize="20"
-				fontFamily="'Riyal', 'Riyal Sans', system-ui, sans-serif"
-			>
-				{RIYAL_SYMBOL_TEXT}
-			</text>
+			{RIYAL_GLYPH_PATHS}
 		</svg>
 	);
 };
@@ -88,9 +115,30 @@ export const RiyalPrice: React.FC<RiyalPriceProps> = ({
 	...rest
 }) => {
 	const text = formatRiyal(amount, { locale, decimals, useCode, notation, currency });
+	const isRtl = (locale ?? RIYAL_DEFAULT_LOCALE).toLowerCase().startsWith("ar");
+	// Replace the U+20C1 text glyph with our inline SVG symbol so it renders
+	// correctly without the bundled font.
+	const parts = text.split(RIYAL_SYMBOL_TEXT);
+	const nodes: React.ReactNode[] = [];
+	parts.forEach((part, i) => {
+		if (i > 0) {
+			nodes.push(
+				<RiyalSymbol
+					key={`s${i}`}
+					size="0.9em"
+					style={{ margin: isRtl ? "0 0 0 0.15em" : "0 0.15em 0 0" }}
+				/>,
+			);
+		}
+		if (part) nodes.push(<React.Fragment key={`t${i}`}>{part}</React.Fragment>);
+	});
 	return (
-		<span className={["riyal-price", className].filter(Boolean).join(" ")} {...rest}>
-			{text}
+		<span
+			className={["riyal-price", className].filter(Boolean).join(" ")}
+			style={{ display: "inline-flex", alignItems: "baseline", gap: 0 }}
+			{...rest}
+		>
+			{nodes}
 		</span>
 	);
 };

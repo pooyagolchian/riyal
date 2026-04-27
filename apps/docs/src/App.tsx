@@ -4,7 +4,6 @@ import {
 	RIYAL_SYMBOL_TEXT,
 	RIYAL_UNICODE,
 	addVAT,
-	formatRiyal,
 	parseRiyal,
 } from "riyal";
 import {
@@ -32,12 +31,16 @@ export function App() {
 			<section>
 				<h2>Symbol</h2>
 				<p>
-					Unicode: <code>{RIYAL_UNICODE}</code> · Text:{" "}
-					<code>{RIYAL_SYMBOL_TEXT}</code> · HTML: <code>{RIYAL_HTML_ENTITY}</code>
+					Unicode: <code>{RIYAL_UNICODE}</code> · HTML:{" "}
+					<code>{RIYAL_HTML_ENTITY}</code>
 				</p>
-				<p>
-					<RiyalSymbol size={32} />
-					<RiyalIcon size={32} />
+				<p style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+					<RiyalSymbol size={48} />
+					<RiyalIcon size={48} />
+					<span style={{ opacity: 0.7 }}>
+						(rendered as inline SVG — codepoint <code>{RIYAL_UNICODE}</code>{" "}
+						kept for screen readers)
+					</span>
 				</p>
 			</section>
 
@@ -63,16 +66,17 @@ export function App() {
 
 			<section>
 				<h2>VAT (15%)</h2>
-				<p>
-					{formatRiyal(numeric)} +VAT = {formatRiyal(addVAT(numeric))}
+				<p style={{ display: "flex", alignItems: "baseline", gap: "0.5em", flexWrap: "wrap" }}>
+					<RiyalPrice amount={numeric} /> + VAT ={" "}
+					<RiyalPrice amount={addVAT(numeric)} />
 				</p>
 			</section>
 
 			<section>
 				<h2>Parse</h2>
 				<p>
-					{`parseRiyal("${RIYAL_SYMBOL_TEXT} 2,500.00")`} →{" "}
-					{String(parseRiyal(`${RIYAL_SYMBOL_TEXT} 2,500.00`))}
+					<code>parseRiyal("{RIYAL_SYMBOL_TEXT} 2,500.00")</code> ={" "}
+					<strong>{parseRiyal(`${RIYAL_SYMBOL_TEXT} 2,500.00`)}</strong>
 				</p>
 			</section>
 

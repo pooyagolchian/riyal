@@ -14,7 +14,8 @@ describe("RiyalSymbol", () => {
 	it("applies size and color", () => {
 		render(<RiyalSymbol size={32} color="#f00" data-testid="s" />);
 		const el = screen.getByTestId("s");
-		expect(el.style.fontSize).toBe("32px");
+		expect(el.style.width).toBe("32px");
+		expect(el.style.height).toBe("32px");
 		expect(el.style.color).toMatch(/#f00|rgb\(255, 0, 0\)/);
 	});
 });
