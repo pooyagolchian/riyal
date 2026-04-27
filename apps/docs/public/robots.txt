@@ -29,4 +29,4 @@ Allow: /
 User-agent: Meta-ExternalAgent
 Allow: /
 
-Sitemap: https://pooyagolchian.github.io/riyal/sitemap.xml
+Sitemap: https://riyal.js.org/sitemap.xml
