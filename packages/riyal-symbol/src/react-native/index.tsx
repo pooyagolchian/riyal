@@ -1,6 +1,6 @@
 import type * as React from "react";
 import { Text, type TextProps } from "react-native";
-import Svg, { SvgText } from "react-native-svg";
+import Svg, { Text as SvgText } from "react-native-svg";
 import { RIYAL_SYMBOL_TEXT } from "../constants";
 import { type FormatRiyalOptions, formatRiyal } from "../format";
 

@@ -74,8 +74,11 @@ export function parseRiyal(input: string): number {
 	str = str.replace(RIYAL_SYMBOL_TEXT, "");
 	str = str.replace(/SAR|ر\.س/gi, "");
 
+	// Normalize Arabic decimal/thousand marks to ASCII equivalents.
+	str = str.replace(/\u066C/g, ",").replace(/\u066B/g, ".");
+
 	// Compact notation suffixes
-	const compactMatch = str.match(/([\d.,\-\u202F\u00A0٬٫\s]+)([KMBT])\b/i);
+	const compactMatch = str.match(/([\d.,\-\u202F\u00A0\s]+)([KMBT])\b/i);
 	let multiplier = 1;
 	if (compactMatch) {
 		const suffix = compactMatch[2]!.toUpperCase();
@@ -84,7 +87,7 @@ export function parseRiyal(input: string): number {
 	}
 
 	// Normalize separators: keep last "." or "," as decimal, strip the rest.
-	const cleaned = str.replace(/[\u202F\u00A0٬٫\s]/g, "").replace(/[^\d.,\-]/g, "");
+	const cleaned = str.replace(/[\u202F\u00A0\s]/g, "").replace(/[^\d.,\-]/g, "");
 	const lastDot = cleaned.lastIndexOf(".");
 	const lastComma = cleaned.lastIndexOf(",");
 	let normalized = cleaned;

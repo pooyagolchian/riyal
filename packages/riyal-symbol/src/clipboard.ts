@@ -8,7 +8,7 @@ import { type FormatRiyalOptions, formatRiyal } from "./format";
 export type RiyalCopyFormat = "unicode" | "html" | "css";
 
 function getClipboard(): { writeText(text: string): Promise<void> } {
-	if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+	if (typeof navigator !== "undefined" && typeof navigator.clipboard?.writeText === "function") {
 		return navigator.clipboard;
 	}
 	throw new Error(
