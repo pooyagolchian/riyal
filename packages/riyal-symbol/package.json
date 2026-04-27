@@ -1,6 +1,6 @@
 {
 	"name": "riyal",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "The Saudi Riyal currency symbol (U+20C1) as a web font, CSS utility, React component, and Web Component for Vue, Angular, Svelte & vanilla JS. Includes VAT helpers, currency conversion, OG image cards, and more.",
 	"license": "MIT",
 	"author": "Pooya Golchian",
@@ -48,7 +48,11 @@
 		"copy clipboard"
 	],
 	"type": "module",
-	"sideEffects": ["./dist/web-component/*", "*.css", "*.scss"],
+	"sideEffects": [
+		"./dist/web-component/*",
+		"*.css",
+		"*.scss"
+	],
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
@@ -101,7 +105,12 @@
 		"./font/arabic/woff2": "./dist/fonts/riyal-arabic.woff2",
 		"./package.json": "./package.json"
 	},
-	"files": ["dist", "src/scss", "README.md", "LICENSE"],
+	"files": [
+		"dist",
+		"src/scss",
+		"README.md",
+		"LICENSE"
+	],
 	"scripts": {
 		"build": "tsup && pnpm run copy:assets",
 		"copy:assets": "node scripts/copy-assets.mjs",
