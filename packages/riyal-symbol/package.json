@@ -1,0 +1,164 @@
+{
+  "name": "riyal",
+  "version": "1.0.0-alpha.0",
+  "description": "The Saudi Riyal currency symbol (U+20C1) as a web font, CSS utility, React component, and Web Component for Vue, Angular, Svelte & vanilla JS. Includes VAT helpers, currency conversion, OG image cards, and more.",
+  "license": "MIT",
+  "author": "Pooya Golchian",
+  "homepage": "https://riyal.js.org",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pooyagolchian/riyal.git",
+    "directory": "packages/riyal-symbol"
+  },
+  "bugs": {
+    "url": "https://github.com/pooyagolchian/riyal/issues"
+  },
+  "keywords": [
+    "riyal",
+    "saudi riyal",
+    "saudi riyal symbol",
+    "saudi riyal sign",
+    "sar",
+    "sar symbol",
+    "saudi arabia",
+    "ksa",
+    "u+20c1",
+    "u20c1",
+    "currency",
+    "currency symbol",
+    "symbol",
+    "unicode",
+    "font",
+    "web font",
+    "icon",
+    "react",
+    "react-native",
+    "web component",
+    "tailwind",
+    "next.js",
+    "css",
+    "scss",
+    "arabic",
+    "rtl",
+    "payment",
+    "fintech",
+    "vat",
+    "intl",
+    "formatting",
+    "copy clipboard"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "./dist/web-component/*",
+    "*.css",
+    "*.scss"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "riyal": "./dist/cli/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs"
+    },
+    "./react-native": {
+      "types": "./dist/react-native/index.d.ts",
+      "import": "./dist/react-native/index.js",
+      "require": "./dist/react-native/index.cjs"
+    },
+    "./web-component": {
+      "types": "./dist/web-component/index.d.ts",
+      "import": "./dist/web-component/index.js"
+    },
+    "./tailwind": {
+      "types": "./dist/tailwind/index.d.ts",
+      "import": "./dist/tailwind/index.js",
+      "require": "./dist/tailwind/index.cjs"
+    },
+    "./next": {
+      "types": "./dist/next/index.d.ts",
+      "import": "./dist/next/index.js",
+      "require": "./dist/next/index.cjs"
+    },
+    "./og": {
+      "types": "./dist/og/index.d.ts",
+      "import": "./dist/og/index.js",
+      "require": "./dist/og/index.cjs"
+    },
+    "./css": "./dist/css/riyal.css",
+    "./scss": "./src/scss/riyal.scss",
+    "./font/woff2": "./dist/fonts/riyal.woff2",
+    "./font/woff": "./dist/fonts/riyal.woff",
+    "./font/ttf": "./dist/fonts/riyal.ttf",
+    "./font/sans/woff2": "./dist/fonts/riyal-sans.woff2",
+    "./font/serif/woff2": "./dist/fonts/riyal-serif.woff2",
+    "./font/mono/woff2": "./dist/fonts/riyal-mono.woff2",
+    "./font/arabic/woff2": "./dist/fonts/riyal-arabic.woff2",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src/scss",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup && pnpm run copy:assets",
+    "copy:assets": "node scripts/copy-assets.mjs",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "build:fonts": "node scripts/build-fonts.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "react-native": ">=0.72",
+    "react-native-svg": ">=13",
+    "tailwindcss": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    },
+    "react-native-svg": {
+      "optional": true
+    },
+    "tailwindcss": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@riyal/tsconfig": "workspace:*",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@types/node": "^22.7.5",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "happy-dom": "^15.7.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

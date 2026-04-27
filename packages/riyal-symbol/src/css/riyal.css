@@ -1,0 +1,35 @@
+/* riyal — Saudi Riyal symbol web font + helper utilities */
+@font-face {
+	font-family: "Riyal";
+	src: url("../fonts/riyal-regular.woff2") format("woff2"),
+		url("../fonts/riyal-regular.woff") format("woff");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+	unicode-range: U+20C1;
+}
+
+@font-face {
+	font-family: "Riyal";
+	src: url("../fonts/riyal-bold.woff2") format("woff2"),
+		url("../fonts/riyal-bold.woff") format("woff");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+	unicode-range: U+20C1;
+}
+
+.riyal-symbol {
+	font-family: "Riyal", "Riyal Sans", system-ui, sans-serif;
+	line-height: 1;
+}
+
+.riyal-symbol::before {
+	content: "\20C1";
+}
+
+.riyal-price::before {
+	content: "\20C1";
+	font-family: "Riyal", "Riyal Sans", system-ui, sans-serif;
+	margin-inline-end: 0.25em;
+}
