@@ -1,0 +1,9 @@
+{
+	"extends": "@riyal/tsconfig/react.json",
+	"compilerOptions": {
+		"outDir": "dist",
+		"noEmit": true,
+		"jsx": "react-jsx"
+	},
+	"include": ["src", "vite.config.ts"]
+}

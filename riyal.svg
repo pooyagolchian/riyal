@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Placeholder Saudi Riyal symbol (U+20C1).
+  Replace with the official SAMA master glyph before running scripts/build-fonts.mjs.
+  See packages/riyal-symbol/src/fonts/README.md.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64" fill="currentColor" role="img" aria-label="Saudi Riyal">
+  <title>Saudi Riyal (U+20C1)</title>
+  <text x="12" y="18" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="600">&#x20C1;</text>
+</svg>
