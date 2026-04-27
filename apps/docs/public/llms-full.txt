@@ -4,7 +4,7 @@
 
 - Package: `riyal` (npm)
 - Source: https://github.com/pooyagolchian/riyal
-- Demo:   https://riyal.js.org
+- Demo:   https://pooyagolchian.github.io/riyal
 - License: MIT
 - Author: Pooya Golchian
 - Runtime: Node.js ≥ 20, modern browsers, React Native ≥ 0.72

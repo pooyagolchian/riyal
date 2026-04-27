@@ -6,10 +6,10 @@ The official Saudi Riyal symbol was introduced by SAMA (Saudi Central Bank) in F
 
 ## Documentation
 
-- [Live demo (riyal.js.org)](https://riyal.js.org/): interactive showcase of every export with copy-paste code samples
+- [Live demo](https://pooyagolchian.github.io/riyal/): interactive showcase of every export with copy-paste code samples
 - [README](https://github.com/pooyagolchian/riyal/blob/main/README.md): full API surface, install instructions, framework recipes
 - [Changelog](https://github.com/pooyagolchian/riyal/blob/main/CHANGELOG.md): release notes
-- [llms-full.txt](https://riyal.js.org/llms-full.txt): comprehensive single-file context for LLMs (every export, every prop, every code sample)
+- [llms-full.txt](https://pooyagolchian.github.io/riyal/llms-full.txt): comprehensive single-file context for LLMs (every export, every prop, every code sample)
 
 ## Install
 

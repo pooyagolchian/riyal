@@ -1,27 +1,27 @@
 {
-	"name": "@riyal/docs",
-	"version": "0.0.0",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"og": "node scripts/generate-og.mjs",
-		"build": "node scripts/generate-og.mjs && vite build",
-		"preview": "vite preview",
-		"typecheck": "tsc --noEmit"
-	},
-	"dependencies": {
-		"react": "^18.3.1",
-		"react-dom": "^18.3.1",
-		"riyal": "workspace:*"
-	},
-	"devDependencies": {
-		"@resvg/resvg-js": "^2.6.2",
-		"@riyal/tsconfig": "workspace:*",
-		"@types/react": "^18.3.11",
-		"@types/react-dom": "^18.3.0",
-		"@vitejs/plugin-react": "^4.3.2",
-		"typescript": "^5.6.3",
-		"vite": "^5.4.8"
-	}
+  "name": "@riyal/docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "og": "node scripts/generate-og.mjs",
+    "build": "node scripts/generate-og.mjs && vite build && cp dist/index.html dist/404.html",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "riyal": "workspace:*"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "@riyal/tsconfig": "workspace:*",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.8"
+  }
 }

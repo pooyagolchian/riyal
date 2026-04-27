@@ -53,6 +53,6 @@
 
 	<!-- footer line -->
 	<line class="rule-strong" x1="72" y1="572" x2="1128" y2="572" />
-	<text class="mono" x="72" y="596" style="opacity: 0.85">riyal.js.org</text>
+	<text class="mono" x="72" y="596" style="opacity: 0.85">pooyagolchian.github.io/riyal</text>
 	<text class="mono" x="1128" y="596" text-anchor="end" style="opacity: 0.85">github.com/pooyagolchian/riyal</text>
 </svg>
