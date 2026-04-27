@@ -43,7 +43,6 @@ import "riyal/css";
 ├── packages/
 │   ├── riyal-symbol/      # Published as `riyal`
 │   └── tsconfig/          # Shared TS configs
-├── .claude/               # Agents, skills, and commands for Claude Code
 ├── .changeset/            # Changesets for releases
 └── turbo.json             # Turborepo pipeline
 ```
