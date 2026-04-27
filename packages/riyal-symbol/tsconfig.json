@@ -1,7 +1,6 @@
 {
 	"extends": "@riyal/tsconfig/react.json",
 	"compilerOptions": {
-		"rootDir": "src",
 		"outDir": "dist",
 		"lib": ["ES2022", "DOM", "DOM.Iterable"],
 		"types": ["node", "vitest/globals"]

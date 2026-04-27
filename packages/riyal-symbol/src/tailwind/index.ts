@@ -1,6 +1,9 @@
 import plugin from "tailwindcss/plugin";
 import { RIYAL_CSS_CONTENT } from "../constants";
 
+type PluginFn = Parameters<typeof plugin>[0];
+type PluginResult = ReturnType<typeof plugin>;
+
 /**
  * Tailwind plugin exposing Riyal symbol utilities.
  *
@@ -8,7 +11,7 @@ import { RIYAL_CSS_CONTENT } from "../constants";
  *   <span class="riyal-bold riyal-2xl" />        // weighted + sized
  *   <span class="riyal-price">100</span>         // adds ::before symbol
  */
-const riyalPlugin = plugin(({ addUtilities, addComponents, theme }) => {
+const riyalPluginFn: PluginFn = ({ addUtilities, addComponents, theme }) => {
 	const fontFamily = "'Riyal', 'Riyal Sans', system-ui, sans-serif";
 	const symbolContent = `"\\${"20C1"}"`;
 
@@ -62,7 +65,9 @@ const riyalPlugin = plugin(({ addUtilities, addComponents, theme }) => {
 
 	void theme;
 	void RIYAL_CSS_CONTENT;
-});
+};
+
+const riyalPlugin: PluginResult = plugin(riyalPluginFn);
 
 export default riyalPlugin;
 export { riyalPlugin };
