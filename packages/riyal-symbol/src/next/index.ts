@@ -1,7 +1,7 @@
 /**
  * `next/font/local` integration for the bundled Riyal font.
  *
- *   import { riyalFont } from "riyal/next";
+ *   import { riyalFont } from "@pooyagolchian/riyal/next";
  *   <html className={riyalFont.variable}>...</html>
  *
  * Note: the actual font binaries are produced by `pnpm build:fonts`. Until

@@ -5,14 +5,14 @@ import {
 	RIYAL_UNICODE,
 	addVAT,
 	parseRiyal,
-} from "riyal";
+} from "@pooyagolchian/riyal";
 import {
 	AnimatedRiyalPrice,
 	RiyalIcon,
 	RiyalInput,
 	RiyalPrice,
 	RiyalSymbol,
-} from "riyal/react";
+} from "@pooyagolchian/riyal/react";
 
 export function App() {
 	const [amount, setAmount] = useState<number | "">(1234.5);
