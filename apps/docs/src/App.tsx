@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
 	RIYAL_HTML_ENTITY,
 	RIYAL_SYMBOL_TEXT,
@@ -13,6 +12,7 @@ import {
 	RiyalPrice,
 	RiyalSymbol,
 } from "@pooyagolchian/riyal/react";
+import { useState } from "react";
 
 export function App() {
 	const [amount, setAmount] = useState<number | "">(1234.5);
