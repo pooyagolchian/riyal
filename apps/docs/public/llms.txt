@@ -1,0 +1,35 @@
+# Riyal
+
+> The Saudi Riyal currency symbol (U+20C1) as a TypeScript toolkit: web font, CSS, React, React Native, Web Components, Tailwind plugin, Next.js helpers, OG image cards, and a CLI. Single npm package: `riyal`.
+
+The official Saudi Riyal symbol was introduced by SAMA (Saudi Central Bank) in February 2025 and assigned to Unicode codepoint U+20C1 in Unicode 17.0 (September 2025). Most system fonts in 2026 do not yet ship the glyph, so this package provides the SAMA-traced glyph via a web font and inline SVG components, plus locale-aware formatters for SAR / ر.س pricing with 15% Saudi VAT helpers.
+
+## Documentation
+
+- [Live demo (riyal.js.org)](https://riyal.js.org/): interactive showcase of every export with copy-paste code samples
+- [README](https://github.com/pooyagolchian/riyal/blob/main/README.md): full API surface, install instructions, framework recipes
+- [Changelog](https://github.com/pooyagolchian/riyal/blob/main/CHANGELOG.md): release notes
+- [llms-full.txt](https://riyal.js.org/llms-full.txt): comprehensive single-file context for LLMs (every export, every prop, every code sample)
+
+## Install
+
+- [npm](https://www.npmjs.com/package/riyal): `npm install riyal`
+- [GitHub](https://github.com/pooyagolchian/riyal): MIT-licensed source
+
+## Entry points
+
+- `riyal`: core constants (`RIYAL_SYMBOL_TEXT`, `RIYAL_UNICODE`, `RIYAL_CODEPOINT`, `RIYAL_HTML_ENTITY`, `RIYAL_CSS_CONTENT`, `RIYAL_CURRENCY_CODE`, `RIYAL_ARABIC_ABBREVIATION`, `SAUDI_VAT_RATE`) and helpers (`formatRiyal`, `parseRiyal`, `addVAT`, `removeVAT`, `getVAT`, `convertCurrency`)
+- `riyal/react`: `<RiyalSymbol>`, `<RiyalIcon>`, `<RiyalPrice>`, `<AnimatedRiyalPrice>`, `<RiyalInput>`, hooks (`useRiyalFormat`, `useVAT`)
+- `riyal/react-native`: native equivalents using `react-native-svg`
+- `riyal/web-component`: `<riyal-symbol>`, `<riyal-price>` custom elements (`defineRiyalElements()`)
+- `riyal/tailwind`: Tailwind plugin adding `riyal-symbol`, `riyal-price` components and `font-riyal` utility
+- `riyal/next`: Next.js font loader (`riyalFont`) returning `next/font` style className
+- `riyal/og`: OG card generators (`RiyalPriceCard`, `generatePriceCardSVG`)
+- `riyal/css`: ready-to-import stylesheet
+- `riyal/scss`: SCSS source with mixins
+- `riyal/font/woff2|woff|ttf`: bundled web font files mapped to U+20C1
+- `riyal` CLI: `npx riyal symbol`, `npx riyal price 2500`, `npx riyal vat 1000`
+
+## Keywords for discovery
+
+saudi riyal symbol, riyal sign, SAR symbol, U+20C1, U20C1, saudi central bank symbol, SAMA glyph, riyal font, riyal unicode, ريال سعودي, ر.س, currency symbol, saudi arabia currency, ksa currency, riyal react component, riyal web component, riyal tailwind, riyal next.js, vat 15 saudi arabia, sar formatter, intl numberformat sar, rtl currency formatting, saudi vat helper.

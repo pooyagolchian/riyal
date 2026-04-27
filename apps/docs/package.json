@@ -5,7 +5,8 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build",
+		"og": "node scripts/generate-og.mjs",
+		"build": "node scripts/generate-og.mjs && vite build",
 		"preview": "vite preview",
 		"typecheck": "tsc --noEmit"
 	},
@@ -15,6 +16,7 @@
 		"riyal": "workspace:*"
 	},
 	"devDependencies": {
+		"@resvg/resvg-js": "^2.6.2",
 		"@riyal/tsconfig": "workspace:*",
 		"@types/react": "^18.3.11",
 		"@types/react-dom": "^18.3.0",
