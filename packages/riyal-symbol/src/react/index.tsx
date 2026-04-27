@@ -132,13 +132,13 @@ export const RiyalPrice: React.FC<RiyalPriceProps> = ({
 		if (i > 0) {
 			nodes.push(
 				<RiyalSymbol
-					key={`s${i}`}
+					key={`s-${i}-${part}`}
 					size="0.9em"
 					style={{ margin: isRtl ? "0 0 0 0.15em" : "0 0.15em 0 0" }}
 				/>,
 			);
 		}
-		if (part) nodes.push(<React.Fragment key={`t${i}`}>{part}</React.Fragment>);
+		if (part) nodes.push(<React.Fragment key={`t-${i}-${part}`}>{part}</React.Fragment>);
 	});
 	return (
 		<span
@@ -240,6 +240,7 @@ export function useRiyalRate(targetCurrency: string): UseRiyalRateResult {
 	const [error, setError] = React.useState<Error | null>(null);
 	const [tick, setTick] = React.useState(0);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: tick is intentionally used to trigger refresh
 	React.useEffect(() => {
 		let cancelled = false;
 		setLoading(true);

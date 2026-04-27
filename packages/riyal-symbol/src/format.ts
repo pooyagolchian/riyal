@@ -76,10 +76,10 @@ export function parseRiyal(input: string): number {
 	// Compact notation suffixes
 	const compactMatch = str.match(/([\d.,\-\u202F\u00A0\s]+)([KMBT])\b/i);
 	let multiplier = 1;
-	if (compactMatch) {
-		const suffix = compactMatch[2]?.toUpperCase();
+	if (compactMatch?.[1] && compactMatch[2]) {
+		const suffix = compactMatch[2].toUpperCase();
 		multiplier = { K: 1e3, M: 1e6, B: 1e9, T: 1e12 }[suffix] ?? 1;
-		str = compactMatch[1]!;
+		str = compactMatch[1];
 	}
 
 	// Normalize separators: keep last "." or "," as decimal, strip the rest.
@@ -89,9 +89,11 @@ export function parseRiyal(input: string): number {
 	let normalized = cleaned;
 	if (lastDot >= 0 && lastComma >= 0) {
 		const decimalIdx = Math.max(lastDot, lastComma);
-		const decimalChar = cleaned[decimalIdx]!;
-		const other = decimalChar === "." ? "," : ".";
-		normalized = cleaned.split(other).join("").replace(decimalChar, ".");
+		const decimalChar = cleaned[decimalIdx];
+		if (decimalChar) {
+			const other = decimalChar === "." ? "," : ".";
+			normalized = cleaned.split(other).join("").replace(decimalChar, ".");
+		}
 	} else if (lastComma >= 0 && lastDot < 0) {
 		normalized = cleaned.replace(",", ".");
 	}

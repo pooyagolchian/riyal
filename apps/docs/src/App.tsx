@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useState } from "react";
 import {
 	RIYAL_ARABIC_ABBREVIATION,
 	RIYAL_CODEPOINT,
@@ -18,12 +18,30 @@ import { AnimatedRiyalPrice, RiyalIcon, RiyalInput, RiyalPrice, RiyalSymbol } fr
 
 type Locale = "en-SA" | "ar-SA" | "en-US";
 
+/**
+ * Renders a string while replacing every U+20C1 codepoint with an inline
+ * `<RiyalSymbol />`, so the SAMA glyph shows up even in fonts that don't ship
+ * the codepoint yet (which is most system fonts in 2026).
+ */
+function renderWithGlyph(text: string): ReactNode {
+	if (!text) return null;
+	const parts = text.split(RIYAL_SYMBOL_TEXT);
+	const nodes: ReactNode[] = [];
+	parts.forEach((part, i) => {
+		if (i > 0) {
+			nodes.push(<RiyalSymbol key={`g-${i}-${part}`} size="0.9em" />);
+		}
+		if (part) nodes.push(<span key={`p-${i}-${part}`}>{part}</span>);
+	});
+	return nodes;
+}
+
 export function App() {
 	const [amount, setAmount] = useState<number | "">(2499.99);
 	const [locale, setLocale] = useState<Locale>("en-SA");
 	const [decimals, setDecimals] = useState(2);
 	const [animAmount, setAnimAmount] = useState(1234.5);
-	const [parseInput, setParseInput] = useState(`${RIYAL_SYMBOL_TEXT} 2,500.00`);
+	const [parseInput, setParseInput] = useState("SAR 2,500.00");
 	const [copyState, setCopyState] = useState<string>("");
 
 	const numeric = typeof amount === "number" && Number.isFinite(amount) ? amount : 0;
@@ -166,20 +184,21 @@ export function App() {
 						</div>
 						<pre className="code">
 							<span className="tok-k">import</span>{" "}
-							<span className="tok-n">{`{ formatRiyal, addVAT }`}</span>{" "}
+							<span className="tok-n">{"{ formatRiyal, addVAT }"}</span>{" "}
 							<span className="tok-k">from</span> <span className="tok-s">"riyal"</span>;{"\n"}
 							<span className="tok-k">import</span>{" "}
-							<span className="tok-n">{`{ RiyalPrice, RiyalInput }`}</span>{" "}
-							<span className="tok-k">from</span> <span className="tok-s">"riyal/react"</span>;
-							{"\n"}
-							<span className="tok-k">import</span> <span className="tok-s">"riyal/font.css"</span>;
-							{"\n"}
+							<span className="tok-n">{"{ RiyalPrice, RiyalInput }"}</span>{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/react"</span>
+							{";\n"}
+							<span className="tok-k">import</span> <span className="tok-s">"riyal/font.css"</span>
+							{";\n"}
 							<span className="tok-k">import</span>{" "}
-							<span className="tok-n">{`{ defineRiyalElements }`}</span>{" "}
+							<span className="tok-n">{"{ defineRiyalElements }"}</span>{" "}
 							<span className="tok-k">from</span>{" "}
 							<span className="tok-s">"riyal/web-component"</span>;{"\n"}
 							<span className="tok-k">import</span> <span className="tok-n">riyalPlugin</span>{" "}
-							<span className="tok-k">from</span> <span className="tok-s">"riyal/tailwind"</span>;
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/tailwind"</span>
+							{";"}
 						</pre>
 					</div>
 				</div>
@@ -265,7 +284,8 @@ export function App() {
 			<div className="marquee" aria-hidden="true">
 				<div className="marquee-track">
 					{Array.from({ length: 2 }).map((_, i) => (
-						<span key={`m-${i}`}>
+						// biome-ignore lint/suspicious/noArrayIndexKey: static duplicate marquee rows
+						<span key={`marquee-${i}-row`}>
 							<RiyalSymbol size={36} /> precision
 							<span className="dot" /> typography
 							<span className="dot" /> rtl &amp; ltr
@@ -551,7 +571,7 @@ export function App() {
 										fontSize: "1rem",
 									}}
 								>
-									{parseInput || "—"}
+									{renderWithGlyph(parseInput) ?? "—"}
 								</span>
 							</div>
 							<div>
@@ -596,7 +616,8 @@ export function App() {
 							, <span className="tok-s">"AED"</span>,{" "}
 							<span className="tok-n">{"{ rate: 0.98 }"}</span>);{"\n\n"}
 							<span className="tok-c">
-								// React: const {"{"} convert, loading {"}"} = useRiyalRate("USD")
+								{"// React: const "}
+								{"{"} convert, loading {"}"} = useRiyalRate("USD")
 							</span>
 						</pre>
 					</div>
@@ -706,8 +727,8 @@ export function App() {
 						</div>
 						<pre className="code">
 							<span className="tok-k">import</span> <span className="tok-n">riyal</span>{" "}
-							<span className="tok-k">from</span> <span className="tok-s">"riyal/tailwind"</span>;
-							{"\n\n"}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/tailwind"</span>
+							{";\n\n"}
 							<span className="tok-k">export default</span> <span className="tok-n">{"{"}</span>
 							{"\n  "}plugins: [<span className="tok-f">riyal</span>()],{"\n"}
 							<span className="tok-n">{"}"}</span>;{"\n\n"}
