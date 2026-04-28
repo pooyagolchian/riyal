@@ -133,10 +133,10 @@ export function App() {
 		<div className="relative min-h-screen bg-background text-foreground bg-noir-radial">
 			<div className="pointer-events-none fixed inset-0 bg-noir-grid opacity-40" />
 
-			<div className="relative mx-auto w-full max-w-[1240px] px-6 sm:px-10">
+			<div className="relative mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-10">
 				{/* Topbar */}
-				<header className="sticky top-0 z-50 -mx-6 flex items-center justify-between border-b border-white/[0.06] bg-background/80 px-6 py-5 backdrop-blur-md sm:-mx-10 sm:px-10">
-					<div className="flex items-center gap-2.5 font-display text-[15px] font-medium uppercase tracking-[0.32em] text-foreground">
+				<header className="sticky top-0 z-50 -mx-4 flex items-center justify-between gap-4 border-b border-white/[0.06] bg-background/80 px-4 py-4 backdrop-blur-md sm:-mx-6 sm:px-6 sm:py-5 lg:-mx-10 lg:px-10">
+					<div className="flex shrink-0 items-center gap-2.5 font-display text-[13px] font-medium uppercase tracking-[0.32em] text-foreground sm:text-[15px]">
 						<RiyalSymbol size={16} /> Riyal
 					</div>
 					<nav className="hidden items-center gap-8 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground md:flex">
@@ -156,30 +156,30 @@ export function App() {
 							GitHub
 						</a>
 					</nav>
-					<div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+					<div className="shrink-0 font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground sm:text-[10px]">
 						v1.0 · MIT
 					</div>
 				</header>
 
 				{/* Hero */}
-				<section className="grid items-center gap-12 py-16 sm:gap-16 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:gap-20 lg:py-32">
-					<div>
-						<div className="inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+				<section className="grid items-center gap-10 py-12 sm:gap-16 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:gap-20 lg:py-32">
+					<div className="min-w-0">
+						<div className="inline-flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground sm:text-[10px] sm:tracking-[0.32em]">
 							<span className="h-px w-8 bg-white/30" />
 							The Saudi Riyal · U+20C1
 						</div>
-						<h1 className="mt-6 font-display text-[44px] font-light leading-[0.94] tracking-[-0.035em] text-foreground sm:mt-8 sm:text-[72px] md:text-[88px] lg:text-[112px]">
+						<h1 className="mt-5 font-display text-[36px] font-light leading-[0.96] tracking-[-0.03em] text-foreground sm:mt-8 sm:text-[64px] sm:leading-[0.94] sm:tracking-[-0.035em] md:text-[88px] lg:text-[112px]">
 							The currency
 							<br />
 							of <span className="italic text-white/70">tomorrow,</span>
 							<br />
 							rendered today.
 						</h1>
-						<p className="mt-8 max-w-[58ch] text-[15px] leading-relaxed text-muted-foreground sm:mt-10 sm:text-[17px]">
+						<p className="mt-6 max-w-[58ch] text-[14px] leading-relaxed text-muted-foreground sm:mt-10 sm:text-[17px]">
 							A complete typographic toolkit for the official Saudi Riyal sign — font, React, Web
 							Components, Tailwind, OG cards, VAT &amp; FX. Pixel-precise. Locale-aware. Effortless.
 						</p>
-						<div className="mt-10 flex flex-wrap gap-3 sm:mt-12">
+						<div className="mt-8 flex flex-wrap gap-3 sm:mt-12">
 							<Button onClick={() => handleCopy("npm install riyal", "install command")}>
 								npm install riyal
 							</Button>
@@ -196,7 +196,7 @@ export function App() {
 					</div>
 
 					<div
-						className="relative flex aspect-square w-full items-center justify-center border border-white/[0.07] bg-[#040404]"
+						className="relative flex aspect-square w-full items-center justify-center overflow-hidden border border-white/[0.07] bg-[#040404]"
 						aria-hidden="true"
 					>
 						<span className="absolute left-0 top-0 p-4 font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground sm:p-5">
@@ -380,7 +380,7 @@ export function App() {
 				</div>
 			</div>
 
-			<div className="relative mx-auto w-full max-w-[1240px] px-6 sm:px-10">
+			<div className="relative mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-10">
 				{/* 03 — Formatting */}
 				<Section
 					num="03 — Formatting"
@@ -816,8 +816,237 @@ export function App() {
 					</Card>
 				</Section>
 
+				{/* 11 — Next.js + OG */}
+				<Section
+					num="11 — Next.js & OG"
+					title="Server-rendered, edge-ready."
+					description="A first-class next/font helper for zero-CLS embedding, and Satori-ready JSX so your share images carry the SAMA glyph too."
+				>
+					<Card>
+						<CardHeader>
+							<CardTitle>app/layout.tsx</CardTitle>
+							<Badge>next/font</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-k">import</span> <span className="tok-n">{"{ riyal }"}</span>{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/next"</span>;{"\n"}
+							<span className="tok-k">import</span> <span className="tok-s">"riyal/css"</span>
+							{";"}
+							{"\n\n"}
+							<span className="tok-k">const</span> riyalFont = <span className="tok-f">riyal</span>(
+							{"{"} display: <span className="tok-s">"swap"</span> {"}"});{"\n\n"}
+							<span className="tok-k">export default function</span>{" "}
+							<span className="tok-f">RootLayout</span>({"{"} children {"}"}) {"{"}
+							{"\n  "}
+							<span className="tok-k">return</span> ({"\n    "}
+							<span className="tok-k">&lt;html</span> <span className="tok-n">className</span>=
+							<span className="tok-n">{"{riyalFont.className}"}</span>
+							<span className="tok-k">&gt;</span>
+							{"\n      "}
+							<span className="tok-k">&lt;body&gt;</span>
+							{"{children}"}
+							<span className="tok-k">&lt;/body&gt;</span>
+							{"\n    "}
+							<span className="tok-k">&lt;/html&gt;</span>
+							{"\n  "});{"\n"}
+							{"}"}
+						</pre>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>app/og/route.tsx</CardTitle>
+							<Badge>satori · next/og</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ ImageResponse }"}</span>{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"next/og"</span>;{"\n"}
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ RiyalOGCard }"}</span> <span className="tok-k">from</span>{" "}
+							<span className="tok-s">"riyal/og"</span>;{"\n\n"}
+							<span className="tok-k">export async function</span>{" "}
+							<span className="tok-f">GET</span>() {"{"}
+							{"\n  "}
+							<span className="tok-k">return new</span> <span className="tok-f">ImageResponse</span>
+							({"\n    "}(<span className="tok-k">&lt;RiyalOGCard</span>
+							{"\n      "}
+							<span className="tok-n">title</span>=<span className="tok-s">"Pricing"</span>
+							{"\n      "}
+							<span className="tok-n">amount</span>=<span className="tok-n">{"{2499.99}"}</span>
+							{"\n      "}
+							<span className="tok-n">locale</span>=<span className="tok-s">"ar-SA"</span>
+							{"\n    "}/&gt;{"\n  "}),{"\n  "}
+							{"{"} width: <span className="tok-n">1200</span>, height:{" "}
+							<span className="tok-n">630</span> {"}"},{"\n  "}
+							);{"\n"}
+							{"}"}
+						</pre>
+					</Card>
+				</Section>
+
+				{/* 12 — Hooks & live FX */}
+				<Section
+					num="12 — Hooks & FX"
+					title="Live rates, suspense-ready."
+					description="useRiyalRate caches in-memory and exposes loading/error/refresh. Pair with formatRiyal in the same render to get a localised, converted number."
+				>
+					<Card>
+						<CardHeader>
+							<CardTitle>useRiyalRate</CardTitle>
+							<Badge>react</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ useRiyalRate }"}</span>{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/react"</span>
+							{";"}
+							{"\n\n"}
+							<span className="tok-k">function</span> <span className="tok-f">UsdPrice</span>({"{"}{" "}
+							sar {"}"}: {"{"} sar: <span className="tok-k">number</span> {"}"}) {"{"}
+							{"\n  "}
+							<span className="tok-k">const</span> {"{"} rate, loading, error, refresh {"}"} ={" "}
+							<span className="tok-f">useRiyalRate</span>(<span className="tok-s">"USD"</span>);
+							{"\n  "}
+							<span className="tok-k">if</span> (loading) <span className="tok-k">return</span>{" "}
+							<span className="tok-s">"\u2026"</span>;{"\n  "}
+							<span className="tok-k">if</span> (error || !rate){" "}
+							<span className="tok-k">return</span> <span className="tok-s">"\u2014"</span>;{"\n  "}
+							<span className="tok-k">return</span> <span className="tok-k">&lt;span&gt;</span>
+							{"$"}
+							{"{"}(sar * rate).toFixed(<span className="tok-n">2</span>){"}"}
+							<span className="tok-k">&lt;/span&gt;</span>;{"\n"}
+							{"}"}
+						</pre>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>parseRiyal · tolerant</CardTitle>
+							<Badge>RTL · compact · code</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-f">parseRiyal</span>(
+							<span className="tok-s">"\u20C1 1,234.50"</span>){"        "}
+							<span className="tok-c">{"// → 1234.5"}</span>
+							{"\n"}
+							<span className="tok-f">parseRiyal</span>(
+							<span className="tok-s">"SAR 2,500.00"</span>){"     "}
+							<span className="tok-c">{"// → 2500"}</span>
+							{"\n"}
+							<span className="tok-f">parseRiyal</span>(<span className="tok-s">"1.5M \u20C1"</span>
+							){"           "}
+							<span className="tok-c">{"// → 1500000"}</span>
+							{"\n"}
+							<span className="tok-f">parseRiyal</span>(
+							<span className="tok-s">
+								"\u0661\u066c\u0662\u0663\u0664\u066b\u0665\u0660 \u20c1"
+							</span>
+							){"        "}
+							<span className="tok-c">{"// → 1234.5"}</span>
+							{"\n"}
+							<span className="tok-f">parseRiyal</span>(<span className="tok-s">"99.90 ر.س"</span>)
+							{"        "}
+							<span className="tok-c">{"// → 99.9"}</span>
+						</pre>
+					</Card>
+				</Section>
+
+				{/* 13 — Clipboard, CSS, CLI */}
+				<Section
+					num="13 — Clipboard · CSS · CLI"
+					title="Every channel, covered."
+					description="Copy the glyph in Unicode, HTML or CSS form. Drop in pure CSS/SCSS without JavaScript. Generate fonts and OG cards from the terminal."
+				>
+					<Card>
+						<CardHeader>
+							<CardTitle>copyRiyalSymbol &amp; copyRiyalAmount</CardTitle>
+							<Badge>browser</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ copyRiyalSymbol, copyRiyalAmount }"}</span>{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal"</span>;{"\n\n"}
+							<span className="tok-k">await</span> <span className="tok-f">copyRiyalSymbol</span>();
+							{"          "}
+							<span className="tok-c">{`// "\u20C1"`}</span>
+							{"\n"}
+							<span className="tok-k">await</span> <span className="tok-f">copyRiyalSymbol</span>(
+							<span className="tok-s">"html"</span>);{"    "}
+							<span className="tok-c">{'// "&#x20C1;"'}</span>
+							{"\n"}
+							<span className="tok-k">await</span> <span className="tok-f">copyRiyalSymbol</span>(
+							<span className="tok-s">"css"</span>);
+							{"     "}
+							<span className="tok-c">{'// "\\\\20C1"'}</span>
+							{"\n"}
+							<span className="tok-k">await</span> <span className="tok-f">copyRiyalAmount</span>(
+							<span className="tok-n">2499.99</span>,{" "}
+							<span className="tok-n">{'{ locale: "ar-SA" }'}</span>);
+						</pre>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>Pure CSS · SCSS</CardTitle>
+							<Badge>no JS</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-k">@import</span> <span className="tok-s">"riyal/css"</span>
+							{";"}
+							{"\n\n"}
+							.price::before {"{"}
+							{"\n  "}content: <span className="tok-s">"\\20C1\\00a0"</span>;{"\n  "}font-family:{" "}
+							<span className="tok-s">"Riyal", system-ui</span>;{"\n"}
+							{"}"}
+							{"\n\n"}
+							<span className="tok-c">{"/* SCSS */"}</span>
+							{"\n"}
+							<span className="tok-k">@use</span> <span className="tok-s">"riyal/scss"</span>{" "}
+							<span className="tok-k">as</span> riyal;{"\n"}
+							.total {"{"} <span className="tok-k">@include</span> riyal.symbol-prefix; {"}"}
+						</pre>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>CLI</CardTitle>
+							<Badge>npx riyal</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-c"># print info & codepoint table</span>
+							{"\n"}
+							<span className="tok-f">npx</span> riyal{"\n\n"}
+							<span className="tok-c"># pipe the symbol straight to your clipboard</span>
+							{"\n"}
+							<span className="tok-f">npx</span> riyal copy unicode{"\n"}
+							<span className="tok-f">npx</span> riyal copy html{"\n"}
+							<span className="tok-f">npx</span> riyal copy css
+						</pre>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>React Native</CardTitle>
+							<Badge>Expo · bare</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ RiyalSymbol, RiyalPrice }"}</span>{" "}
+							<span className="tok-k">from</span>{" "}
+							<span className="tok-s">"riyal/react-native"</span>;{"\n\n"}
+							<span className="tok-k">&lt;View&gt;</span>
+							{"\n  "}
+							<span className="tok-k">&lt;RiyalSymbol</span> <span className="tok-n">size</span>=
+							<span className="tok-n">{"{32}"}</span> <span className="tok-k">/&gt;</span>
+							{"\n  "}
+							<span className="tok-k">&lt;RiyalPrice</span> <span className="tok-n">amount</span>=
+							<span className="tok-n">{"{1234.5}"}</span> <span className="tok-n">locale</span>=
+							<span className="tok-s">"ar-SA"</span>
+							<span className="tok-k">/&gt;</span>
+							{"\n"}
+							<span className="tok-k">&lt;/View&gt;</span>
+						</pre>
+					</Card>
+				</Section>
+
 				{/* Footer */}
-				<footer className="grid items-end gap-12 border-t border-white/[0.06] py-24 sm:grid-cols-2">
+				<footer className="grid items-end gap-10 border-t border-white/[0.06] py-16 sm:grid-cols-2 sm:py-24">
 					<div className="flex items-center gap-6">
 						<RiyalSymbol size={56} />
 						<span className="font-display text-2xl font-light italic text-muted-foreground">
