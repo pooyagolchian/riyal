@@ -19,6 +19,8 @@ import { Badge } from "./components/ui/badge";
 import { Button } from "./components/ui/button";
 import { Card, CardHeader, CardTitle } from "./components/ui/card";
 import { Input } from "./components/ui/input";
+import { NumberField } from "./components/ui/number-field";
+import { Select } from "./components/ui/select";
 import { Tabs } from "./components/ui/tabs";
 
 type Locale = "en-SA" | "ar-SA" | "en-US";
@@ -58,10 +60,10 @@ function SectionHead({
 			<div className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
 				{num}
 			</div>
-			<h2 className="mt-6 font-display text-4xl font-light leading-[1.04] tracking-[-0.02em] text-foreground sm:text-5xl lg:text-[56px]">
+			<h2 className="mt-5 font-display text-3xl font-light leading-[1.04] tracking-[-0.02em] text-foreground sm:mt-6 sm:text-4xl md:text-5xl lg:text-[56px]">
 				{title}
 			</h2>
-			<p className="mt-5 max-w-[34ch] text-[15px] leading-relaxed text-muted-foreground">
+			<p className="mt-4 max-w-[34ch] text-[14px] leading-relaxed text-muted-foreground sm:mt-5 sm:text-[15px]">
 				{children}
 			</p>
 		</div>
@@ -84,7 +86,7 @@ function Section({
 	return (
 		<section
 			id={id}
-			className="grid gap-12 border-t border-white/[0.06] py-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] lg:gap-20"
+			className="grid gap-10 border-t border-white/[0.06] py-16 sm:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] lg:gap-20 lg:py-24"
 		>
 			<SectionHead num={num} title={title}>
 				{description}
@@ -160,24 +162,24 @@ export function App() {
 				</header>
 
 				{/* Hero */}
-				<section className="grid items-center gap-16 py-20 lg:grid-cols-[1.1fr_1fr] lg:gap-20 lg:py-32">
+				<section className="grid items-center gap-12 py-16 sm:gap-16 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:gap-20 lg:py-32">
 					<div>
 						<div className="inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
 							<span className="h-px w-8 bg-white/30" />
 							The Saudi Riyal · U+20C1
 						</div>
-						<h1 className="mt-8 font-display text-[56px] font-light leading-[0.94] tracking-[-0.035em] text-foreground sm:text-[80px] lg:text-[112px]">
+						<h1 className="mt-6 font-display text-[44px] font-light leading-[0.94] tracking-[-0.035em] text-foreground sm:mt-8 sm:text-[72px] md:text-[88px] lg:text-[112px]">
 							The currency
 							<br />
 							of <span className="italic text-white/70">tomorrow,</span>
 							<br />
 							rendered today.
 						</h1>
-						<p className="mt-10 max-w-[58ch] text-[17px] leading-relaxed text-muted-foreground">
+						<p className="mt-8 max-w-[58ch] text-[15px] leading-relaxed text-muted-foreground sm:mt-10 sm:text-[17px]">
 							A complete typographic toolkit for the official Saudi Riyal sign — font, React, Web
 							Components, Tailwind, OG cards, VAT &amp; FX. Pixel-precise. Locale-aware. Effortless.
 						</p>
-						<div className="mt-12 flex flex-wrap gap-3">
+						<div className="mt-10 flex flex-wrap gap-3 sm:mt-12">
 							<Button onClick={() => handleCopy("npm install riyal", "install command")}>
 								npm install riyal
 							</Button>
@@ -194,38 +196,35 @@ export function App() {
 					</div>
 
 					<div
-						className="relative flex aspect-square min-h-[420px] items-center justify-center border border-white/[0.07] bg-[#040404]"
+						className="relative flex aspect-square w-full items-center justify-center border border-white/[0.07] bg-[#040404]"
 						aria-hidden="true"
 					>
-						<span className="absolute left-0 top-0 p-5 font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground">
+						<span className="absolute left-0 top-0 p-4 font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground sm:p-5">
 							U+20C1
 						</span>
-						<span className="absolute right-0 top-0 p-5 text-right font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground">
+						<span className="absolute right-0 top-0 p-4 text-right font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground sm:p-5">
 							SAR · ر.س
 						</span>
-						<span className="absolute bottom-0 left-0 p-5 font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground">
+						<span className="absolute bottom-0 left-0 p-4 font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground sm:p-5">
 							SAMA · 2025
 						</span>
-						<span className="absolute bottom-0 right-0 p-5 text-right font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground">
+						<span className="absolute bottom-0 right-0 p-4 text-right font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground sm:p-5">
 							Unicode 17.0
 						</span>
-						<RiyalIcon size={400} />
+						<RiyalIcon className="h-[55%] w-[55%]" />
 					</div>
 				</section>
 
 				{/* Stats */}
-				<div className="grid grid-cols-2 border-t border-white/[0.06] md:grid-cols-4">
+				<div className="grid grid-cols-2 divide-x divide-y divide-white/[0.06] border-y border-white/[0.06] md:grid-cols-4 md:divide-y-0">
 					{[
 						{ v: "U+20C1", l: "Codepoint" },
 						{ v: "11", l: "Entry points" },
 						{ v: "15%", l: "VAT default" },
 						{ v: "2", l: "RTL · LTR" },
-					].map((s, i) => (
-						<div
-							key={s.l}
-							className={`px-6 py-12 ${i < 3 ? "md:border-r md:border-white/[0.06]" : ""} ${i % 2 === 0 ? "border-r border-white/[0.06] md:border-r" : ""} ${i < 2 ? "border-b border-white/[0.06] md:border-b-0" : ""}`}
-						>
-							<div className="font-display text-4xl font-light leading-none text-foreground sm:text-5xl">
+					].map((s) => (
+						<div key={s.l} className="px-6 py-10 sm:px-8 sm:py-12">
+							<div className="font-display text-3xl font-light leading-none text-foreground sm:text-4xl lg:text-5xl">
 								{s.v}
 							</div>
 							<div className="mt-3 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
@@ -399,36 +398,40 @@ export function App() {
 							<CardTitle>Live · formatRiyal</CardTitle>
 							<Tabs<Locale> value={locale} onValueChange={setLocale} options={LOCALES} />
 						</CardHeader>
-						<div className="grid gap-6 sm:grid-cols-2">
+						<div className="grid gap-5 sm:grid-cols-2">
 							<div className="flex flex-col gap-2">
-								<span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+								<label
+									htmlFor="fmt-amount"
+									className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground"
+								>
 									Amount
-								</span>
-								<Input
-									type="number"
+								</label>
+								<NumberField
 									value={amount}
+									onValueChange={setAmount}
 									step={0.01}
-									onChange={(e) => {
-										const v = e.target.value;
-										setAmount(v === "" ? "" : Number.parseFloat(v));
-									}}
+									min={0}
+									prefix={<RiyalSymbol size={12} />}
 								/>
 							</div>
 							<div className="flex flex-col gap-2">
-								<span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+								<label
+									htmlFor="fmt-decimals"
+									className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground"
+								>
 									Decimals
-								</span>
-								<select
+								</label>
+								<Select
+									id="fmt-decimals"
 									value={decimals}
 									onChange={(e) => setDecimals(Number.parseInt(e.target.value, 10))}
-									className="w-full border-0 border-b border-white/15 bg-transparent py-3 font-mono-tight text-base text-foreground outline-none focus:border-foreground"
 								>
 									{[0, 1, 2, 3, 4].map((d) => (
 										<option key={d} value={d} className="bg-black">
 											{d}
 										</option>
 									))}
-								</select>
+								</Select>
 							</div>
 						</div>
 						<div className="border-y border-white/[0.06] py-8">
@@ -537,12 +540,17 @@ export function App() {
 							<CardTitle>Live · {"<RiyalInput />"}</CardTitle>
 							<Badge>controlled</Badge>
 						</CardHeader>
-						<RiyalInput
-							className="w-full border-0 border-b border-white/15 bg-transparent py-3 font-display text-2xl text-foreground outline-none focus:border-foreground"
-							value={amount}
-							onValueChange={(v) => setAmount(v)}
-							placeholder="0.00"
-						/>
+						<div className="group flex h-14 w-full items-stretch border border-white/10 bg-white/[0.015] transition-colors focus-within:border-white/40 hover:border-white/25">
+							<span className="flex items-center border-r border-white/10 px-4 text-white/55">
+								<RiyalSymbol size={14} />
+							</span>
+							<RiyalInput
+								className="hide-spinner h-full min-w-0 flex-1 bg-transparent px-4 font-display text-2xl text-foreground outline-none placeholder:text-white/25"
+								value={amount}
+								onValueChange={(v) => setAmount(v)}
+								placeholder="0.00"
+							/>
+						</div>
 						<div className="grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2">
 							<div className="flex items-baseline justify-between gap-6 border-b border-white/[0.04] py-3">
 								<span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">

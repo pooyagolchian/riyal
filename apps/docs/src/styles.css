@@ -59,6 +59,15 @@
 	.bg-noir-radial {
 		background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.04), transparent 60%), #000;
 	}
+	.hide-spinner::-webkit-outer-spin-button,
+	.hide-spinner::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	.hide-spinner {
+		-moz-appearance: textfield;
+		appearance: textfield;
+	}
 }
 
 .code-block {

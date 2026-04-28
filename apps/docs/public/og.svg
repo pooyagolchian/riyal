@@ -2,57 +2,33 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
 	<defs>
 		<style>
-			.bg { fill: #f7f4ee; }
-			.ink { fill: #0a0a0a; }
-			.rule { stroke: #0a0a0a; stroke-opacity: 0.18; stroke-width: 1; }
-			.rule-strong { stroke: #0a0a0a; stroke-width: 1; }
-			.eyebrow { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 14px; letter-spacing: 3.4px; text-transform: uppercase; fill: #0a0a0a; opacity: 0.6; }
-			.serif { font-family: 'Cormorant Garamond', 'Times New Roman', serif; fill: #0a0a0a; }
-			.serif-italic { font-family: 'Cormorant Garamond', 'Times New Roman', serif; font-style: italic; fill: #0a0a0a; }
-			.mono { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 13px; letter-spacing: 2.4px; text-transform: uppercase; fill: #0a0a0a; opacity: 0.55; }
+			.bg { fill: #000000; }
+			.fg { fill: #fafafa; }
+			.muted { fill: #fafafa; opacity: 0.5; }
+			.dim { fill: #fafafa; opacity: 0.32; }
+			.rule { stroke: #fafafa; stroke-opacity: 0.12; stroke-width: 1; }
+			.mono { font-family: 'Geist Mono','JetBrains Mono','Courier New',monospace; font-size: 14px; letter-spacing: 3.4px; text-transform: uppercase; }
+			.display { font-family: 'Space Grotesk','Geist',sans-serif; }
 		</style>
 	</defs>
 
 	<rect class="bg" width="1200" height="630" />
 
-	<!-- frame -->
-	<rect class="rule" x="40" y="40" width="1120" height="550" fill="none" />
+	<rect class="rule" x="48" y="48" width="1104" height="534" fill="none" />
 
-	<!-- top eyebrow -->
-	<text class="eyebrow" x="72" y="92">RIYAL · npm i riyal</text>
-	<text class="mono" x="1128" y="92" text-anchor="end">U+20C1 · SAR · ر.س</text>
+	<text class="mono fg" x="80" y="100">RIYAL</text>
+	<text class="mono dim" x="1120" y="100" text-anchor="end">U+20C1 · SAR · ر.س</text>
+	<line class="rule" x1="80" y1="120" x2="1120" y2="120" />
 
-	<!-- hairline under eyebrow -->
-	<line class="rule" x1="72" y1="112" x2="1128" y2="112" />
-
-	<!-- glyph -->
-	<g transform="translate(120 200) scale(0.21)" class="ink" aria-label="Saudi Riyal">
+	<g transform="translate(820 200) scale(0.18)" class="fg" aria-label="Saudi Riyal">
 		<path d="M699.62,1113.02h0c-20.06,44.48-33.32,92.75-38.4,143.37l424.51-90.24c20.06-44.47,33.31-92.75,38.4-143.37l-424.51,90.24Z" />
 		<path d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z" />
 	</g>
 
-	<!-- wordmark -->
-	<text class="serif" x="430" y="290" font-size="148" font-weight="500" letter-spacing="-2">riyal</text>
-	<text class="serif-italic" x="430" y="360" font-size="44">The Saudi Riyal currency symbol, refined.</text>
+	<text class="display fg" x="80" y="340" font-size="180" font-weight="300" letter-spacing="-6">riyal</text>
+	<text class="display muted" x="80" y="400" font-size="34" font-weight="300" font-style="italic">The Saudi Riyal currency, rendered.</text>
 
-	<!-- middle hairline -->
-	<line class="rule" x1="72" y1="430" x2="1128" y2="430" />
-
-	<!-- feature row -->
-	<text class="mono" x="72" y="478">React</text>
-	<text class="mono" x="72" y="510">Web Components</text>
-	<text class="mono" x="72" y="542">Tailwind</text>
-
-	<text class="mono" x="412" y="478">Next.js</text>
-	<text class="mono" x="412" y="510">React Native</text>
-	<text class="mono" x="412" y="542">OG Cards</text>
-
-	<text class="mono" x="752" y="478">Web Font · WOFF2</text>
-	<text class="mono" x="752" y="510">VAT · 15%</text>
-	<text class="mono" x="752" y="542">CLI · TypeScript</text>
-
-	<!-- footer line -->
-	<line class="rule-strong" x1="72" y1="572" x2="1128" y2="572" />
-	<text class="mono" x="72" y="596" style="opacity: 0.85">pooyagolchian.github.io/riyal</text>
-	<text class="mono" x="1128" y="596" text-anchor="end" style="opacity: 0.85">github.com/pooyagolchian/riyal</text>
+	<line class="rule" x1="80" y1="510" x2="1120" y2="510" />
+	<text class="mono dim" x="80" y="552">REACT · WEB COMPONENTS · TAILWIND · NEXT.JS</text>
+	<text class="mono fg" x="1120" y="552" text-anchor="end">riyal.js.org</text>
 </svg>

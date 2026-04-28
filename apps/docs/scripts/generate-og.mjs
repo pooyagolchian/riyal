@@ -12,7 +12,7 @@ const svg = await readFile(resolve(publicDir, "og.svg"), "utf8");
 const resvg = new Resvg(svg, {
 	fitTo: { mode: "width", value: 1200 },
 	font: { loadSystemFonts: true },
-	background: "#f7f4ee",
+	background: "#000000",
 });
 const png = resvg.render().asPng();
 await writeFile(resolve(publicDir, "og.png"), png);
