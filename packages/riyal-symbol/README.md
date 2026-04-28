@@ -583,23 +583,19 @@ The bundled font ships as **WOFF2** (preferred), **WOFF**, and **TTF**.
 still need to append the symbol manually, handle RTL placement, and build VAT
 and conversion helpers yourself. `riyal` wraps all of that in one package.
 
-**vs `@emran-alhaddad/saudi-riyal-font`**
+**What `riyal` includes**
 
-That package ships the raw font files only (3.7 MB, no JS API). Use `riyal`
-when you need formatting utilities, React/Web Component drop-ins, VAT helpers,
-or currency conversion in addition to the font.
-
-| Feature | `riyal` | `@emran-alhaddad/saudi-riyal-font` |
-| --- | --- | --- |
-| Web font (WOFF2/WOFF/TTF) | yes | yes |
-| U+20C1 + U+E900 (legacy) | yes | yes |
-| `formatRiyal` / `parseRiyal` | yes | no |
-| VAT helpers | yes | no |
-| Currency conversion | yes | no |
-| React components | yes | no |
-| Web Components | yes | no |
-| TypeScript types | yes | no |
-| CDN / no-build usage | via jsDelivr | yes |
+| Feature | `riyal` |
+| --- | --- |
+| Web font (WOFF2/WOFF/TTF) | yes |
+| U+20C1 + U+E900 (legacy) | yes |
+| `formatRiyal` / `parseRiyal` | yes |
+| VAT helpers | yes |
+| Currency conversion | yes |
+| React components | yes |
+| Web Components | yes |
+| TypeScript types | yes |
+| CDN / no-build usage | via jsDelivr |
 
 ---
 
