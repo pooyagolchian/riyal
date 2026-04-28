@@ -7,16 +7,16 @@
 		<meta name="color-scheme" content="dark" />
 
 		<title>
-			Riyal · The Saudi Riyal currency symbol (U+20C1) — font, React, Web
-			Component, Tailwind, Next.js
+			Riyal v1.1.0 · Saudi Riyal symbol (U+20C1) — WOFF2 font, React, Web
+			Components, Tailwind, Next.js, VAT helpers
 		</title>
 		<meta
 			name="description"
-			content="Riyal is a TypeScript toolkit for the official Saudi Riyal currency symbol (U+20C1, SAMA 2025). Web font, CSS, React, React Native, Web Components, Tailwind plugin, Next.js font loader, OG image cards, and a CLI — all in one npm package."
+			content="Riyal (v1.1.0) is a TypeScript toolkit for the official Saudi Riyal currency symbol (U+20C1, SAMA 2025). Ships real WOFF2/WOFF/TTF fonts, CSS, React components, React Native, Web Components, Tailwind plugin, Next.js font helper, OG image cards, VAT helpers, and a CLI — one npm install."
 		/>
 		<meta
 			name="keywords"
-			content="saudi riyal symbol, saudi riyal sign, riyal currency symbol, SAR symbol, U+20C1, U20C1, unicode 17, saudi central bank, SAMA glyph, riyal font, riyal woff2, ريال سعودي, ر.س, riyal react, riyal web component, riyal tailwind plugin, riyal next.js, react native riyal, saudi vat 15, sar formatter, intl numberformat sar, rtl currency formatting, og image saudi riyal, fintech saudi arabia, ksa payments"
+			content="saudi riyal symbol, saudi riyal sign, riyal currency symbol, SAR symbol, U+20C1, U20C1, unicode 17, saudi central bank, SAMA glyph, riyal font, riyal woff2, riyal woff, riyal ttf, ريال سعودي, ر.س, riyal react component, riyal web component, riyal tailwind plugin, riyal next.js font, react native riyal, saudi vat 15, sar formatter, intl numberformat sar, rtl currency formatting, og image saudi riyal, fintech saudi arabia, ksa payments, e-commerce saudi arabia, saudi checkout, formatRiyal, addVAT, convertFromSAR, useRiyalRate"
 		/>
 		<meta name="author" content="Pooya Golchian" />
 		<meta
@@ -25,7 +25,7 @@
 		/>
 		<meta name="googlebot" content="index, follow" />
 		<meta name="application-name" content="Riyal" />
-		<meta name="generator" content="riyal" />
+		<meta name="generator" content="riyal v1.1.0" />
 		<meta name="referrer" content="strict-origin-when-cross-origin" />
 
 		<link rel="canonical" href="https://riyal.js.org/" />
@@ -37,18 +37,18 @@
 		/>
 		<link rel="alternate" hreflang="x-default" href="https://riyal.js.org/" />
 
-		<!-- LLM context -->
+		<!-- LLM context — machine-readable API reference -->
 		<link
 			rel="alternate"
 			type="text/plain"
 			href="./llms.txt"
-			title="llms.txt"
+			title="llms.txt — concise LLM context"
 		/>
 		<link
 			rel="alternate"
 			type="text/plain"
 			href="./llms-full.txt"
-			title="llms-full.txt"
+			title="llms-full.txt — full API reference for LLMs"
 		/>
 
 		<!-- Open Graph -->
@@ -56,11 +56,11 @@
 		<meta property="og:site_name" content="Riyal" />
 		<meta
 			property="og:title"
-			content="Riyal · The Saudi Riyal currency symbol, refined."
+			content="Riyal · The Saudi Riyal symbol toolkit — font, React, VAT, OG cards"
 		/>
 		<meta
 			property="og:description"
-			content="The Saudi Riyal symbol (U+20C1) as a web font, CSS, React, React Native, Web Components, Tailwind plugin, Next.js helper, OG cards, and a CLI. One npm package."
+			content="Ships real WOFF2 fonts for U+20C1, React drop-in components, 15% VAT helpers, currency conversion, OG cards, and a CLI — one npm install."
 		/>
 		<meta property="og:url" content="https://riyal.js.org/" />
 		<meta property="og:locale" content="en_SA" />
@@ -75,7 +75,7 @@
 		<meta property="og:image:height" content="630" />
 		<meta
 			property="og:image:alt"
-			content="Riyal — the Saudi Riyal currency symbol, refined."
+			content="Riyal — the Saudi Riyal currency symbol toolkit"
 		/>
 
 		<!-- Twitter / X -->
@@ -84,16 +84,16 @@
 		<meta name="twitter:creator" content="@pooyagolchian" />
 		<meta
 			name="twitter:title"
-			content="Riyal · The Saudi Riyal currency symbol, refined."
+			content="Riyal · Saudi Riyal symbol toolkit — font, React, VAT, OG cards"
 		/>
 		<meta
 			name="twitter:description"
-			content="U+20C1 as a web font, React, Web Components, Tailwind, Next.js, OG cards, and a CLI — one npm package."
+			content="WOFF2 fonts for U+20C1, React components, VAT helpers, currency conversion, OG cards — one npm install."
 		/>
 		<meta name="twitter:image" content="https://riyal.js.org/og.png" />
 		<meta
 			name="twitter:image:alt"
-			content="Riyal — the Saudi Riyal currency symbol, refined."
+			content="Riyal — the Saudi Riyal currency symbol toolkit"
 		/>
 
 		<!-- Icons -->
@@ -108,7 +108,7 @@
 			href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
 		/>
 
-		<!-- JSON-LD: SoftwareSourceCode + WebSite + Person -->
+		<!-- JSON-LD structured data -->
 		<script type="application/ld+json">
 			{
 				"@context": "https://schema.org",
@@ -118,7 +118,7 @@
 						"@id": "https://riyal.js.org/#website",
 						"url": "https://riyal.js.org/",
 						"name": "Riyal",
-						"description": "The Saudi Riyal currency symbol (U+20C1) as a TypeScript toolkit.",
+						"description": "The Saudi Riyal currency symbol (U+20C1) as a TypeScript toolkit — WOFF2 fonts, React, Web Components, Tailwind, Next.js, VAT helpers.",
 						"inLanguage": ["en", "ar"],
 						"publisher": {
 							"@id": "https://riyal.js.org/#person"
@@ -135,20 +135,75 @@
 						"@type": "SoftwareSourceCode",
 						"@id": "https://riyal.js.org/#software",
 						"name": "riyal",
-						"alternateName": ["Saudi Riyal Symbol", "SAR Symbol Toolkit"],
-						"description": "TypeScript toolkit shipping the Saudi Riyal currency symbol (U+20C1) as a web font, CSS, React, React Native, Web Components, Tailwind plugin, Next.js helpers, OG image cards, and a CLI.",
+						"version": "1.1.0",
+						"alternateName": ["Saudi Riyal Symbol Toolkit", "SAR Symbol npm package"],
+						"description": "TypeScript npm package that ships the Saudi Riyal currency symbol (U+20C1) as WOFF2/WOFF/TTF web fonts, CSS, React components (RiyalPrice, AnimatedRiyalPrice, RiyalInput, useRiyalRate), React Native, Web Components, a Tailwind v3/v4 plugin, Next.js next/font helper, OG image card generators, Saudi 15% VAT utilities (addVAT, removeVAT, getVAT), SAR-base currency conversion (convertFromSAR, convertToSAR), and a CLI.",
 						"codeRepository": "https://github.com/pooyagolchian/riyal",
 						"programmingLanguage": ["TypeScript", "JavaScript", "CSS"],
-						"runtimePlatform": ["Node.js", "Browser", "React Native"],
+						"runtimePlatform": ["Node.js ≥ 20", "Browser", "React Native ≥ 0.72"],
 						"license": "https://opensource.org/licenses/MIT",
 						"author": {
 							"@id": "https://riyal.js.org/#person"
 						},
-						"keywords": "saudi riyal, riyal symbol, U+20C1, SAR, SAMA, currency symbol, react, web component, tailwind, next.js, vat, intl, rtl, arabic",
+						"keywords": "saudi riyal, riyal symbol, U+20C1, SAR, SAMA, currency symbol, react, web component, tailwind, next.js, vat, intl, rtl, arabic, formatRiyal, addVAT, convertFromSAR, useRiyalRate",
 						"url": "https://riyal.js.org/",
 						"downloadUrl": "https://www.npmjs.com/package/riyal",
 						"installUrl": "https://www.npmjs.com/package/riyal",
-						"image": "https://riyal.js.org/og.png"
+						"image": "https://riyal.js.org/og.png",
+						"dateModified": "2026-04-28"
+					},
+					{
+						"@type": "FAQPage",
+						"mainEntity": [
+							{
+								"@type": "Question",
+								"name": "How do I display the Saudi Riyal symbol in React?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Install the riyal package and import RiyalSymbol or RiyalPrice from 'riyal/react'. Example: import { RiyalPrice } from 'riyal/react'; then <RiyalPrice amount={2499.99} />. All components render the SAMA glyph as inline SVG so they work even before system fonts support U+20C1."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "How do I format a SAR price with the Saudi Riyal sign?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Use formatRiyal from the riyal package: import { formatRiyal } from 'riyal'; formatRiyal(2499.99) returns the correctly formatted string with the U+20C1 symbol and proper locale formatting for both LTR (en-SA) and RTL (ar-SA) contexts."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "How do I calculate Saudi VAT (15%) in JavaScript?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Use the VAT helpers from the riyal package: import { addVAT, removeVAT, getVAT } from 'riyal'; addVAT(1000) returns 1150, removeVAT(1150) returns 1000, getVAT(1000) returns 150. The default rate is 15% (SAUDI_VAT_RATE = 0.15) and can be overridden per call."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "Does the riyal package ship actual font files for U+20C1?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Yes. Since v1.1.0 the package ships real WOFF2, WOFF, and TTF files generated from the official SAMA glyph SVG using opentype.js. Import 'riyal/css' for the @font-face stylesheet, or reference 'riyal/font/woff2' directly. Three weights are included: Regular (400), Medium (500), and Bold (700)."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "Can I use the Saudi Riyal symbol in Vue, Angular or Svelte?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Yes. Import defineRiyalElements from 'riyal/web-component' and call it once. This registers <riyal-symbol>, <riyal-price>, <riyal-animated-price>, and <riyal-input> as standard Custom Elements that work in any framework or plain HTML."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "How do I generate an OG image with the Saudi Riyal symbol for social sharing?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Use RiyalPriceCard from 'riyal/og' with @vercel/og or next/og, or use generatePriceCardSVG from 'riyal/og' to get a plain SVG string from any backend. Both render the SAMA glyph inline so no font loading is needed by Twitter, LinkedIn, or other social platforms."
+								}
+							}
+						]
 					},
 					{
 						"@type": "BreadcrumbList",

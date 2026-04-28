@@ -149,6 +149,9 @@ export function App() {
 						<a className="hidden transition-colors hover:text-foreground sm:inline" href="#api">
 							API
 						</a>
+						<a className="hidden transition-colors hover:text-foreground lg:inline" href="#reference">
+							Reference
+						</a>
 						<a
 							className="hidden transition-colors hover:text-foreground md:inline"
 							href="https://github.com/pooyagolchian/riyal"
@@ -157,7 +160,7 @@ export function App() {
 						</a>
 					</nav>
 					<div className="hidden shrink-0 font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground sm:block sm:text-[10px]">
-						v1.0 · MIT
+						v1.1.0 · MIT
 					</div>
 				</header>
 
@@ -244,7 +247,7 @@ export function App() {
 					<Card>
 						<CardHeader>
 							<CardTitle>Package · npm</CardTitle>
-							<Badge>v1</Badge>
+							<Badge>v1.1.0</Badge>
 						</CardHeader>
 						<pre className="code-block">
 							<span className="tok-c"># the only dependency you need</span>
@@ -1041,6 +1044,395 @@ export function App() {
 							<span className="tok-k">/&gt;</span>
 							{"\n"}
 							<span className="tok-k">&lt;/View&gt;</span>
+						</pre>
+					</Card>
+				</Section>
+
+				{/* 14 — API Reference */}
+				<Section
+					id="reference"
+					num="14 — API Reference"
+					title="Every prop, typed."
+					description="Complete options and prop tables for every export. Copy-paste ready. All types are strict TypeScript — no any, no as-casts."
+				>
+					{/* formatRiyal */}
+					<Card>
+						<CardHeader>
+							<CardTitle>formatRiyal(amount, options?)</CardTitle>
+							<Badge>"riyal"</Badge>
+						</CardHeader>
+						<div className="overflow-x-auto">
+							<table className="w-full min-w-[520px] text-[13px]">
+								<thead>
+									<tr className="border-b border-white/[0.08]">
+										<th className="py-2 pr-4 text-left font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+											Option
+										</th>
+										<th className="py-2 pr-4 text-left font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+											Type
+										</th>
+										<th className="py-2 text-left font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+											Default / Notes
+										</th>
+									</tr>
+								</thead>
+								<tbody className="divide-y divide-white/[0.04]">
+									{[
+										["locale", '"en-SA" | "ar-SA" | string', '"en-SA" — controls digit set and separator'],
+										["decimals", "number", "2"],
+										["symbol", "string", 'U+20C1 glyph — override with "ر.س"'],
+										["position", '"prefix" | "suffix"', "Locale-derived (always prefix per SAMA)"],
+										["compact", "boolean", 'false — "1.2K" / "1.2M" notation'],
+										[
+											"groupSeparator",
+											"string",
+											'Locale default ("," en-SA, "٬" ar-SA)',
+										],
+										[
+											"decimalSeparator",
+											"string",
+											'Locale default ("." en-SA, "٫" ar-SA)',
+										],
+									].map(([opt, type, note]) => (
+										<tr key={opt}>
+											<td className="py-2.5 pr-4 font-mono text-[12px] text-foreground">
+												{opt}
+											</td>
+											<td className="py-2.5 pr-4 font-mono text-[11px] text-muted-foreground">
+												{type}
+											</td>
+											<td className="py-2.5 text-[12px] leading-snug text-muted-foreground">
+												{note}
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
+						<pre className="code-block">
+							<span className="tok-f">formatRiyal</span>(<span className="tok-n">2499.99</span>){" "}
+							<span className="tok-c">
+								{`// → "${formatRiyal(2499.99)}"`}
+							</span>
+							{"\n"}
+							<span className="tok-f">formatRiyal</span>(<span className="tok-n">2499.99</span>,{" "}
+							<span className="tok-n">{'{ locale: "ar-SA", notation: "compact" }'}</span>){" "}
+							<span className="tok-c">
+								{`// → "${formatRiyal(2499.99, { locale: "ar-SA", notation: "compact" })}"`}
+							</span>
+						</pre>
+					</Card>
+
+					{/* React props */}
+					<Card>
+						<CardHeader>
+							<CardTitle>React component props</CardTitle>
+							<Badge>"riyal/react"</Badge>
+						</CardHeader>
+						<div className="overflow-x-auto">
+							<table className="w-full min-w-[520px] text-[13px]">
+								<thead>
+									<tr className="border-b border-white/[0.08]">
+										<th className="py-2 pr-4 text-left font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+											Component
+										</th>
+										<th className="py-2 pr-4 text-left font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+											Key props
+										</th>
+										<th className="py-2 text-left font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+											Notes
+										</th>
+									</tr>
+								</thead>
+								<tbody className="divide-y divide-white/[0.04]">
+									{[
+										[
+											"<RiyalSymbol />",
+											"size?: number|string, weight?: number",
+											"Inline SVG, SSR-safe, no font needed",
+										],
+										[
+											"<RiyalIcon />",
+											"width?, height?, aria-label?",
+											"Standalone SVG icon element",
+										],
+										[
+											"<RiyalPrice />",
+											"amount: number, locale?, decimals?, compact?, useCode?",
+											"Renders symbol + formatted number",
+										],
+										[
+											"<AnimatedRiyalPrice />",
+											"amount: number, durationMs?, locale?",
+											"Spring tween on value change (client only)",
+										],
+										[
+											"<RiyalInput />",
+											"value, onValueChange, locale?, placeholder?",
+											"Controlled; emits clean number via onValueChange",
+										],
+										[
+											"useRiyalRate(currency)",
+											"returns { rate, convert, loading, error, refresh }",
+											"1-hour cached, network-optional",
+										],
+									].map(([comp, props, note]) => (
+										<tr key={comp}>
+											<td className="py-2.5 pr-4 font-mono text-[11px] text-foreground whitespace-nowrap">
+												{comp}
+											</td>
+											<td className="py-2.5 pr-4 font-mono text-[10px] text-muted-foreground">
+												{props}
+											</td>
+											<td className="py-2.5 text-[12px] leading-snug text-muted-foreground">
+												{note}
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
+					</Card>
+
+					{/* Web Component attributes */}
+					<Card>
+						<CardHeader>
+							<CardTitle>Web Component attributes</CardTitle>
+							<Badge>"riyal/web-component"</Badge>
+						</CardHeader>
+						<div className="overflow-x-auto">
+							<table className="w-full min-w-[520px] text-[13px]">
+								<thead>
+									<tr className="border-b border-white/[0.08]">
+										<th className="py-2 pr-4 text-left font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+											Element
+										</th>
+										<th className="py-2 pr-4 text-left font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+											Attribute
+										</th>
+										<th className="py-2 pr-4 text-left font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+											Type
+										</th>
+										<th className="py-2 text-left font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+											Default
+										</th>
+									</tr>
+								</thead>
+								<tbody className="divide-y divide-white/[0.04]">
+									{[
+										["<riyal-symbol>", "size", "CSS length", '"1em"'],
+										["<riyal-price>", "amount", "number string", "required"],
+										["<riyal-price>", "locale", '"en-SA" | "ar-SA"', '"en-SA"'],
+										["<riyal-price>", "decimals", "number", "2"],
+										["<riyal-price>", "compact", "boolean attr", "false"],
+										["<riyal-animated-price>", "amount", "number string", "required"],
+										["<riyal-animated-price>", "duration", "ms", "600"],
+										["<riyal-input>", "value", "number string", '""'],
+									].map(([el, attr, type, def]) => (
+										<tr key={`${el}-${attr}`}>
+											<td className="py-2.5 pr-4 font-mono text-[11px] text-foreground whitespace-nowrap">
+												{el}
+											</td>
+											<td className="py-2.5 pr-4 font-mono text-[11px] text-muted-foreground">
+												{attr}
+											</td>
+											<td className="py-2.5 pr-4 font-mono text-[10px] text-muted-foreground">
+												{type}
+											</td>
+											<td className="py-2.5 font-mono text-[11px] text-muted-foreground">
+												{def}
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
+						<pre className="code-block">
+							<span className="tok-c">
+								{"// All attributes are observed — reactive on setAttribute()"}
+							</span>
+							{"\n"}
+							<span className="tok-c">
+								{'// <riyal-input> fires CustomEvent("riyal-change", { detail: { value: number } })'}
+							</span>
+							{"\n\n"}
+							<span className="tok-n">document</span>.
+							<span className="tok-f">querySelector</span>(
+							<span className="tok-s">"riyal-input"</span>).
+							<span className="tok-f">addEventListener</span>(
+							<span className="tok-s">"riyal-change"</span>, (e) =&gt; {"{"}
+							{"\n  "}
+							<span className="tok-n">console</span>.
+							<span className="tok-f">log</span>(e.detail.value);{" "}
+							<span className="tok-c">{"// number"}</span>
+							{"\n"}
+							{"}"});
+						</pre>
+					</Card>
+
+					{/* VAT + conversion */}
+					<Card>
+						<CardHeader>
+							<CardTitle>VAT & conversion helpers</CardTitle>
+							<Badge>"riyal"</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-c">
+								{"// — VAT (15% default, customisable per call) ——————"}
+							</span>
+							{"\n"}
+							<span className="tok-f">addVAT</span>(<span className="tok-n">1000</span>){" "}
+							<span className="tok-c">{"// → 1150"}</span>
+							{"\n"}
+							<span className="tok-f">removeVAT</span>(<span className="tok-n">1150</span>){" "}
+							<span className="tok-c">{"// → 1000"}</span>
+							{"\n"}
+							<span className="tok-f">getVAT</span>(<span className="tok-n">1000</span>){" "}
+							<span className="tok-c">{"// → 150"}</span>
+							{"\n"}
+							<span className="tok-f">addVAT</span>(<span className="tok-n">1000</span>,{" "}
+							<span className="tok-n">{"{ rate: 0.05 }"}</span>){" "}
+							<span className="tok-c">{"// → 1050 (UAE 5%)"}</span>
+							{"\n\n"}
+							<span className="tok-c">
+								{"// — Currency conversion (SAR base, 1h cached) —————"}
+							</span>
+							{"\n"}
+							<span className="tok-k">const</span> usd ={" "}
+							<span className="tok-k">await</span>{" "}
+							<span className="tok-f">convertFromSAR</span>(
+							<span className="tok-n">1000</span>,{" "}
+							<span className="tok-s">"USD"</span>);{"\n"}
+							<span className="tok-k">const</span> sar ={" "}
+							<span className="tok-k">await</span>{" "}
+							<span className="tok-f">convertToSAR</span>(
+							<span className="tok-n">100</span>,{" "}
+							<span className="tok-s">"EUR"</span>);{"\n"}
+							<span className="tok-c">
+								{"// Pass { rate } to skip the network entirely"}
+							</span>
+							{"\n"}
+							<span className="tok-k">await</span>{" "}
+							<span className="tok-f">convertFromSAR</span>(
+							<span className="tok-n">1000</span>,{" "}
+							<span className="tok-s">"USD"</span>,{" "}
+							<span className="tok-n">{"{ rate: 0.267 }"}</span>);
+						</pre>
+					</Card>
+				</Section>
+
+				{/* 15 — Error Handling */}
+				<Section
+					num="15 — Error Handling"
+					title="Fail gracefully, always."
+					description="Network calls can fail. Every async helper has a predictable throw shape. The React hook surfaces errors without try/catch boilerplate."
+				>
+					<Card>
+						<CardHeader>
+							<CardTitle>convertFromSAR — try/catch</CardTitle>
+							<Badge>async</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ convertFromSAR }"}</span>{" "}
+							<span className="tok-k">from</span>{" "}
+							<span className="tok-s">"riyal"</span>;{"\n\n"}
+							<span className="tok-k">let</span> usd: <span className="tok-k">number</span>;{"\n"}
+							<span className="tok-k">try</span> {"{"}
+							{"\n  "}usd = <span className="tok-k">await</span>{" "}
+							<span className="tok-f">convertFromSAR</span>(
+							<span className="tok-n">1000</span>,{" "}
+							<span className="tok-s">"USD"</span>);{"\n"}
+							{"}"}{" "}
+							<span className="tok-k">catch</span> {"{"}
+							{"\n  "}
+							<span className="tok-c">
+								{"// TypeError — network down"}
+							</span>
+							{"\n  "}
+							<span className="tok-c">
+								{'// RangeError — unknown currency code e.g. "XYZ"'}
+							</span>
+							{"\n  "}usd = <span className="tok-n">1000</span> *{" "}
+							<span className="tok-n">0.267</span>;{" "}
+							<span className="tok-c">
+								{"// last-known SAR/USD fallback"}
+							</span>
+							{"\n"}
+							{"}"}
+						</pre>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>useRiyalRate — error state (React)</CardTitle>
+							<Badge>no try/catch needed</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ useRiyalRate }"}</span>{" "}
+							<span className="tok-k">from</span>{" "}
+							<span className="tok-s">"riyal/react"</span>;{"\n\n"}
+							<span className="tok-k">function</span>{" "}
+							<span className="tok-f">CartCurrency</span>({"{"} sar {"}"}: {"{"} sar:{" "}
+							<span className="tok-k">number</span> {"}"}) {"{"}
+							{"\n  "}
+							<span className="tok-k">const</span> {"{"} convert, loading, error, refresh {"}"}{" "}
+							={" "}
+							<span className="tok-f">useRiyalRate</span>(
+							<span className="tok-s">"USD"</span>);{"\n\n  "}
+							<span className="tok-k">if</span> (loading){" "}
+							<span className="tok-k">return</span>{" "}
+							<span className="tok-k">&lt;span&gt;</span>Loading…
+							<span className="tok-k">&lt;/span&gt;</span>;{"\n  "}
+							<span className="tok-k">if</span> (error){" "}
+							<span className="tok-k">return</span> ({"\n    "}
+							<span className="tok-k">&lt;button</span>{" "}
+							<span className="tok-n">onClick</span>=
+							<span className="tok-n">{"{refresh}"}</span>
+							<span className="tok-k">&gt;</span>
+							Rates unavailable — retry
+							<span className="tok-k">&lt;/button&gt;</span>
+							{"\n  "});{"\n\n  "}
+							<span className="tok-k">return</span>{" "}
+							<span className="tok-k">&lt;span&gt;</span>
+							{"${convert(sar).toFixed(2)} USD"}
+							<span className="tok-k">&lt;/span&gt;</span>;{"\n"}
+							{"}"}
+						</pre>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>Server Components vs Client Components</CardTitle>
+							<Badge>Next.js App Router</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-c">
+								{"// ✅ Server Component — no directive needed"}
+							</span>
+							{"\n"}
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ RiyalPrice }"}</span>{" "}
+							<span className="tok-k">from</span>{" "}
+							<span className="tok-s">"riyal/react"</span>;{"\n\n"}
+							<span className="tok-k">export default function</span>{" "}
+							<span className="tok-f">ProductPage</span>() {"{"}
+							{"\n  "}
+							<span className="tok-k">return</span>{" "}
+							<span className="tok-k">&lt;RiyalPrice</span>{" "}
+							<span className="tok-n">amount</span>=
+							<span className="tok-n">{"{2499.99}"}</span>{" "}
+							<span className="tok-k">/&gt;</span>;{"\n"}
+							{"}"}
+							{"\n\n"}
+							<span className="tok-c">
+								{'// ⚠️  Must be "use client" — uses requestAnimationFrame'}
+							</span>
+							{"\n"}
+							<span className="tok-s">"use client"</span>;{"\n"}
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ AnimatedRiyalPrice, RiyalInput }"}</span>{" "}
+							<span className="tok-k">from</span>{" "}
+							<span className="tok-s">"riyal/react"</span>{";"}
 						</pre>
 					</Card>
 				</Section>
