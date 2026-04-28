@@ -15,7 +15,6 @@
 	body {
 		@apply bg-background text-foreground antialiased;
 		font-feature-settings: "ss01", "cv11";
-		overflow-x: hidden;
 	}
 
 	body {
@@ -23,6 +22,7 @@
 			sans-serif;
 		font-size: 15px;
 		line-height: 1.55;
+		overflow-x: clip;
 	}
 
 	::selection {
