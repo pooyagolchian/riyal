@@ -27,18 +27,19 @@ type defs.
 - [Features](#features)
 - [Installation](#installation)
 - [Quick start](#quick-start)
-- [Core API](#core-api) — formatting, parsing, VAT, conversion, clipboard
+- [Core API](#core-api) — formatting, parsing, VAT, conversion, clipboard, error handling
 - [React](#react) — `RiyalSymbol`, `RiyalIcon`, `RiyalPrice`,
   `AnimatedRiyalPrice`, `RiyalInput`, `useRiyalRate`
-- [Web Components](#web-components) — framework-agnostic
+- [Web Components](#web-components) — attribute reference, events, shadow DOM styling
 - [React Native](#react-native)
 - [CSS / SCSS](#css--scss)
 - [Tailwind plugin](#tailwind-plugin)
-- [Next.js font helper](#nextjs-font-helper)
+- [Next.js font helper](#nextjs-font-helper) — Server vs Client Components
 - [OG image cards](#og-image-cards)
 - [CLI](#cli)
 - [Constants & locales](#constants--locales)
 - [Browser support](#browser-support)
+- [Why riyal?](#why-riyal)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -181,6 +182,33 @@ await copyRiyal({ format: "html" }); // "&#x20C1;"
 await copyRiyal({ format: "css" }); // "\\20C1"
 ```
 
+### Error handling
+
+`fetchExchangeRates` throws a `TypeError` when the network is unavailable.
+`convertFromSAR` / `convertToSAR` throw a `RangeError` when the target currency
+is not in the rate table. Always wrap in `try/catch` in production:
+
+```ts
+import { convertFromSAR } from "riyal";
+
+let usd: number;
+try {
+  usd = await convertFromSAR(1000, "USD");
+} catch {
+  usd = 1000 * 0.267; // last-known SAR/USD fallback
+}
+```
+
+`useRiyalRate` surfaces the error in its return value — no extra `try/catch` needed:
+
+```tsx
+const { convert, loading, error } = useRiyalRate("EUR");
+
+if (error) return <span>Rates unavailable</span>;
+if (loading) return <span>Loading…</span>;
+return <span>{convert(cartTotal)} EUR</span>;
+```
+
 ---
 
 ## React
@@ -278,6 +306,46 @@ defineRiyalElements();
 <riyal-price amount="2499.99" locale="ar-SA" compact></riyal-price>
 ```
 
+### Attribute reference
+
+| Element | Attribute | Type | Default | Reactive |
+| --- | --- | --- | --- | --- |
+| `<riyal-symbol>` | `size` | CSS length | `1em` | yes |
+| `<riyal-icon>` | `width` / `height` | number (px) | `24` | yes |
+| `<riyal-icon>` | `aria-label` | string | `"Saudi Riyal"` | yes |
+| `<riyal-price>` | `amount` | number string | required | yes |
+| `<riyal-price>` | `locale` | `"en-SA"` \| `"ar-SA"` | `"en-SA"` | yes |
+| `<riyal-price>` | `decimals` | number | `2` | yes |
+| `<riyal-price>` | `compact` | boolean attribute | `false` | yes |
+| `<riyal-animated-price>` | `amount` | number string | required | yes |
+| `<riyal-animated-price>` | `duration` | number (ms) | `600` | yes |
+| `<riyal-input>` | `value` | number string | `""` | yes |
+
+All attributes are observed — setting them via `setAttribute` or a framework
+binding triggers a re-render with no extra boilerplate.
+
+### Events
+
+`<riyal-input>` dispatches a `riyal-change` CustomEvent when the value changes:
+
+```js
+document.querySelector("riyal-input").addEventListener("riyal-change", (e) => {
+  console.log(e.detail.value); // number
+});
+```
+
+### Shadow DOM styling
+
+Each element uses a closed shadow root. Override the symbol color and size with
+CSS custom properties exposed on the host:
+
+```css
+riyal-price {
+  --riyal-color: #006c35; /* Saudi green */
+  --riyal-size: 1.25rem;
+}
+```
+
 ---
 
 ## React Native
@@ -339,15 +407,29 @@ export default {
 };
 ```
 
-Adds:
+Adds these utilities:
 
-- `font-riyal`, `font-riyal-arabic`, `font-riyal-mono`
-- `riyal-symbol::before` utility
-- `text-riyal-*` tokens for Saudi green (`#006c35`)
+| Class | Effect |
+| --- | --- |
+| `font-riyal` | `font-family: "Riyal", system-ui` |
+| `font-riyal-arabic` | Arabic variant of the Riyal font |
+| `font-riyal-mono` | Monospace variant |
+| `riyal-symbol` | `::before` with U+20C1 glyph |
+| `riyal-price` | `::before` glyph + `margin-inline-end: 0.25em` |
+| `text-riyal-{50…900}` | Saudi green palette (`#006c35` base) |
+| `riyal-{xs,sm,base,lg,xl,2xl}` | Symbol size utilities |
 
 ```html
 <span class="font-riyal text-riyal-700">2,499.99</span>
-<span class="riyal-symbol"></span>
+<span class="riyal-symbol text-riyal-500 riyal-lg"></span>
+```
+
+**Tailwind v4** — use the CSS-first config:
+
+```css
+/* app.css */
+@import "tailwindcss";
+@plugin "riyal/tailwind";
 ```
 
 ---
@@ -374,13 +456,46 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 }
 ```
 
+### Server vs Client Components (Next.js App Router)
+
+`RiyalPrice` and `RiyalSymbol` have no client-side state — use them directly in
+Server Components. `AnimatedRiyalPrice` and `RiyalInput` require
+`requestAnimationFrame` / React state, so they must be Client Components:
+
+```tsx
+// app/product/page.tsx — Server Component, no directive needed
+import { RiyalPrice } from "riyal/react";
+
+export default function ProductPage() {
+  return <RiyalPrice amount={2499.99} />;
+}
+```
+
+```tsx
+// components/cart-total.tsx — must be a Client Component
+"use client";
+import { AnimatedRiyalPrice } from "riyal/react";
+
+export function CartTotal({ total }: { total: number }) {
+  return <AnimatedRiyalPrice amount={total} duration={400} />;
+}
+```
+
 ---
 
 ## OG image cards
 
-Generate Open Graph share images on the fly (Edge / Node / `@vercel/og`).
+Generate Open Graph share images on the fly. Two APIs — pick one:
+
+| API | Use when |
+| --- | --- |
+| `RiyalPriceCard(opts)` | You're using `@vercel/og` or `next/og` — returns a JSX element tree |
+| `generatePriceCardSVG(opts)` | Any backend / serverless function — returns an SVG string, no JSX runtime needed |
+
+**With `@vercel/og` or Next.js App Router:**
 
 ```tsx
+// app/og/route.tsx
 import { ImageResponse } from "next/og";
 import { RiyalPriceCard } from "riyal/og";
 
@@ -394,13 +509,26 @@ export function GET() {
 }
 ```
 
-Or render to standalone SVG:
+**With any backend (returns SVG string):**
 
 ```ts
 import { generatePriceCardSVG } from "riyal/og";
 
-const svg = generatePriceCardSVG({ amount: 2499.99, title: "Cart total" });
+const svg = generatePriceCardSVG({
+  amount: 2499.99,
+  title: "Cart total",
+  subtitle: "3 items",
+  locale: "ar-SA",
+  width: 1200,
+  height: 630,
+  background: "#006c35",
+  color: "#ffffff",
+});
+// → <svg xmlns="http://www.w3.org/2000/svg" ...>…</svg>
 ```
+
+Both functions accept the same options: `amount`, `title`, `subtitle`,
+`locale`, `width`, `height`, `background`, `color`, and all `FormatRiyalOptions`.
 
 ---
 
@@ -409,12 +537,12 @@ const svg = generatePriceCardSVG({ amount: 2499.99, title: "Cart total" });
 Installed automatically as a `riyal` bin.
 
 ```bash
-$ riyal symbol             # prints U+20C1
-$ riyal copy               # copies the glyph to clipboard
-$ riyal format 2499.99     # formatted SAR
-$ riyal vat add 100        # 115
-$ riyal convert 100 USD    # SAR → USD
-$ riyal --help
+riyal symbol             # prints U+20C1
+riyal copy               # copies the glyph to clipboard
+riyal format 2499.99     # formatted SAR
+riyal vat add 100        # 115
+riyal convert 100 USD    # SAR → USD
+riyal --help
 ```
 
 ---
@@ -444,6 +572,34 @@ import {
 - Node ≥ 20 for non-browser usage.
 
 The bundled font ships as **WOFF2** (preferred), **WOFF**, and **TTF**.
+
+---
+
+## Why riyal?
+
+**vs plain `Intl.NumberFormat`**
+
+`Intl.NumberFormat` formats numbers but does not know about U+20C1 — you'd
+still need to append the symbol manually, handle RTL placement, and build VAT
+and conversion helpers yourself. `riyal` wraps all of that in one package.
+
+**vs `@emran-alhaddad/saudi-riyal-font`**
+
+That package ships the raw font files only (3.7 MB, no JS API). Use `riyal`
+when you need formatting utilities, React/Web Component drop-ins, VAT helpers,
+or currency conversion in addition to the font.
+
+| Feature | `riyal` | `@emran-alhaddad/saudi-riyal-font` |
+| --- | --- | --- |
+| Web font (WOFF2/WOFF/TTF) | yes | yes |
+| U+20C1 + U+E900 (legacy) | yes | yes |
+| `formatRiyal` / `parseRiyal` | yes | no |
+| VAT helpers | yes | no |
+| Currency conversion | yes | no |
+| React components | yes | no |
+| Web Components | yes | no |
+| TypeScript types | yes | no |
+| CDN / no-build usage | via jsDelivr | yes |
 
 ---
 
