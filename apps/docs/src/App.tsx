@@ -135,28 +135,28 @@ export function App() {
 
 			<div className="relative mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-10">
 				{/* Topbar */}
-				<header className="sticky top-0 z-50 -mx-4 flex items-center justify-between gap-4 border-b border-white/[0.06] bg-background/80 px-4 py-4 backdrop-blur-md sm:-mx-6 sm:px-6 sm:py-5 lg:-mx-10 lg:px-10">
-					<div className="flex shrink-0 items-center gap-2.5 font-display text-[13px] font-medium uppercase tracking-[0.32em] text-foreground sm:text-[15px]">
+				<header className="sticky top-0 z-50 -mx-4 flex items-center justify-between gap-3 border-b border-white/[0.06] bg-background/80 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:gap-4 sm:px-6 sm:py-5 lg:-mx-10 lg:px-10">
+					<div className="flex shrink-0 items-center gap-2.5 font-display text-[12px] font-medium uppercase tracking-[0.28em] text-foreground sm:text-[15px] sm:tracking-[0.32em]">
 						<RiyalSymbol size={16} /> Riyal
 					</div>
-					<nav className="hidden items-center gap-8 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground md:flex">
+					<nav className="flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:gap-6 sm:tracking-[0.22em] md:gap-8">
 						<a className="transition-colors hover:text-foreground" href="#install">
 							Install
 						</a>
 						<a className="transition-colors hover:text-foreground" href="#samples">
 							Samples
 						</a>
-						<a className="transition-colors hover:text-foreground" href="#api">
+						<a className="hidden transition-colors hover:text-foreground sm:inline" href="#api">
 							API
 						</a>
 						<a
-							className="transition-colors hover:text-foreground"
+							className="hidden transition-colors hover:text-foreground md:inline"
 							href="https://github.com/pooyagolchian/riyal"
 						>
 							GitHub
 						</a>
 					</nav>
-					<div className="shrink-0 font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground sm:text-[10px]">
+					<div className="hidden shrink-0 font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground sm:block sm:text-[10px]">
 						v1.0 · MIT
 					</div>
 				</header>
@@ -196,7 +196,7 @@ export function App() {
 					</div>
 
 					<div
-						className="relative flex aspect-square w-full items-center justify-center overflow-hidden border border-white/[0.07] bg-[#040404]"
+						className="relative mx-auto flex aspect-square w-full max-w-[420px] items-center justify-center overflow-hidden border border-white/[0.07] bg-[#040404] sm:max-w-[520px] lg:max-w-none"
 						aria-hidden="true"
 					>
 						<span className="absolute left-0 top-0 p-4 font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground sm:p-5">
@@ -296,7 +296,7 @@ export function App() {
 							<CardTitle>Live · React</CardTitle>
 							<Badge>{"<RiyalSymbol />"}</Badge>
 						</CardHeader>
-						<div className="flex items-center gap-8 border-y border-white/[0.06] py-8">
+						<div className="-mx-5 flex items-center gap-6 overflow-x-auto border-y border-white/[0.06] px-5 py-8 sm:mx-0 sm:gap-8 sm:px-0">
 							<RiyalSymbol size={96} />
 							<RiyalSymbol size={64} />
 							<RiyalSymbol size={40} />
@@ -753,7 +753,7 @@ export function App() {
 						].map((c) => (
 							<div
 								key={c.n}
-								className="group relative flex min-h-[200px] flex-col gap-3 border-b border-r border-white/[0.06] p-8 transition-colors hover:bg-white/[0.02]"
+								className="group relative flex min-h-[160px] flex-col gap-3 border-b border-r border-white/[0.06] p-6 transition-colors hover:bg-white/[0.02] sm:min-h-[200px] sm:p-8"
 							>
 								<span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
 									{c.n}
