@@ -1,5 +1,11 @@
 # riyal
 
+## 1.1.1
+
+### Patch Changes
+
+- 7c449fb: - Removed third-party package comparison from README; the feature table now focuses solely on what `riyal` includes.
+
 ## 1.1.0
 
 ### Minor Changes
