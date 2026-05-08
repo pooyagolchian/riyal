@@ -1,6 +1,6 @@
 {
 	"name": "riyal",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "The Saudi Riyal currency symbol (U+20C1) as a web font, CSS utility, React, Vue 3, Svelte 5, React Native, and Web Component, with a Tailwind plugin, Next.js font helper, OG cards, VAT helpers, and currency conversion.",
 	"license": "MIT",
 	"author": "Pooya Golchian",
