@@ -1,17 +1,15 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "riyal-checkout-summary",
-  "type": "registry:component",
-  "title": "Riyal Checkout Summary",
-  "description": "Receipt-style block with subtotal, discount, shipping, VAT, and grand total. Built on cartTotal from riyal/cart and <RiyalPrice> from riyal/react.",
-  "dependencies": [
-    "riyal"
-  ],
-  "files": [
-    {
-      "path": "components/riyal/riyal-checkout-summary.tsx",
-      "type": "registry:component",
-      "content": "import { type LineItem, cartTotal } from \"riyal/cart\";\nimport { RiyalPrice } from \"riyal/react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface RiyalCheckoutSummaryProps {\n\titems: LineItem[];\n\tshipping?: number;\n\tshippingIncludesVat?: boolean;\n\tdiscount?: number;\n\tvatRate?: number;\n\tlocale?: string;\n\tclassName?: string;\n}\n\nexport function RiyalCheckoutSummary({\n\titems,\n\tshipping = 0,\n\tshippingIncludesVat = false,\n\tdiscount = 0,\n\tvatRate,\n\tlocale,\n\tclassName,\n}: RiyalCheckoutSummaryProps) {\n\tconst totals = cartTotal(items, { shipping, shippingIncludesVat, discount, vatRate });\n\tconst itemCount = totals.itemCount;\n\tconst vatPct = (totals.vatRate * 100).toFixed(0);\n\n\tconst rows: Array<{ label: string; value: number; negate?: boolean }> = [\n\t\t{ label: \"Subtotal\", value: totals.subtotal },\n\t];\n\tif (totals.discount > 0) rows.push({ label: \"Discount\", value: totals.discount, negate: true });\n\tif (totals.shipping > 0) rows.push({ label: \"Shipping\", value: totals.shipping });\n\trows.push({ label: `VAT (${vatPct}%)`, value: totals.vat });\n\n\treturn (\n\t\t<div\n\t\t\tclassName={cn(\n\t\t\t\t\"flex flex-col gap-2 rounded-lg border border-border bg-card p-4 text-card-foreground\",\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t>\n\t\t\t{rows.map((row) => (\n\t\t\t\t<div key={row.label} className=\"flex items-center justify-between text-sm\">\n\t\t\t\t\t<span className=\"text-muted-foreground\">{row.label}</span>\n\t\t\t\t\t<span className=\"tabular-nums text-foreground\">\n\t\t\t\t\t\t{row.negate ? \"−\" : \"\"}\n\t\t\t\t\t\t<RiyalPrice amount={row.value} locale={locale} />\n\t\t\t\t\t</span>\n\t\t\t\t</div>\n\t\t\t))}\n\t\t\t<div className=\"mt-1 border-t border-border pt-3\" />\n\t\t\t<div className=\"flex items-baseline justify-between\">\n\t\t\t\t<span className=\"text-sm font-medium text-foreground\">\n\t\t\t\t\tTotal · {itemCount} {itemCount === 1 ? \"item\" : \"items\"}\n\t\t\t\t</span>\n\t\t\t\t<span className=\"text-2xl font-semibold tabular-nums\">\n\t\t\t\t\t<RiyalPrice amount={totals.total} locale={locale} />\n\t\t\t\t</span>\n\t\t\t</div>\n\t\t</div>\n\t);\n}\n"
-    }
-  ]
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "riyal-checkout-summary",
+	"type": "registry:component",
+	"title": "Riyal Checkout Summary",
+	"description": "Receipt-style block with subtotal, discount, shipping, VAT, and grand total. Built on cartTotal from riyal/cart and <RiyalPrice> from riyal/react.",
+	"dependencies": ["riyal"],
+	"files": [
+		{
+			"path": "components/riyal/riyal-checkout-summary.tsx",
+			"type": "registry:component",
+			"content": "import { type LineItem, cartTotal } from \"riyal/cart\";\nimport { RiyalPrice } from \"riyal/react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface RiyalCheckoutSummaryProps {\n\titems: LineItem[];\n\tshipping?: number;\n\tshippingIncludesVat?: boolean;\n\tdiscount?: number;\n\tvatRate?: number;\n\tlocale?: string;\n\tclassName?: string;\n}\n\nexport function RiyalCheckoutSummary({\n\titems,\n\tshipping = 0,\n\tshippingIncludesVat = false,\n\tdiscount = 0,\n\tvatRate,\n\tlocale,\n\tclassName,\n}: RiyalCheckoutSummaryProps) {\n\tconst totals = cartTotal(items, { shipping, shippingIncludesVat, discount, vatRate });\n\tconst itemCount = totals.itemCount;\n\tconst vatPct = (totals.vatRate * 100).toFixed(0);\n\n\tconst rows: Array<{ label: string; value: number; negate?: boolean }> = [\n\t\t{ label: \"Subtotal\", value: totals.subtotal },\n\t];\n\tif (totals.discount > 0) rows.push({ label: \"Discount\", value: totals.discount, negate: true });\n\tif (totals.shipping > 0) rows.push({ label: \"Shipping\", value: totals.shipping });\n\trows.push({ label: `VAT (${vatPct}%)`, value: totals.vat });\n\n\treturn (\n\t\t<div\n\t\t\tclassName={cn(\n\t\t\t\t\"flex flex-col gap-2 rounded-lg border border-border bg-card p-4 text-card-foreground\",\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t>\n\t\t\t{rows.map((row) => (\n\t\t\t\t<div key={row.label} className=\"flex items-center justify-between text-sm\">\n\t\t\t\t\t<span className=\"text-muted-foreground\">{row.label}</span>\n\t\t\t\t\t<span className=\"tabular-nums text-foreground\">\n\t\t\t\t\t\t{row.negate ? \"−\" : \"\"}\n\t\t\t\t\t\t<RiyalPrice amount={row.value} locale={locale} />\n\t\t\t\t\t</span>\n\t\t\t\t</div>\n\t\t\t))}\n\t\t\t<div className=\"mt-1 border-t border-border pt-3\" />\n\t\t\t<div className=\"flex items-baseline justify-between\">\n\t\t\t\t<span className=\"text-sm font-medium text-foreground\">\n\t\t\t\t\tTotal · {itemCount} {itemCount === 1 ? \"item\" : \"items\"}\n\t\t\t\t</span>\n\t\t\t\t<span className=\"text-2xl font-semibold tabular-nums\">\n\t\t\t\t\t<RiyalPrice amount={totals.total} locale={locale} />\n\t\t\t\t</span>\n\t\t\t</div>\n\t\t</div>\n\t);\n}\n"
+		}
+	]
 }

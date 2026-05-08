@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#000000" />
+		<meta name="color-scheme" content="dark" />
+		<title>How to display the Saudi Riyal symbol (U+20C1) in Vue 3 / Nuxt — riyal/vue</title>
+		<meta name="description" content="First-class Vue 3 components for the official SAMA Saudi Riyal sign. Install once, render with &lt;RiyalPrice&gt;, edit with &lt;RiyalInput v-model mask&gt;, and read live SAR exchange rates with the useRiyalRate composable. SSR-safe, Nuxt-ready." />
+		<meta name="author" content="Pooya Golchian" />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<link rel="canonical" href="https://riyal.js.org/blog/saudi-riyal-symbol-in-vue/" />
+
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="How to display the Saudi Riyal symbol (U+20C1) in Vue 3 / Nuxt — riyal/vue" />
+		<meta property="og:description" content="First-class Vue 3 components for the official SAMA Saudi Riyal sign. Install once, render with &lt;RiyalPrice&gt;, edit with &lt;RiyalInput v-model mask&gt;, and read live SAR exchange rates with the useRiyalRate composable. SSR-safe, Nuxt-ready." />
+		<meta property="og:url" content="https://riyal.js.org/blog/saudi-riyal-symbol-in-vue/" />
+		<meta property="og:image" content="https://riyal.js.org/og.png" />
+		<meta property="article:author" content="Pooya Golchian" />
+		<meta property="article:published_time" content="2026-05-08" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="How to display the Saudi Riyal symbol (U+20C1) in Vue 3 / Nuxt — riyal/vue" />
+		<meta name="twitter:description" content="First-class Vue 3 components for the official SAMA Saudi Riyal sign. Install once, render with &lt;RiyalPrice&gt;, edit with &lt;RiyalInput v-model mask&gt;, and read live SAR exchange rates with the useRiyalRate composable. SSR-safe, Nuxt-ready." />
+		<meta name="twitter:image" content="https://riyal.js.org/og.png" />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — concise LLM context" />
+		<link rel="alternate" type="text/plain" href="/llms-full.txt" title="llms-full.txt — full LLM context" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" />
+		<link rel="stylesheet" href="/blog/blog.css" />
+
+		<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "How to display the Saudi Riyal symbol (U+20C1) in Vue 3",
+  "description": "First-class Vue 3 components for the official SAMA Saudi Riyal sign. Install once, render with <RiyalPrice>, edit with <RiyalInput v-model mask>, and read live SAR exchange rates with the useRiyalRate composable. SSR-safe, Nuxt-ready.",
+  "articleSection": "Guides",
+  "inLanguage": "en",
+  "datePublished": "2026-05-08",
+  "dateModified": "2026-05-08",
+  "author": {
+    "@type": "Person",
+    "name": "Pooya Golchian",
+    "url": "https://github.com/pooyagolchian"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Pooya Golchian"
+  },
+  "mainEntityOfPage": "https://riyal.js.org/blog/saudi-riyal-symbol-in-vue/",
+  "image": "https://riyal.js.org/og.png",
+  "about": [
+    "Saudi Riyal",
+    "U+20C1",
+    "SAR",
+    "Currency formatting"
+  ],
+  "keywords": "How to display the Saudi Riyal symbol (U+20C1) in Vue 3"
+}</script>
+	</head>
+	<body>
+		<header class="topbar">
+			<a class="brand" href="/">⃁ Riyal</a>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/blog/">Guides</a>
+				<a href="https://github.com/pooyagolchian/riyal">GitHub</a>
+				<a href="https://www.npmjs.com/package/riyal">npm</a>
+			</nav>
+		</header>
+
+		<main>
+			<article>
+				<p class="kicker">Guide · 4 min read · Updated 2026-05-08</p>
+				<h1>How to display the Saudi Riyal symbol (U+20C1) in Vue 3</h1>
+				<p class="lead">First-class Vue 3 components for the official SAMA Saudi Riyal sign. Install once, render with &lt;RiyalPrice&gt;, edit with &lt;RiyalInput v-model mask&gt;, and read live SAR exchange rates with the useRiyalRate composable. SSR-safe, Nuxt-ready.</p>
+				<p>If you&rsquo;re building a Saudi e-commerce or fintech app on Vue 3 (or Nuxt), the <code>riyal/vue</code> entry gives you idiomatic components for the official Saudi Riyal symbol — no Web-Component wrapper required.</p>
+
+<h2 id="install">Install</h2>
+<pre><code>pnpm add riyal vue
+# or npm install riyal vue
+</code></pre>
+<p><code>vue &ge; 3.4</code> is an optional peer dependency. The components are render-function based (<code>defineComponent</code> + <code>h()</code>), so no Vue compiler plugin is needed in your app.</p>
+
+<h2 id="basic">Basic usage</h2>
+<pre><code>&lt;script setup lang=&quot;ts&quot;&gt;
+import { ref } from &quot;vue&quot;;
+import {
+  RiyalSymbol, RiyalIcon, RiyalPrice,
+  AnimatedRiyalPrice, RiyalInput, useRiyalRate,
+} from &quot;riyal/vue&quot;;
+
+const amount = ref&lt;number | &quot;&quot;&gt;(2499.99);
+const usd = useRiyalRate(&quot;USD&quot;);
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;RiyalSymbol :size=&quot;24&quot; /&gt;
+  &lt;RiyalIcon :width=&quot;32&quot; :height=&quot;32&quot; /&gt;
+  &lt;RiyalPrice :amount=&quot;2499.99&quot; locale=&quot;ar-SA&quot; /&gt;
+  &lt;AnimatedRiyalPrice :amount=&quot;amount&quot; :duration-ms=&quot;600&quot; /&gt;
+  &lt;RiyalInput v-model=&quot;amount&quot; mask /&gt;
+  &lt;span v-if=&quot;usd.rate.value&quot;&gt;
+    {{ (Number(amount) * usd.rate.value).toFixed(2) }} USD
+  &lt;/span&gt;
+&lt;/template&gt;
+</code></pre>
+
+<h2 id="masked">Masked input — paste anything</h2>
+<p>Pass <code>mask</code> to <code>&lt;RiyalInput&gt;</code> and the input becomes a format-as-you-type field that handles paste of every common SAR string format:</p>
+<ul>
+  <li><code>&quot;SAR 2,499.99&quot;</code> → <code>2499.99</code></li>
+  <li><code>&quot;⃁ 2,499.99&quot;</code> → <code>2499.99</code></li>
+  <li><code>&quot;٢٤٩٩٫٩٩&quot;</code> → <code>2499.99</code> (Arabic-Indic digits)</li>
+  <li><code>&quot;99.90 ر.س&quot;</code> → <code>99.9</code></li>
+</ul>
+<p>It also strips RTL marks, normalises Arabic decimal/grouping characters, enforces a max-decimals window, and preserves caret position via a digit-counting algorithm — so cursor placement during edits stays where the user expects.</p>
+
+<h2 id="ssr">SSR &amp; Nuxt</h2>
+<p>Every component is SSR-safe. <code>RiyalPrice</code> and <code>RiyalSymbol</code> render the same markup on the server and client, so they don&rsquo;t cause hydration mismatches inside <code>&lt;ClientOnly&gt;</code> blocks. The <code>useRiyalRate</code> composable defers the fetch to <code>onMounted</code>, so it stays server-render-safe.</p>
+
+<h2 id="vat">Cart, VAT, conversion</h2>
+<pre><code>import { lineItem, cartTotal } from &quot;riyal/cart&quot;;
+
+const items = [
+  lineItem({ unit: 75, qty: 1 }),
+  lineItem({ unit: 45, qty: 2 }),
+];
+const totals = cartTotal(items, { shipping: 20, discount: 10 });
+// → { subtotal, vat, shipping, total, ... }
+</code></pre>
+<p>The cart helpers default to Saudi 15% VAT and apply discounts proportionally to net + VAT, matching how Saudi receipts present them.</p>
+
+<h2 id="next-steps">Next steps</h2>
+<ul>
+  <li>Live demo: <a href="https://riyal.js.org/">https://riyal.js.org</a></li>
+  <li>API reference: <a href="https://riyal.js.org/#reference">https://riyal.js.org/#reference</a></li>
+  <li>npm: <a href="https://www.npmjs.com/package/riyal">npmjs.com/package/riyal</a></li>
+</ul>
+				<hr />
+				<p class="cta">Built by <a href="https://github.com/pooyagolchian">Pooya Golchian</a> · <a href="https://www.npmjs.com/package/riyal">riyal on npm</a> · <a href="https://riyal.js.org/">live demo</a></p>
+			</article>
+		</main>
+	</body>
+</html>

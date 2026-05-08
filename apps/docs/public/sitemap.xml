@@ -2,19 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc>https://riyal.js.org/</loc>
-		<lastmod>2026-04-28</lastmod>
+		<lastmod>2026-05-08</lastmod>
 		<changefreq>weekly</changefreq>
 		<priority>1.0</priority>
 	</url>
 	<url>
+		<loc>https://riyal.js.org/blog/</loc>
+		<lastmod>2026-05-08</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.9</priority>
+	</url>
+	<url>
+		<loc>https://riyal.js.org/blog/saudi-riyal-symbol-in-react/</loc>
+		<lastmod>2026-05-08</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.85</priority>
+	</url>
+	<url>
+		<loc>https://riyal.js.org/blog/saudi-riyal-symbol-in-vue/</loc>
+		<lastmod>2026-05-08</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.85</priority>
+	</url>
+	<url>
+		<loc>https://riyal.js.org/blog/saudi-riyal-symbol-in-svelte/</loc>
+		<lastmod>2026-05-08</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.85</priority>
+	</url>
+	<url>
+		<loc>https://riyal.js.org/blog/saudi-riyal-symbol-in-tailwind/</loc>
+		<lastmod>2026-05-08</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.85</priority>
+	</url>
+	<url>
+		<loc>https://riyal.js.org/blog/saudi-riyal-symbol-in-nextjs/</loc>
+		<lastmod>2026-05-08</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.85</priority>
+	</url>
+	<url>
+		<loc>https://riyal.js.org/blog/saudi-riyal-symbol-in-angular-and-html/</loc>
+		<lastmod>2026-05-08</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.85</priority>
+	</url>
+	<url>
+		<loc>https://riyal.js.org/r/registry.json</loc>
+		<lastmod>2026-05-08</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.7</priority>
+	</url>
+	<url>
 		<loc>https://riyal.js.org/llms.txt</loc>
-		<lastmod>2026-04-28</lastmod>
+		<lastmod>2026-05-08</lastmod>
 		<changefreq>weekly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>https://riyal.js.org/llms-full.txt</loc>
-		<lastmod>2026-04-28</lastmod>
+		<lastmod>2026-05-08</lastmod>
 		<changefreq>weekly</changefreq>
 		<priority>0.8</priority>
 	</url>

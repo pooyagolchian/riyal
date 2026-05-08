@@ -197,6 +197,9 @@ export function App() {
 						>
 							Reference
 						</a>
+						<a className="hidden transition-colors hover:text-foreground md:inline" href="/blog/">
+							Guides
+						</a>
 						<a
 							className="hidden transition-colors hover:text-foreground md:inline"
 							href="https://github.com/pooyagolchian/riyal"

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#000000" />
+		<meta name="color-scheme" content="dark" />
+		<title>How to display the Saudi Riyal symbol (U+20C1) in Next.js (App Router) — riyal/next</title>
+		<meta name="description" content="Use riyal/next + riyal/react for zero-CLS embedding of the official SAMA Saudi Riyal sign in Next.js 13+ apps. Server Components, Client Components, OG image cards, and a checkout-grade masked input all in one package." />
+		<meta name="author" content="Pooya Golchian" />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<link rel="canonical" href="https://riyal.js.org/blog/saudi-riyal-symbol-in-nextjs/" />
+
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="How to display the Saudi Riyal symbol (U+20C1) in Next.js (App Router) — riyal/next" />
+		<meta property="og:description" content="Use riyal/next + riyal/react for zero-CLS embedding of the official SAMA Saudi Riyal sign in Next.js 13+ apps. Server Components, Client Components, OG image cards, and a checkout-grade masked input all in one package." />
+		<meta property="og:url" content="https://riyal.js.org/blog/saudi-riyal-symbol-in-nextjs/" />
+		<meta property="og:image" content="https://riyal.js.org/og.png" />
+		<meta property="article:author" content="Pooya Golchian" />
+		<meta property="article:published_time" content="2026-05-08" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="How to display the Saudi Riyal symbol (U+20C1) in Next.js (App Router) — riyal/next" />
+		<meta name="twitter:description" content="Use riyal/next + riyal/react for zero-CLS embedding of the official SAMA Saudi Riyal sign in Next.js 13+ apps. Server Components, Client Components, OG image cards, and a checkout-grade masked input all in one package." />
+		<meta name="twitter:image" content="https://riyal.js.org/og.png" />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — concise LLM context" />
+		<link rel="alternate" type="text/plain" href="/llms-full.txt" title="llms-full.txt — full LLM context" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" />
+		<link rel="stylesheet" href="/blog/blog.css" />
+
+		<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "How to display the Saudi Riyal symbol (U+20C1) in Next.js",
+  "description": "Use riyal/next + riyal/react for zero-CLS embedding of the official SAMA Saudi Riyal sign in Next.js 13+ apps. Server Components, Client Components, OG image cards, and a checkout-grade masked input all in one package.",
+  "articleSection": "Guides",
+  "inLanguage": "en",
+  "datePublished": "2026-05-08",
+  "dateModified": "2026-05-08",
+  "author": {
+    "@type": "Person",
+    "name": "Pooya Golchian",
+    "url": "https://github.com/pooyagolchian"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Pooya Golchian"
+  },
+  "mainEntityOfPage": "https://riyal.js.org/blog/saudi-riyal-symbol-in-nextjs/",
+  "image": "https://riyal.js.org/og.png",
+  "about": [
+    "Saudi Riyal",
+    "U+20C1",
+    "SAR",
+    "Currency formatting"
+  ],
+  "keywords": "How to display the Saudi Riyal symbol (U+20C1) in Next.js"
+}</script>
+	</head>
+	<body>
+		<header class="topbar">
+			<a class="brand" href="/">⃁ Riyal</a>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/blog/">Guides</a>
+				<a href="https://github.com/pooyagolchian/riyal">GitHub</a>
+				<a href="https://www.npmjs.com/package/riyal">npm</a>
+			</nav>
+		</header>
+
+		<main>
+			<article>
+				<p class="kicker">Guide · 4 min read · Updated 2026-05-08</p>
+				<h1>How to display the Saudi Riyal symbol (U+20C1) in Next.js</h1>
+				<p class="lead">Use riyal/next + riyal/react for zero-CLS embedding of the official SAMA Saudi Riyal sign in Next.js 13+ apps. Server Components, Client Components, OG image cards, and a checkout-grade masked input all in one package.</p>
+				<p>Next.js 13+ moved type rendering to <code>next/font</code> and split components into Server vs Client. <code>riyal/next</code> wires the bundled SAMA glyph into <code>next/font/local</code> for zero CLS, and <code>riyal/react</code> exposes Server-Component-safe and Client-Component-only primitives so you pick the right one.</p>
+
+<h2 id="install">Install</h2>
+<pre><code>pnpm add riyal next react react-dom
+</code></pre>
+<p><code>next &ge; 13</code> and <code>react &ge; 18</code> are optional peer dependencies.</p>
+
+<h2 id="font">Wire the font once in app/layout.tsx</h2>
+<pre><code>import { riyalFont } from &quot;riyal/next&quot;;
+import &quot;riyal/css&quot;;
+
+const font = riyalFont({ display: &quot;swap&quot; });
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    &lt;html lang=&quot;en&quot; className={font.className}&gt;
+      &lt;body&gt;{children}&lt;/body&gt;
+    &lt;/html&gt;
+  );
+}
+</code></pre>
+<p><code>riyalFont</code> wraps <code>next/font/local</code> with the bundled WOFF2 + Regular/Medium/Bold weights, served self-host (no third-party request) with <code>font-display: swap</code> by default.</p>
+
+<h2 id="server">Server Components</h2>
+<p>Render prices anywhere — they&rsquo;re SSR-safe, hydration-clean, and work in async Server Components:</p>
+<pre><code>// app/(shop)/[product]/page.tsx — Server Component, no &quot;use client&quot;
+import { RiyalPrice } from &quot;riyal/react&quot;;
+
+export default async function ProductPage({ params }: { params: { product: string } }) {
+  const product = await fetchProduct(params.product);
+  return (
+    &lt;article&gt;
+      &lt;h1&gt;{product.title}&lt;/h1&gt;
+      &lt;p&gt;&lt;RiyalPrice amount={product.priceSAR} /&gt;&lt;/p&gt;
+    &lt;/article&gt;
+  );
+}
+</code></pre>
+
+<h2 id="client">Client Components — masked input</h2>
+<p><code>RiyalInput</code>, <code>AnimatedRiyalPrice</code>, and <code>useRiyalRate</code> use <code>useState</code> / <code>requestAnimationFrame</code> and need a <code>&quot;use client&quot;</code> directive:</p>
+<pre><code>&quot;use client&quot;;
+import { useState } from &quot;react&quot;;
+import { RiyalInput } from &quot;riyal/react&quot;;
+
+export function CheckoutForm() {
+  const [amount, setAmount] = useState&lt;number | &quot;&quot;&gt;(0);
+  return &lt;RiyalInput mask value={amount} onValueChange={setAmount} /&gt;;
+}
+</code></pre>
+
+<h2 id="og">OG image cards</h2>
+<p>Pair <code>riyal/og</code> with <code>next/og</code> to bake the SAMA glyph into share images for social platforms:</p>
+<pre><code>// app/og/route.tsx
+import { ImageResponse } from &quot;next/og&quot;;
+import { RiyalPriceCard } from &quot;riyal/og&quot;;
+
+export async function GET() {
+  return new ImageResponse(
+    &lt;RiyalPriceCard title=&quot;Pricing&quot; amount={2499.99} locale=&quot;ar-SA&quot; /&gt;,
+    { width: 1200, height: 630 },
+  );
+}
+</code></pre>
+<p>The card is Satori-ready and renders the glyph inline, so Twitter / LinkedIn / etc. don&rsquo;t need to load any font.</p>
+
+<h2 id="checkout">Cart math &amp; VAT</h2>
+<pre><code>import { lineItem, cartTotal } from &quot;riyal/cart&quot;;
+
+const totals = cartTotal(items, { shipping: 20, discount: 10 });
+// totals.netTotal, totals.vat, totals.total — Saudi-15%-VAT defaults
+</code></pre>
+
+<h2 id="next-steps">Next steps</h2>
+<ul>
+  <li>shadcn registry — drop production components in: <code>npx shadcn@latest add https://riyal.js.org/r/riyal-checkout-summary.json</code></li>
+  <li>Live demo: <a href="https://riyal.js.org/">https://riyal.js.org</a></li>
+  <li>npm: <a href="https://www.npmjs.com/package/riyal">npmjs.com/package/riyal</a></li>
+</ul>
+				<hr />
+				<p class="cta">Built by <a href="https://github.com/pooyagolchian">Pooya Golchian</a> · <a href="https://www.npmjs.com/package/riyal">riyal on npm</a> · <a href="https://riyal.js.org/">live demo</a></p>
+			</article>
+		</main>
+	</body>
+</html>

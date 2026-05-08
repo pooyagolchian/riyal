@@ -1,17 +1,15 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "riyal-amount-input",
-  "type": "registry:component",
-  "title": "Riyal Amount Input",
-  "description": "Form-grade SAR input with label, hint, and error states. Uses the masked <RiyalInput mask /> from riyal/react so paste of \"SAR 2,499.99\" or \"٢٤٩٩٫٩٩\" yields a clean number.",
-  "dependencies": [
-    "riyal"
-  ],
-  "files": [
-    {
-      "path": "components/riyal/riyal-amount-input.tsx",
-      "type": "registry:component",
-      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { RiyalInput } from \"riyal/react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface RiyalAmountInputProps {\n\tvalue: number | \"\";\n\tonValueChange: (value: number) => void;\n\tlabel?: string;\n\thint?: string;\n\terror?: string;\n\tlocale?: string;\n\tdecimals?: number;\n\tmask?: boolean;\n\tallowNegative?: boolean;\n\tplaceholder?: string;\n\tdisabled?: boolean;\n\tid?: string;\n\tclassName?: string;\n}\n\nexport function RiyalAmountInput({\n\tvalue,\n\tonValueChange,\n\tlabel,\n\thint,\n\terror,\n\tlocale,\n\tdecimals,\n\tmask = true,\n\tallowNegative = false,\n\tplaceholder = \"0.00\",\n\tdisabled,\n\tid,\n\tclassName,\n}: RiyalAmountInputProps) {\n\tconst generatedId = React.useId();\n\tconst inputId = id ?? generatedId;\n\tconst describedBy = error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined;\n\n\treturn (\n\t\t<div className={cn(\"flex flex-col gap-1.5\", className)}>\n\t\t\t{label ? (\n\t\t\t\t<label\n\t\t\t\t\thtmlFor={inputId}\n\t\t\t\t\tclassName=\"text-sm font-medium text-foreground data-[disabled=true]:opacity-60\"\n\t\t\t\t\tdata-disabled={disabled || undefined}\n\t\t\t\t>\n\t\t\t\t\t{label}\n\t\t\t\t</label>\n\t\t\t) : null}\n\t\t\t<RiyalInput\n\t\t\t\tid={inputId}\n\t\t\t\tvalue={value}\n\t\t\t\tonValueChange={onValueChange}\n\t\t\t\tlocale={locale}\n\t\t\t\tdecimals={decimals}\n\t\t\t\tmask={mask}\n\t\t\t\tallowNegative={allowNegative}\n\t\t\t\tplaceholder={placeholder}\n\t\t\t\tdisabled={disabled}\n\t\t\t\taria-invalid={Boolean(error) || undefined}\n\t\t\t\taria-describedby={describedBy}\n\t\t\t\tclassName={cn(\n\t\t\t\t\t\"h-10 rounded-md border border-input bg-background px-3 text-sm text-foreground transition-colors\",\n\t\t\t\t\t\"focus-within:border-ring focus-within:ring-1 focus-within:ring-ring\",\n\t\t\t\t\t\"[&_input]:flex-1 [&_input]:min-w-0 [&_input]:bg-transparent [&_input]:outline-none [&_input]:placeholder:text-muted-foreground\",\n\t\t\t\t\t\"[&_input]:disabled:opacity-60\",\n\t\t\t\t\terror &&\n\t\t\t\t\t\t\"border-destructive focus-within:border-destructive focus-within:ring-destructive\",\n\t\t\t\t)}\n\t\t\t/>\n\t\t\t{error ? (\n\t\t\t\t<p id={`${inputId}-error`} className=\"text-xs text-destructive\">\n\t\t\t\t\t{error}\n\t\t\t\t</p>\n\t\t\t) : hint ? (\n\t\t\t\t<p id={`${inputId}-hint`} className=\"text-xs text-muted-foreground\">\n\t\t\t\t\t{hint}\n\t\t\t\t</p>\n\t\t\t) : null}\n\t\t</div>\n\t);\n}\n"
-    }
-  ]
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "riyal-amount-input",
+	"type": "registry:component",
+	"title": "Riyal Amount Input",
+	"description": "Form-grade SAR input with label, hint, and error states. Uses the masked <RiyalInput mask /> from riyal/react so paste of \"SAR 2,499.99\" or \"٢٤٩٩٫٩٩\" yields a clean number.",
+	"dependencies": ["riyal"],
+	"files": [
+		{
+			"path": "components/riyal/riyal-amount-input.tsx",
+			"type": "registry:component",
+			"content": "\"use client\";\n\nimport * as React from \"react\";\nimport { RiyalInput } from \"riyal/react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface RiyalAmountInputProps {\n\tvalue: number | \"\";\n\tonValueChange: (value: number) => void;\n\tlabel?: string;\n\thint?: string;\n\terror?: string;\n\tlocale?: string;\n\tdecimals?: number;\n\tmask?: boolean;\n\tallowNegative?: boolean;\n\tplaceholder?: string;\n\tdisabled?: boolean;\n\tid?: string;\n\tclassName?: string;\n}\n\nexport function RiyalAmountInput({\n\tvalue,\n\tonValueChange,\n\tlabel,\n\thint,\n\terror,\n\tlocale,\n\tdecimals,\n\tmask = true,\n\tallowNegative = false,\n\tplaceholder = \"0.00\",\n\tdisabled,\n\tid,\n\tclassName,\n}: RiyalAmountInputProps) {\n\tconst generatedId = React.useId();\n\tconst inputId = id ?? generatedId;\n\tconst describedBy = error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined;\n\n\treturn (\n\t\t<div className={cn(\"flex flex-col gap-1.5\", className)}>\n\t\t\t{label ? (\n\t\t\t\t<label\n\t\t\t\t\thtmlFor={inputId}\n\t\t\t\t\tclassName=\"text-sm font-medium text-foreground data-[disabled=true]:opacity-60\"\n\t\t\t\t\tdata-disabled={disabled || undefined}\n\t\t\t\t>\n\t\t\t\t\t{label}\n\t\t\t\t</label>\n\t\t\t) : null}\n\t\t\t<RiyalInput\n\t\t\t\tid={inputId}\n\t\t\t\tvalue={value}\n\t\t\t\tonValueChange={onValueChange}\n\t\t\t\tlocale={locale}\n\t\t\t\tdecimals={decimals}\n\t\t\t\tmask={mask}\n\t\t\t\tallowNegative={allowNegative}\n\t\t\t\tplaceholder={placeholder}\n\t\t\t\tdisabled={disabled}\n\t\t\t\taria-invalid={Boolean(error) || undefined}\n\t\t\t\taria-describedby={describedBy}\n\t\t\t\tclassName={cn(\n\t\t\t\t\t\"h-10 rounded-md border border-input bg-background px-3 text-sm text-foreground transition-colors\",\n\t\t\t\t\t\"focus-within:border-ring focus-within:ring-1 focus-within:ring-ring\",\n\t\t\t\t\t\"[&_input]:flex-1 [&_input]:min-w-0 [&_input]:bg-transparent [&_input]:outline-none [&_input]:placeholder:text-muted-foreground\",\n\t\t\t\t\t\"[&_input]:disabled:opacity-60\",\n\t\t\t\t\terror &&\n\t\t\t\t\t\t\"border-destructive focus-within:border-destructive focus-within:ring-destructive\",\n\t\t\t\t)}\n\t\t\t/>\n\t\t\t{error ? (\n\t\t\t\t<p id={`${inputId}-error`} className=\"text-xs text-destructive\">\n\t\t\t\t\t{error}\n\t\t\t\t</p>\n\t\t\t) : hint ? (\n\t\t\t\t<p id={`${inputId}-hint`} className=\"text-xs text-muted-foreground\">\n\t\t\t\t\t{hint}\n\t\t\t\t</p>\n\t\t\t) : null}\n\t\t</div>\n\t);\n}\n"
+		}
+	]
 }

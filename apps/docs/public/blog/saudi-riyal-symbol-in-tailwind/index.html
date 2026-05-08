@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#000000" />
+		<meta name="color-scheme" content="dark" />
+		<title>How to display the Saudi Riyal symbol (U+20C1) with Tailwind CSS — riyal/tailwind</title>
+		<meta name="description" content="A first-class Tailwind plugin that ships the SAMA Saudi Riyal glyph plus utility classes for prices, weights, and theme tokens. Works with Tailwind v3 and v4, and pairs with the bundled WOFF2 font from riyal/css." />
+		<meta name="author" content="Pooya Golchian" />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<link rel="canonical" href="https://riyal.js.org/blog/saudi-riyal-symbol-in-tailwind/" />
+
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="How to display the Saudi Riyal symbol (U+20C1) with Tailwind CSS — riyal/tailwind" />
+		<meta property="og:description" content="A first-class Tailwind plugin that ships the SAMA Saudi Riyal glyph plus utility classes for prices, weights, and theme tokens. Works with Tailwind v3 and v4, and pairs with the bundled WOFF2 font from riyal/css." />
+		<meta property="og:url" content="https://riyal.js.org/blog/saudi-riyal-symbol-in-tailwind/" />
+		<meta property="og:image" content="https://riyal.js.org/og.png" />
+		<meta property="article:author" content="Pooya Golchian" />
+		<meta property="article:published_time" content="2026-05-08" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="How to display the Saudi Riyal symbol (U+20C1) with Tailwind CSS — riyal/tailwind" />
+		<meta name="twitter:description" content="A first-class Tailwind plugin that ships the SAMA Saudi Riyal glyph plus utility classes for prices, weights, and theme tokens. Works with Tailwind v3 and v4, and pairs with the bundled WOFF2 font from riyal/css." />
+		<meta name="twitter:image" content="https://riyal.js.org/og.png" />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — concise LLM context" />
+		<link rel="alternate" type="text/plain" href="/llms-full.txt" title="llms-full.txt — full LLM context" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" />
+		<link rel="stylesheet" href="/blog/blog.css" />
+
+		<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "How to display the Saudi Riyal symbol (U+20C1) with Tailwind CSS",
+  "description": "A first-class Tailwind plugin that ships the SAMA Saudi Riyal glyph plus utility classes for prices, weights, and theme tokens. Works with Tailwind v3 and v4, and pairs with the bundled WOFF2 font from riyal/css.",
+  "articleSection": "Guides",
+  "inLanguage": "en",
+  "datePublished": "2026-05-08",
+  "dateModified": "2026-05-08",
+  "author": {
+    "@type": "Person",
+    "name": "Pooya Golchian",
+    "url": "https://github.com/pooyagolchian"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Pooya Golchian"
+  },
+  "mainEntityOfPage": "https://riyal.js.org/blog/saudi-riyal-symbol-in-tailwind/",
+  "image": "https://riyal.js.org/og.png",
+  "about": [
+    "Saudi Riyal",
+    "U+20C1",
+    "SAR",
+    "Currency formatting"
+  ],
+  "keywords": "How to display the Saudi Riyal symbol (U+20C1) with Tailwind CSS"
+}</script>
+	</head>
+	<body>
+		<header class="topbar">
+			<a class="brand" href="/">⃁ Riyal</a>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/blog/">Guides</a>
+				<a href="https://github.com/pooyagolchian/riyal">GitHub</a>
+				<a href="https://www.npmjs.com/package/riyal">npm</a>
+			</nav>
+		</header>
+
+		<main>
+			<article>
+				<p class="kicker">Guide · 3 min read · Updated 2026-05-08</p>
+				<h1>How to display the Saudi Riyal symbol (U+20C1) with Tailwind CSS</h1>
+				<p class="lead">A first-class Tailwind plugin that ships the SAMA Saudi Riyal glyph plus utility classes for prices, weights, and theme tokens. Works with Tailwind v3 and v4, and pairs with the bundled WOFF2 font from riyal/css.</p>
+				<p>If your stack is Tailwind-first, the <code>riyal/tailwind</code> plugin gives you the official SAMA Saudi Riyal glyph as a set of utility classes — <code>riyal-symbol</code>, <code>riyal-price</code>, <code>font-riyal</code>, plus weight and size variants — without writing any custom CSS.</p>
+
+<h2 id="install">Install</h2>
+<pre><code>pnpm add riyal tailwindcss
+</code></pre>
+<p>Add the plugin to your <code>tailwind.config.{js,ts}</code>:</p>
+<pre><code>import riyal from &quot;riyal/tailwind&quot;;
+
+export default {
+  content: [&quot;./src/**/*.{ts,tsx,vue,svelte,html}&quot;],
+  plugins: [riyal()],
+};
+</code></pre>
+
+<h2 id="font">Load the bundled font</h2>
+<p>The Tailwind plugin assumes the <code>Riyal</code> font is registered. Either import the bundled CSS or set it up yourself:</p>
+<pre><code>/* Easiest — adds @font-face for all weights */
+@import &quot;riyal/css&quot;;
+</code></pre>
+<p>Real WOFF2/WOFF/TTF files (Regular 400, Medium 500, Bold 700) ship inside the package, generated from the SAMA master SVG via opentype.js + wawoff2. The <code>@font-face</code> declarations have <code>unicode-range: U+20C1</code> set, so the font only loads when a page actually renders the glyph.</p>
+
+<h2 id="utilities">Utility classes</h2>
+<pre><code>&lt;span class=&quot;riyal-symbol text-3xl&quot;&gt;&lt;/span&gt;
+
+&lt;p class=&quot;riyal-price text-foreground&quot;&gt;2,499.99&lt;/p&gt;
+
+&lt;span class=&quot;font-riyal&quot;&gt;⃁ 99.90&lt;/span&gt;
+</code></pre>
+<ul>
+  <li><code>riyal-symbol</code> — renders the U+20C1 glyph via <code>::before</code>; pair with size utilities (<code>text-sm</code>, <code>text-3xl</code>, etc.).</li>
+  <li><code>riyal-price</code> — prefixes the symbol on any element, with a small inline-end margin for readability.</li>
+  <li><code>font-riyal</code> — sets <code>font-family: &quot;Riyal&quot;, system-ui</code> for raw text where you&rsquo;ve typed the U+20C1 codepoint directly.</li>
+</ul>
+
+<h2 id="combine">Combine with riyal/react components</h2>
+<pre><code>import { RiyalPrice } from &quot;riyal/react&quot;;
+
+&lt;RiyalPrice
+  amount={2499.99}
+  className=&quot;text-3xl font-semibold tabular-nums tracking-tight&quot;
+/&gt;
+</code></pre>
+<p>The React component renders inline SVG, so it doesn&rsquo;t depend on the Tailwind plugin. Mix and match as needed.</p>
+
+<h2 id="shadcn">Tailwind + shadcn registry</h2>
+<p>Drop production-ready components into your project with one command:</p>
+<pre><code>npx shadcn@latest add https://riyal.js.org/r/riyal-price-tag.json
+npx shadcn@latest add https://riyal.js.org/r/riyal-amount-input.json
+npx shadcn@latest add https://riyal.js.org/r/riyal-checkout-summary.json
+</code></pre>
+
+<h2 id="next-steps">Next steps</h2>
+<ul>
+  <li>Plugin source: <a href="https://github.com/pooyagolchian/riyal/tree/main/packages/riyal-symbol/src/tailwind">github.com/pooyagolchian/riyal — src/tailwind</a></li>
+  <li>Live demo: <a href="https://riyal.js.org/">https://riyal.js.org</a></li>
+</ul>
+				<hr />
+				<p class="cta">Built by <a href="https://github.com/pooyagolchian">Pooya Golchian</a> · <a href="https://www.npmjs.com/package/riyal">riyal on npm</a> · <a href="https://riyal.js.org/">live demo</a></p>
+			</article>
+		</main>
+	</body>
+</html>

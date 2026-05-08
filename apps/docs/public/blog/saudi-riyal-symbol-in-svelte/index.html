@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#000000" />
+		<meta name="color-scheme" content="dark" />
+		<title>How to display the Saudi Riyal symbol (U+20C1) in Svelte 5 / SvelteKit — riyal/svelte</title>
+		<meta name="description" content="Native Svelte 5 components using runes for the official SAMA Saudi Riyal sign. RiyalPrice, RiyalInput with mask, and a rune-based useRiyalRate composable. Compiles directly with your Vite or SvelteKit bundler — no extra config." />
+		<meta name="author" content="Pooya Golchian" />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<link rel="canonical" href="https://riyal.js.org/blog/saudi-riyal-symbol-in-svelte/" />
+
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="How to display the Saudi Riyal symbol (U+20C1) in Svelte 5 / SvelteKit — riyal/svelte" />
+		<meta property="og:description" content="Native Svelte 5 components using runes for the official SAMA Saudi Riyal sign. RiyalPrice, RiyalInput with mask, and a rune-based useRiyalRate composable. Compiles directly with your Vite or SvelteKit bundler — no extra config." />
+		<meta property="og:url" content="https://riyal.js.org/blog/saudi-riyal-symbol-in-svelte/" />
+		<meta property="og:image" content="https://riyal.js.org/og.png" />
+		<meta property="article:author" content="Pooya Golchian" />
+		<meta property="article:published_time" content="2026-05-08" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="How to display the Saudi Riyal symbol (U+20C1) in Svelte 5 / SvelteKit — riyal/svelte" />
+		<meta name="twitter:description" content="Native Svelte 5 components using runes for the official SAMA Saudi Riyal sign. RiyalPrice, RiyalInput with mask, and a rune-based useRiyalRate composable. Compiles directly with your Vite or SvelteKit bundler — no extra config." />
+		<meta name="twitter:image" content="https://riyal.js.org/og.png" />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt — concise LLM context" />
+		<link rel="alternate" type="text/plain" href="/llms-full.txt" title="llms-full.txt — full LLM context" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" />
+		<link rel="stylesheet" href="/blog/blog.css" />
+
+		<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "How to display the Saudi Riyal symbol (U+20C1) in Svelte 5",
+  "description": "Native Svelte 5 components using runes for the official SAMA Saudi Riyal sign. RiyalPrice, RiyalInput with mask, and a rune-based useRiyalRate composable. Compiles directly with your Vite or SvelteKit bundler — no extra config.",
+  "articleSection": "Guides",
+  "inLanguage": "en",
+  "datePublished": "2026-05-08",
+  "dateModified": "2026-05-08",
+  "author": {
+    "@type": "Person",
+    "name": "Pooya Golchian",
+    "url": "https://github.com/pooyagolchian"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Pooya Golchian"
+  },
+  "mainEntityOfPage": "https://riyal.js.org/blog/saudi-riyal-symbol-in-svelte/",
+  "image": "https://riyal.js.org/og.png",
+  "about": [
+    "Saudi Riyal",
+    "U+20C1",
+    "SAR",
+    "Currency formatting"
+  ],
+  "keywords": "How to display the Saudi Riyal symbol (U+20C1) in Svelte 5"
+}</script>
+	</head>
+	<body>
+		<header class="topbar">
+			<a class="brand" href="/">⃁ Riyal</a>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/blog/">Guides</a>
+				<a href="https://github.com/pooyagolchian/riyal">GitHub</a>
+				<a href="https://www.npmjs.com/package/riyal">npm</a>
+			</nav>
+		</header>
+
+		<main>
+			<article>
+				<p class="kicker">Guide · 3 min read · Updated 2026-05-08</p>
+				<h1>How to display the Saudi Riyal symbol (U+20C1) in Svelte 5</h1>
+				<p class="lead">Native Svelte 5 components using runes for the official SAMA Saudi Riyal sign. RiyalPrice, RiyalInput with mask, and a rune-based useRiyalRate composable. Compiles directly with your Vite or SvelteKit bundler — no extra config.</p>
+				<p>Svelte 5 introduced runes (<code>$state</code>, <code>$derived</code>, <code>$effect</code>, <code>$bindable</code>) and broke compatibility with most older Svelte component libraries. The <code>riyal/svelte</code> entry was built rune-first, so it drops straight into Svelte 5 / SvelteKit projects without any runes-vs-stores juggling.</p>
+
+<h2 id="install">Install</h2>
+<pre><code>pnpm add riyal svelte
+# or npm install riyal svelte
+</code></pre>
+<p><code>svelte &ge; 5</code> is an optional peer dependency. The package ships <code>.svelte</code> source so your bundler (Vite, SvelteKit) compiles it natively.</p>
+
+<h2 id="basic">Basic usage</h2>
+<pre><code>&lt;script lang=&quot;ts&quot;&gt;
+  import {
+    RiyalSymbol, RiyalIcon, RiyalPrice,
+    AnimatedRiyalPrice, RiyalInput, useRiyalRate,
+  } from &quot;riyal/svelte&quot;;
+
+  let amount: number | &quot;&quot; = $state(2499.99);
+  const usd = useRiyalRate(&quot;USD&quot;);
+&lt;/script&gt;
+
+&lt;RiyalSymbol size={24} /&gt;
+&lt;RiyalIcon width={32} height={32} /&gt;
+&lt;RiyalPrice amount={2499.99} locale=&quot;ar-SA&quot; /&gt;
+&lt;AnimatedRiyalPrice amount={amount} durationMs={600} /&gt;
+&lt;RiyalInput bind:value={amount} mask /&gt;
+
+{#if usd.rate}
+  &lt;span&gt;{((amount as number) * usd.rate).toFixed(2)} USD&lt;/span&gt;
+{/if}
+</code></pre>
+
+<h2 id="masked">Masked input — paste-friendly</h2>
+<p>The <code>mask</code> prop on <code>&lt;RiyalInput&gt;</code> turns the field into a format-as-you-type input. Pasting any of these into the field yields a clean number plus a perfectly grouped display:</p>
+<ul>
+  <li><code>&quot;SAR 2,499.99&quot;</code></li>
+  <li><code>&quot;⃁ 2,499.99&quot;</code></li>
+  <li><code>&quot;٢٤٩٩٫٩٩&quot;</code> (Arabic-Indic digits)</li>
+</ul>
+<p>Two-way binding via <code>bind:value</code> exposes the parsed numeric value to your component state.</p>
+
+<h2 id="rate">Live SAR exchange rate (rune-based)</h2>
+<p><code>useRiyalRate</code> is a factory that returns read-only rune getters plus a <code>refresh()</code> method:</p>
+<pre><code>const usd = useRiyalRate(&quot;USD&quot;);
+// usd.rate     → number | null  (read-only)
+// usd.loading  → boolean
+// usd.error    → Error | null
+// usd.refresh() → void
+</code></pre>
+<p>The first invocation kicks off a 1-hour-cached fetch. Subsequent components share the same in-memory cache.</p>
+
+<h2 id="next-steps">Next steps</h2>
+<ul>
+  <li>Live demo: <a href="https://riyal.js.org/">https://riyal.js.org</a></li>
+  <li>API reference: <a href="https://riyal.js.org/#reference">https://riyal.js.org/#reference</a></li>
+  <li>shadcn registry: <code>npx shadcn@latest add https://riyal.js.org/r/riyal-checkout-summary.json</code></li>
+</ul>
+				<hr />
+				<p class="cta">Built by <a href="https://github.com/pooyagolchian">Pooya Golchian</a> · <a href="https://www.npmjs.com/package/riyal">riyal on npm</a> · <a href="https://riyal.js.org/">live demo</a></p>
+			</article>
+		</main>
+	</body>
+</html>
