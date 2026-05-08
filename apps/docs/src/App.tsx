@@ -169,9 +169,9 @@ export function App() {
 		<div className="relative min-h-screen bg-background text-foreground bg-noir-radial">
 			<div className="pointer-events-none fixed inset-0 bg-noir-grid opacity-40" />
 
-			<div className="relative mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-10">
-				{/* Topbar */}
-				<header className="sticky top-0 z-50 -mx-4 flex items-center justify-between gap-3 border-b border-white/[0.06] bg-background/80 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:gap-4 sm:px-6 sm:py-5 lg:-mx-10 lg:px-10">
+			{/* Topbar — fixed so it stays visible across the entire scroll */}
+			<header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-background/80 backdrop-blur-md">
+				<div className="mx-auto flex w-full max-w-[1240px] items-center justify-between gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-5 lg:px-10">
 					<div className="flex shrink-0 items-center gap-2.5 font-display text-[12px] font-medium uppercase tracking-[0.28em] text-foreground sm:text-[15px] sm:tracking-[0.32em]">
 						<RiyalSymbol size={16} /> Riyal
 					</div>
@@ -207,8 +207,13 @@ export function App() {
 					<div className="hidden shrink-0 font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground sm:block sm:text-[10px]">
 						v1.2.0 · MIT
 					</div>
-				</header>
+				</div>
+			</header>
 
+			{/* Spacer to compensate for the fixed header height */}
+			<div aria-hidden="true" className="h-[57px] sm:h-[81px]" />
+
+			<div className="relative mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-10">
 				{/* Hero */}
 				<section className="grid items-center gap-10 py-12 sm:gap-16 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:gap-20 lg:py-32">
 					<div className="min-w-0">

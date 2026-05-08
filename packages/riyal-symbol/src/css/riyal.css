@@ -33,3 +33,14 @@
 	font-family: "Riyal", "Riyal Sans", system-ui, sans-serif;
 	margin-inline-end: 0.25em;
 }
+
+/* Hide the native number-input spinner inside <RiyalInput>. */
+.riyal-input input[type="number"]::-webkit-outer-spin-button,
+.riyal-input input[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+.riyal-input input[type="number"] {
+	-moz-appearance: textfield;
+	appearance: textfield;
+}

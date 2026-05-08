@@ -61,11 +61,17 @@
 		background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.04), transparent 60%), #000;
 	}
 	.hide-spinner::-webkit-outer-spin-button,
-	.hide-spinner::-webkit-inner-spin-button {
+	.hide-spinner::-webkit-inner-spin-button,
+	.hide-spinner input[type="number"]::-webkit-outer-spin-button,
+	.hide-spinner input[type="number"]::-webkit-inner-spin-button,
+	.riyal-input input[type="number"]::-webkit-outer-spin-button,
+	.riyal-input input[type="number"]::-webkit-inner-spin-button {
 		-webkit-appearance: none;
 		margin: 0;
 	}
-	.hide-spinner {
+	.hide-spinner,
+	.hide-spinner input[type="number"],
+	.riyal-input input[type="number"] {
 		-moz-appearance: textfield;
 		appearance: textfield;
 	}
