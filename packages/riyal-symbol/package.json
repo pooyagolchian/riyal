@@ -94,6 +94,11 @@
 			"types": "./src/svelte/index.ts",
 			"default": "./src/svelte/index.ts"
 		},
+		"./cart": {
+			"types": "./dist/cart/index.d.ts",
+			"import": "./dist/cart/index.js",
+			"require": "./dist/cart/index.cjs"
+		},
 		"./web-component": {
 			"types": "./dist/web-component/index.d.ts",
 			"import": "./dist/web-component/index.js"

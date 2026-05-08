@@ -14,6 +14,7 @@ import {
 	parseRiyal,
 	removeVAT,
 } from "riyal";
+import { type LineItem, cartTotal, lineItem } from "riyal/cart";
 import { AnimatedRiyalPrice, RiyalIcon, RiyalInput, RiyalPrice, RiyalSymbol } from "riyal/react";
 import { Badge } from "./components/ui/badge";
 import { Button } from "./components/ui/button";
@@ -102,6 +103,14 @@ export function App() {
 	const [decimals, setDecimals] = useState(2);
 	const [animAmount, setAnimAmount] = useState(1234.5);
 	const [parseInput, setParseInput] = useState("SAR 2,500.00");
+	const [maskedAmount, setMaskedAmount] = useState<number | "">("");
+	const [cartQty, setCartQty] = useState<Record<string, number>>({
+		beans: 1,
+		mug: 2,
+		filter: 1,
+	});
+	const [cartDiscount, setCartDiscount] = useState<number | "">(0);
+	const [cartShipping, setCartShipping] = useState(20);
 	const [copyState, setCopyState] = useState<string>("");
 
 	const numeric = typeof amount === "number" && Number.isFinite(amount) ? amount : 0;
@@ -113,6 +122,33 @@ export function App() {
 			return Number.NaN;
 		}
 	}, [parseInput]);
+
+	const catalog = useMemo(
+		() =>
+			[
+				{ id: "beans", name: "Arabica Beans · 250g", unit: 75 },
+				{ id: "mug", name: "Ceramic Mug", unit: 45 },
+				{ id: "filter", name: "Filter Pack · 40 ct", unit: 28 },
+			] as const,
+		[],
+	);
+
+	const cartLines = useMemo<LineItem[]>(
+		() =>
+			catalog
+				.map((p) => lineItem({ id: p.id, name: p.name, unit: p.unit, qty: cartQty[p.id] ?? 0 }))
+				.filter((li) => li.qty > 0),
+		[catalog, cartQty],
+	);
+
+	const cartTotals = useMemo(
+		() =>
+			cartTotal(cartLines, {
+				discount: typeof cartDiscount === "number" ? cartDiscount : 0,
+				shipping: cartShipping,
+			}),
+		[cartLines, cartDiscount, cartShipping],
+	);
 
 	useEffect(() => {
 		if (!copyState) return;
@@ -150,6 +186,12 @@ export function App() {
 							API
 						</a>
 						<a
+							className="hidden transition-colors hover:text-foreground md:inline"
+							href="#checkout"
+						>
+							Checkout
+						</a>
+						<a
 							className="hidden transition-colors hover:text-foreground lg:inline"
 							href="#reference"
 						>
@@ -163,7 +205,7 @@ export function App() {
 						</a>
 					</nav>
 					<div className="hidden shrink-0 font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground sm:block sm:text-[10px]">
-						v1.1.0 · MIT
+						v1.2.0 · MIT
 					</div>
 				</header>
 
@@ -221,13 +263,35 @@ export function App() {
 					</div>
 				</section>
 
+				{/* What's new in v1.2 — technical chip row */}
+				<div className="flex flex-wrap items-center gap-x-2 gap-y-2 border-t border-white/[0.06] py-5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:gap-x-3 sm:py-6">
+					<span className="rounded-none border border-white/[0.18] bg-white/[0.02] px-2 py-1 text-foreground">
+						v1.2 · NEW
+					</span>
+					{[
+						"riyal/vue",
+						"riyal/svelte",
+						"<RiyalInput mask />",
+						"riyal/cart",
+						"maskRiyal()",
+						"lineItem · cartTotal",
+					].map((chip) => (
+						<span
+							key={chip}
+							className="border border-white/[0.06] px-2 py-1 transition-colors hover:border-white/[0.2]"
+						>
+							{chip}
+						</span>
+					))}
+				</div>
+
 				{/* Stats */}
 				<div className="grid grid-cols-2 divide-x divide-y divide-white/[0.06] border-y border-white/[0.06] md:grid-cols-4 md:divide-y-0">
 					{[
 						{ v: "U+20C1", l: "Codepoint" },
-						{ v: "11", l: "Entry points" },
+						{ v: "13", l: "Entry points" },
 						{ v: "15%", l: "VAT default" },
-						{ v: "2", l: "RTL · LTR" },
+						{ v: "5", l: "Frameworks" },
 					].map((s) => (
 						<div key={s.l} className="px-6 py-10 sm:px-8 sm:py-12">
 							<div className="font-display text-3xl font-light leading-none text-foreground sm:text-4xl lg:text-5xl">
@@ -250,7 +314,7 @@ export function App() {
 					<Card>
 						<CardHeader>
 							<CardTitle>Package · npm</CardTitle>
-							<Badge>v1.1.0</Badge>
+							<Badge>v1.2.0</Badge>
 						</CardHeader>
 						<pre className="code-block">
 							<span className="tok-c"># the only dependency you need</span>
@@ -537,7 +601,9 @@ export function App() {
 					description={
 						<>
 							Numeric input that prefixes the symbol and emits clean numbers via{" "}
-							<code className="font-mono-tight text-foreground">onValueChange</code>. SSR-safe.
+							<code className="font-mono-tight text-foreground">onValueChange</code>. SSR-safe. Pass{" "}
+							<code className="font-mono-tight text-foreground">mask</code> to format-as-you-type
+							with paste cleanup, Arabic-numeral normalisation, and caret preservation.
 						</>
 					}
 				>
@@ -570,6 +636,65 @@ export function App() {
 								</span>
 								<span className="font-display text-xl">
 									<RiyalPrice amount={numeric} locale={locale} />
+								</span>
+							</div>
+						</div>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>Live · {"<RiyalInput mask />"}</CardTitle>
+							<Badge>format-as-you-type</Badge>
+						</CardHeader>
+						<div className="group flex h-14 w-full items-stretch border border-white/10 bg-white/[0.015] transition-colors focus-within:border-white/40 hover:border-white/25">
+							<span className="flex items-center border-r border-white/10 px-4 text-white/55">
+								<RiyalSymbol size={14} />
+							</span>
+							<RiyalInput
+								mask
+								className="h-full min-w-0 flex-1 bg-transparent px-4 font-display text-2xl text-foreground outline-none placeholder:text-white/25"
+								value={maskedAmount}
+								onValueChange={(v) => setMaskedAmount(v)}
+								placeholder="0.00"
+							/>
+						</div>
+						<div className="flex flex-col gap-2">
+							<span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+								Try pasting one of these into the field above
+							</span>
+							<div className="flex flex-wrap gap-2">
+								{["SAR 2,499.99", "⃁ 2,499.99", "٢٤٩٩٫٩٩", "99.90 ر.س"].map((sample) => (
+									<Button
+										key={sample}
+										variant="outline"
+										size="sm"
+										onClick={() => handleCopy(sample, sample)}
+									>
+										Copy "{sample}"
+									</Button>
+								))}
+							</div>
+						</div>
+						<div className="grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2">
+							<div className="flex items-baseline justify-between gap-6 border-b border-white/[0.04] py-3">
+								<span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+									Numeric value
+								</span>
+								<span className="font-display text-xl">
+									{maskedAmount === "" || Number.isNaN(maskedAmount as number)
+										? "—"
+										: (maskedAmount as number).toString()}
+								</span>
+							</div>
+							<div className="flex items-baseline justify-between gap-6 border-b border-white/[0.04] py-3">
+								<span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+									Reformatted
+								</span>
+								<span className="font-display text-xl">
+									{maskedAmount === "" || Number.isNaN(maskedAmount as number) ? (
+										"—"
+									) : (
+										<RiyalPrice amount={maskedAmount as number} locale={locale} />
+									)}
 								</span>
 							</div>
 						</div>
@@ -719,51 +844,88 @@ export function App() {
 							{
 								n: "/REACT",
 								t: "Components & hooks",
-								d: "Symbol, Icon, Price, AnimatedPrice, Input, useRiyalRate.",
+								d: "Symbol, Icon, Price, AnimatedPrice, Input (with mask mode), useRiyalRate.",
+								tag: "stable",
+							},
+							{
+								n: "/VUE",
+								t: "Vue 3 components",
+								d: "Same surface, defineComponent + h(), useRiyalRate composable.",
+								tag: "v1.2",
+							},
+							{
+								n: "/SVELTE",
+								t: "Svelte 5 runes",
+								d: "Native .svelte components with $props, $state, $derived, $effect.",
+								tag: "v1.2",
 							},
 							{
 								n: "/WEB-COMPONENT",
 								t: "Custom elements",
 								d: "<riyal-symbol>, <riyal-price>, framework-free.",
-							},
-							{
-								n: "/TAILWIND",
-								t: "Plugin",
-								d: "Utilities, components and theme tokens for Tailwind v3+.",
-							},
-							{
-								n: "/OG",
-								t: "Open Graph cards",
-								d: "Satori-ready JSX and a string-SVG generator for share images.",
-							},
-							{
-								n: "/NEXT",
-								t: "Next.js font",
-								d: "First-class next/font integration, zero CLS.",
+								tag: "stable",
 							},
 							{
 								n: "/REACT-NATIVE",
 								t: "Mobile",
 								d: "Same API, browser-free imports — safe for Expo & bare RN.",
+								tag: "stable",
+							},
+							{
+								n: "/CART",
+								t: "Checkout primitives",
+								d: "lineItem, cartTotal, formatLineItem — receipt-grade VAT math.",
+								tag: "v1.2",
+							},
+							{
+								n: "/TAILWIND",
+								t: "Plugin",
+								d: "Utilities, components and theme tokens for Tailwind v3+.",
+								tag: "stable",
+							},
+							{
+								n: "/OG",
+								t: "Open Graph cards",
+								d: "Satori-ready JSX and a string-SVG generator for share images.",
+								tag: "stable",
+							},
+							{
+								n: "/NEXT",
+								t: "Next.js font",
+								d: "First-class next/font integration, zero CLS.",
+								tag: "stable",
 							},
 							{
 								n: "/CLI",
 								t: "Toolkit",
 								d: "Generate fonts, OG images and constants from the CLI.",
+								tag: "stable",
 							},
 							{
 								n: "/FONT.CSS",
 								t: "Pure CSS",
 								d: "Drop-in stylesheet that maps U+20C1 to the SAMA glyph.",
+								tag: "stable",
 							},
 						].map((c) => (
 							<div
 								key={c.n}
 								className="group relative flex min-h-[160px] flex-col gap-3 border-b border-r border-white/[0.06] p-6 transition-colors hover:bg-white/[0.02] sm:min-h-[200px] sm:p-8"
 							>
-								<span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-									{c.n}
-								</span>
+								<div className="flex items-center justify-between gap-3">
+									<span className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+										{c.n}
+									</span>
+									<span
+										className={`border px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] ${
+											c.tag === "v1.2"
+												? "border-emerald-400/30 text-emerald-300/80"
+												: "border-white/[0.1] text-muted-foreground"
+										}`}
+									>
+										{c.tag}
+									</span>
+								</div>
 								<span className="font-display text-2xl font-light leading-tight text-foreground">
 									{c.t}
 								</span>
@@ -773,12 +935,76 @@ export function App() {
 					</div>
 				</Section>
 
-				{/* 10 — Web Component & Tailwind */}
+				{/* 10 — Vue · Svelte · Web Component · Tailwind */}
 				<Section
-					num="10 — Web Component & Tailwind"
+					num="10 — Vue · Svelte · Web Component · Tailwind"
 					title="Standards-first, always."
-					description="The same glyph and price renderer, but as native custom elements and as a first-class Tailwind plugin."
+					description="The same glyph and price renderer — as idiomatic Vue 3 and Svelte 5 components, as native custom elements, and as a first-class Tailwind plugin."
 				>
+					<Card>
+						<CardHeader>
+							<CardTitle>{"Vue 3 · <script setup>"}</CardTitle>
+							<Badge>riyal/vue</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-k">&lt;script setup</span> <span className="tok-n">lang</span>=
+							<span className="tok-s">"ts"</span>
+							<span className="tok-k">&gt;</span>
+							{"\n  "}
+							<span className="tok-k">import</span> <span className="tok-n">{"{ ref }"}</span>{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"vue"</span>;{"\n  "}
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ RiyalPrice, RiyalInput }"}</span>{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/vue"</span>
+							{";"}
+							{"\n  "}
+							<span className="tok-k">const</span> amount = <span className="tok-f">ref</span>(
+							<span className="tok-n">2499.99</span>);{"\n"}
+							<span className="tok-k">&lt;/script&gt;</span>
+							{"\n\n"}
+							<span className="tok-k">&lt;template&gt;</span>
+							{"\n  "}
+							<span className="tok-k">&lt;RiyalPrice</span> :amount=
+							<span className="tok-s">"2499.99"</span> <span className="tok-n">locale</span>=
+							<span className="tok-s">"ar-SA"</span>
+							<span className="tok-k"> /&gt;</span>
+							{"\n  "}
+							<span className="tok-k">&lt;RiyalInput</span> v-model=
+							<span className="tok-s">"amount"</span> <span className="tok-n">mask</span>
+							<span className="tok-k"> /&gt;</span>
+							{"\n"}
+							<span className="tok-k">&lt;/template&gt;</span>
+						</pre>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>Svelte 5 · runes</CardTitle>
+							<Badge>riyal/svelte</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-k">&lt;script</span> <span className="tok-n">lang</span>=
+							<span className="tok-s">"ts"</span>
+							<span className="tok-k">&gt;</span>
+							{"\n  "}
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ RiyalPrice, RiyalInput }"}</span>{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/svelte"</span>
+							{";"}
+							{"\n  "}
+							<span className="tok-k">let</span> amount: <span className="tok-k">number</span> | ""
+							= <span className="tok-f">$state</span>(<span className="tok-n">2499.99</span>);{"\n"}
+							<span className="tok-k">&lt;/script&gt;</span>
+							{"\n\n"}
+							<span className="tok-k">&lt;RiyalPrice</span> amount=
+							<span className="tok-n">{"{2499.99}"}</span> <span className="tok-n">locale</span>=
+							<span className="tok-s">"ar-SA"</span>
+							<span className="tok-k"> /&gt;</span>
+							{"\n"}
+							<span className="tok-k">&lt;RiyalInput</span> bind:value=
+							<span className="tok-n">{"{amount}"}</span> <span className="tok-n">mask</span>
+							<span className="tok-k"> /&gt;</span>
+						</pre>
+					</Card>
 					<Card>
 						<CardHeader>
 							<CardTitle>HTML</CardTitle>
@@ -1163,8 +1389,8 @@ export function App() {
 										],
 										[
 											"<RiyalInput />",
-											"value, onValueChange, locale?, placeholder?",
-											"Controlled; emits clean number via onValueChange",
+											"value, onValueChange, locale?, placeholder?, mask?, allowNegative?",
+											"Pass mask for paste cleanup + Arabic-numeral normalisation",
 										],
 										[
 											"useRiyalRate(currency)",
@@ -1306,9 +1532,158 @@ export function App() {
 					</Card>
 				</Section>
 
-				{/* 15 — Error Handling */}
+				{/* 15 — Checkout */}
 				<Section
-					num="15 — Error Handling"
+					id="checkout"
+					num="15 — Checkout"
+					title="Receipts, ready out of the box."
+					description={
+						<>
+							<code className="font-mono-tight text-foreground">riyal/cart</code> ships{" "}
+							<code className="font-mono-tight text-foreground">lineItem</code>,{" "}
+							<code className="font-mono-tight text-foreground">cartTotal</code>, and{" "}
+							<code className="font-mono-tight text-foreground">formatLineItem</code>. Net / VAT /
+							gross math, proportional cart-level discounts, and shipping with VAT-on-top by default
+							— Saudi-receipt accurate.
+						</>
+					}
+				>
+					<Card>
+						<CardHeader>
+							<CardTitle>Live cart · {"<RiyalPrice />"} totals</CardTitle>
+							<Badge>VAT 15%</Badge>
+						</CardHeader>
+						<div className="flex flex-col divide-y divide-white/[0.05] border-y border-white/[0.06]">
+							{catalog.map((p) => {
+								const qty = cartQty[p.id] ?? 0;
+								return (
+									<div key={p.id} className="flex items-center justify-between gap-4 py-4">
+										<div className="min-w-0 flex-1">
+											<div className="font-display text-lg leading-tight text-foreground">
+												{p.name}
+											</div>
+											<div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+												<RiyalPrice amount={p.unit} locale={locale} /> each
+											</div>
+										</div>
+										<div className="flex items-center gap-2">
+											<Button
+												variant="outline"
+												size="sm"
+												onClick={() =>
+													setCartQty((q) => ({
+														...q,
+														[p.id]: Math.max(0, (q[p.id] ?? 0) - 1),
+													}))
+												}
+												aria-label={`Decrease ${p.name} quantity`}
+											>
+												−
+											</Button>
+											<span className="w-8 text-center font-mono-tight text-base">{qty}</span>
+											<Button
+												variant="outline"
+												size="sm"
+												onClick={() => setCartQty((q) => ({ ...q, [p.id]: (q[p.id] ?? 0) + 1 }))}
+												aria-label={`Increase ${p.name} quantity`}
+											>
+												+
+											</Button>
+										</div>
+										<div className="w-28 text-right font-display text-lg">
+											<RiyalPrice amount={p.unit * qty} locale={locale} />
+										</div>
+									</div>
+								);
+							})}
+						</div>
+						<div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+							<div className="flex flex-col gap-2">
+								<label
+									htmlFor="cart-discount"
+									className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground"
+								>
+									Discount (gross)
+								</label>
+								<NumberField
+									value={cartDiscount}
+									onValueChange={setCartDiscount}
+									step={1}
+									min={0}
+									prefix={<RiyalSymbol size={12} />}
+								/>
+							</div>
+							<div className="flex flex-col gap-2">
+								<label
+									htmlFor="cart-shipping"
+									className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground"
+								>
+									Shipping (net)
+								</label>
+								<NumberField
+									value={cartShipping}
+									onValueChange={(v) => setCartShipping(typeof v === "number" ? v : 0)}
+									step={5}
+									min={0}
+									prefix={<RiyalSymbol size={12} />}
+								/>
+							</div>
+						</div>
+						<div className="flex flex-col divide-y divide-white/[0.04] border-y border-white/[0.06] py-1">
+							{(
+								[
+									{ lbl: "Subtotal (net)", v: cartTotals.subtotal },
+									{ lbl: "Discount", v: -cartTotals.discount },
+									{ lbl: "Shipping", v: cartTotals.shipping },
+									{ lbl: "VAT", v: cartTotals.vat },
+								] as const
+							).map((row) => (
+								<div key={row.lbl} className="flex items-center justify-between gap-6 py-3">
+									<span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+										{row.lbl}
+									</span>
+									<span className="font-display text-lg">
+										{row.v < 0 ? "−" : ""}
+										<RiyalPrice amount={Math.abs(row.v)} locale={locale} />
+									</span>
+								</div>
+							))}
+							<div className="flex items-baseline justify-between gap-6 py-4">
+								<span className="font-mono text-[10px] uppercase tracking-[0.22em] text-foreground">
+									Grand total · {cartTotals.itemCount} items
+								</span>
+								<span className="font-display text-3xl tracking-[-0.02em]">
+									<RiyalPrice amount={cartTotals.total} locale={locale} />
+								</span>
+							</div>
+						</div>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>{`import { lineItem, cartTotal } from "riyal/cart"`}</CardTitle>
+							<Badge>tree-shakable</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ lineItem, cartTotal }"}</span>{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/cart"</span>
+							{";"}
+							{"\n\n"}
+							<span className="tok-k">const</span> items = [{"\n  "}
+							<span className="tok-f">lineItem</span>(
+							<span className="tok-n">{"{ unit: 75, qty: 1 }"}</span>),{"\n  "}
+							<span className="tok-f">lineItem</span>(
+							<span className="tok-n">{"{ unit: 45, qty: 2 }"}</span>),{"\n"}];{"\n\n"}
+							<span className="tok-k">const</span> totals = <span className="tok-f">cartTotal</span>
+							(items, <span className="tok-n">{"{ shipping: 20, discount: 10 }"}</span>);{"\n"}
+							<span className="tok-c">{"// → { subtotal, vat, shipping, total, ... }"}</span>
+						</pre>
+					</Card>
+				</Section>
+
+				{/* 16 — Error Handling */}
+				<Section
+					num="16 — Error Handling"
 					title="Fail gracefully, always."
 					description="Network calls can fail. Every async helper has a predictable throw shape. The React hook surfaces errors without try/catch boilerplate."
 				>
@@ -1346,7 +1721,8 @@ export function App() {
 						<pre className="code-block">
 							<span className="tok-k">import</span>{" "}
 							<span className="tok-n">{"{ useRiyalRate }"}</span>{" "}
-							<span className="tok-k">from</span> <span className="tok-s">"riyal/react"</span>;
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/react"</span>
+							{";"}
 							{"\n\n"}
 							<span className="tok-k">function</span> <span className="tok-f">CartCurrency</span>(
 							{"{"} sar {"}"}: {"{"} sar: <span className="tok-k">number</span> {"}"}) {"{"}

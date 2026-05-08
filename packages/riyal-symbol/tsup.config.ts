@@ -11,6 +11,7 @@ export default defineConfig({
 		"og/index": "src/og/index.tsx",
 		"cli/index": "src/cli/index.ts",
 		"vue/index": "src/vue/index.ts",
+		"cart/index": "src/cart/index.ts",
 	},
 	format: ["esm", "cjs"],
 	dts: true,

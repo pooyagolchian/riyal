@@ -1,14 +1,15 @@
-# Riyal — Full LLM Context (v1.1.0)
+# Riyal — Full LLM Context (v1.2.0)
 
 > Complete API reference for the `riyal` npm package. Use this file to understand every export,
 > every prop, every code sample, and idiomatic usage patterns before generating code.
 
 - Package: `riyal` (npm, MIT)
-- Version: 1.1.0
+- Version: 1.2.0
 - Source: https://github.com/pooyagolchian/riyal
 - Demo: https://riyal.js.org
 - Node ≥ 20, ESM + CJS + TypeScript declarations (`noUncheckedIndexedAccess: true`)
 - Author: Pooya Golchian
+- New in v1.2: Vue 3 entry, Svelte 5 entry, masked `RiyalInput`, `riyal/cart` checkout primitives.
 
 ---
 
@@ -39,6 +40,8 @@ Peer dependencies (all optional, only needed for the entry you import):
 | Entry | Peer |
 | --- | --- |
 | `riyal/react` | `react ≥ 18`, `react-dom ≥ 18` |
+| `riyal/vue` | `vue ≥ 3.4` |
+| `riyal/svelte` | `svelte ≥ 5` |
 | `riyal/react-native` | `react-native ≥ 0.72`, `react-native-svg ≥ 13` |
 | `riyal/tailwind` | `tailwindcss ≥ 3` |
 | `riyal/next` | `next ≥ 13` |
@@ -112,6 +115,30 @@ parseRiyal("٢٬٤٩٩٫٩٩ ⃁")  // → 2499.99  (Arabic digits)
 parseRiyal("1.5M ⃁")        // → 1500000  (compact suffix)
 parseRiyal("99.90 ر.س")      // → 99.9
 ```
+
+### `maskRiyal(input, caret?, options?)` — *new in v1.2*
+
+Pure helper that powers `RiyalInput` masked mode. Format-as-you-type with paste cleanup,
+Arabic-numeral normalisation, thousand-separator grouping, and caret tracking. Returns
+`{ value: number, display: string, caret: number }`.
+
+```ts
+import { maskRiyal, normalizeRiyalDigits, cleanRiyalString } from "riyal";
+
+maskRiyal("12345");                                   // { value: 12345, display: "12,345", caret: 6 }
+maskRiyal("SAR 2,499.99");                            // { value: 2499.99, display: "2,499.99", caret: 8 }
+maskRiyal("⃁ 2,499.99");                             // { value: 2499.99, display: "2,499.99", ... }
+maskRiyal("٢٤٩٩٫٩٩");                                  // { value: 2499.99, display: "2,499.99", ... }
+maskRiyal("99.90 ر.س");                               // { value: 99.9,    display: "99.90", ... }
+maskRiyal("1.23456", undefined, { decimals: 2 });     // { value: 1.23,    display: "1.23", ... }
+maskRiyal("-1234", undefined, { allowNegative: true }); // { value: -1234, display: "-1,234", ... }
+
+normalizeRiyalDigits("٢٤٩٩"); // "2499"  (Arabic-Indic + Persian-Indic digits → ASCII)
+cleanRiyalString("⃁ 1,234"); // "1,234"  (strips ⃁/SAR/ر.س/RTL marks/whitespace)
+```
+
+`MaskRiyalOptions = { decimals?: number; allowNegative?: boolean }`. Default decimals
+is `2`, default `allowNegative` is `false`.
 
 ---
 
@@ -256,9 +283,45 @@ Controlled numeric input. Displays the formatted price while preserving the unde
 | Prop | Type | Default |
 | --- | --- | --- |
 | `value` | `number \| ""` | required |
-| `onValueChange` | `(v: number \| "") => void` | required |
+| `onValueChange` | `(v: number) => void` | required |
 | `locale` | `string` | `"en-SA"` |
+| `decimals` | `number` | `2` |
+| `mask` | `boolean` | `false` — see "Masked mode" below |
+| `allowNegative` | `boolean` | `false` — only honoured when `mask` is true |
 | `placeholder` | `string` | — |
+
+#### Masked mode
+
+Pass `mask` to switch the input into a format-as-you-type field with paste cleanup,
+Arabic-numeral normalisation, thousand-separator grouping, and caret preservation.
+Closes the gap with `react-number-format`.
+
+```tsx
+<RiyalInput mask value={v} onValueChange={setV} />
+```
+
+| User does                | Input shows  | `onValueChange` receives |
+| ------------------------ | ------------ | ------------------------ |
+| Types `1234`             | `"1,234"`    | `1234`                   |
+| Pastes `"SAR 2,499.99"`  | `"2,499.99"` | `2499.99`                |
+| Pastes `"⃁ 2,499.99"`   | `"2,499.99"` | `2499.99`                |
+| Pastes `"٢٤٩٩٫٩٩"`       | `"2,499.99"` | `2499.99`                |
+| Pastes `"99.90 ر.س"`     | `"99.90"`    | `99.9`                   |
+
+You can also call the underlying helper directly:
+
+```ts
+import { maskRiyal, normalizeRiyalDigits, cleanRiyalString } from "riyal";
+
+maskRiyal("SAR 2,499.99");
+// → { value: 2499.99, display: "2,499.99", caret: 8 }
+
+maskRiyal("١٫٢٣", undefined, { decimals: 2 });
+// → { value: 1.23, display: "1.23", caret: 4 }
+
+normalizeRiyalDigits("٢٤٩٩"); // "2499"
+cleanRiyalString("⃁ 1,234"); // "1,234"
+```
 
 ### `useRiyalRate(currency)` — **must be `"use client"`**
 
@@ -282,6 +345,148 @@ import { RiyalPrice, RiyalSymbol, RiyalIcon } from "riyal/react";
 "use client";
 import { AnimatedRiyalPrice, RiyalInput, useRiyalRate } from "riyal/react";
 ```
+
+---
+
+## 8a. Vue 3 (`riyal/vue`) — *new in v1.2*
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue";
+import {
+  RiyalSymbol,
+  RiyalIcon,
+  RiyalPrice,
+  AnimatedRiyalPrice,
+  RiyalInput,
+  useRiyalRate,
+} from "riyal/vue";
+
+const amount = ref<number | "">(2499.99);
+const usd = useRiyalRate("USD");
+</script>
+
+<template>
+  <RiyalSymbol :size="24" />
+  <RiyalIcon :width="32" :height="32" />
+  <RiyalPrice :amount="2499.99" locale="ar-SA" />
+  <AnimatedRiyalPrice :amount="amount" :duration-ms="600" />
+  <RiyalInput v-model="amount" mask />
+  <span v-if="usd.rate.value">
+    {{ (Number(amount) * usd.rate.value).toFixed(2) }} USD
+  </span>
+</template>
+```
+
+- Same surface as `riyal/react`. SSR-safe; works with Nuxt out of the box.
+- Components are render-function based (`defineComponent` + `h()`), so no Vue
+  compiler plugin is needed in your app to consume them.
+- `RiyalInput` uses `v-model` (binds to `modelValue`) and emits both
+  `update:modelValue` and `change`. Supports the same `mask` and
+  `allowNegative` props as the React version.
+- `useRiyalRate(target)` returns `{ rate: Ref<number | null>, loading, error, refresh }`.
+
+---
+
+## 8b. Svelte 5 (`riyal/svelte`) — *new in v1.2*
+
+Ships `.svelte` source so your bundler (Vite, SvelteKit) compiles it natively. Components
+use Svelte 5 runes (`$props`, `$state`, `$derived`, `$effect`, `$bindable`).
+
+```svelte
+<script lang="ts">
+  import {
+    RiyalSymbol,
+    RiyalIcon,
+    RiyalPrice,
+    AnimatedRiyalPrice,
+    RiyalInput,
+    useRiyalRate,
+  } from "riyal/svelte";
+
+  let amount: number | "" = $state(2499.99);
+  const usd = useRiyalRate("USD");
+</script>
+
+<RiyalSymbol size={24} />
+<RiyalIcon width={32} height={32} />
+<RiyalPrice amount={2499.99} locale="ar-SA" />
+<AnimatedRiyalPrice amount={amount} durationMs={600} />
+<RiyalInput bind:value={amount} mask />
+
+{#if usd.rate}
+  <span>{((amount as number) * usd.rate).toFixed(2)} USD</span>
+{/if}
+```
+
+- `useRiyalRate(target)` is a rune-based factory returning read-only getters
+  `{ rate, loading, error }` plus a `refresh()` method.
+- `RiyalInput` is two-way bindable via `bind:value`; supports `mask` and
+  `allowNegative` props matching the React version.
+
+---
+
+## 8c. Cart primitives (`riyal/cart`) — *new in v1.2*
+
+Receipt-grade math for line items and cart totals, with Saudi-VAT defaults.
+
+```ts
+import { lineItem, cartTotal, formatLineItem } from "riyal/cart";
+
+const items = [
+  lineItem({ name: "Coffee Mug", unit: 45, qty: 2 }),
+  lineItem({ name: "Filter Pack", unit: 28, qty: 1, discount: 5 }),
+];
+
+const totals = cartTotal(items, { shipping: 20, discount: 10 });
+// → {
+//   subtotal: 113,        // sum of net (post per-line discount)
+//   vatSubtotal: 16.95,   // sum of line VAT
+//   discount: 10,         // gross-level discount, capped to subtotal
+//   netTotal: 104.27,     // discount applied proportionally
+//   vat: 18.59,           // includes shipping VAT (20 × 0.15 = 3)
+//   shipping: 20,
+//   total: 142.86,
+//   itemCount: 3,
+//   vatRate: 0.15
+// }
+
+formatLineItem(items[0]).gross;  // "⃁ 103.50"
+formatLineItem(items[1], { format: { locale: "ar-SA" } }).gross;
+// → "⃁ ٢٦٫٤٥"
+```
+
+### `lineItem(input, options?): LineItem`
+
+| Field          | Type      | Default                  | Notes                                      |
+| -------------- | --------- | ------------------------ | ------------------------------------------ |
+| `unit`         | `number`  | required                 | Per-unit SAR price                         |
+| `qty`          | `number`  | `1`                      |                                            |
+| `vatIncluded`  | `boolean` | `false`                  | When `true`, `unit` is treated as gross    |
+| `discount`     | `number`  | `0`                      | Per-line SAR discount                      |
+| `id`, `name`   | `string`  | —                        | Free-form identifier and label             |
+| `vatRate` opt  | `number`  | `SAUDI_VAT_RATE` (0.15)  | Override (e.g. `0.05` for UAE)             |
+
+Returns `{ id, name, unit, qty, discount, vatRate, net, vat, gross }`. Never produces
+a negative line — over-discount clamps to zero.
+
+### `cartTotal(items, options?): CartTotals`
+
+| Option                | Type      | Default                  | Notes                                              |
+| --------------------- | --------- | ------------------------ | -------------------------------------------------- |
+| `vatRate`             | `number`  | `SAUDI_VAT_RATE` (0.15)  |                                                    |
+| `discount`            | `number`  | `0`                      | Cart-level (gross) discount, applied proportionally |
+| `shipping`            | `number`  | `0`                      | Net shipping; VAT added on top                     |
+| `shippingIncludesVat` | `boolean` | `false`                  | Set `true` when your shipping fee is gross         |
+
+Returns `{ subtotal, vatSubtotal, discount, netTotal, vat, shipping, total, itemCount, vatRate }`.
+Discount is capped at the gross subtotal. Cart-level discount reduces both net and
+VAT proportionally — matches Saudi receipt convention.
+
+### `formatLineItem(item, { format? }): FormattedLineItem`
+
+Renders every numeric field of a `LineItem` through `formatRiyal`. Returns
+`{ name, qty, unit, discount, net, vat, gross }` as ready-to-print strings.
 
 ---
 

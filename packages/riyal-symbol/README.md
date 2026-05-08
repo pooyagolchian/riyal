@@ -5,10 +5,10 @@
 [![license](https://img.shields.io/npm/l/riyal.svg?color=2e7d32)](./LICENSE)
 [![bundle](https://img.shields.io/bundlephobia/minzip/riyal?color=2e7d32)](https://bundlephobia.com/package/riyal)
 
-The **Saudi Riyal currency symbol (U+20C1) toolkit** — a web font, CSS, React
-components, React Native, Web Components, a Tailwind plugin, Next.js font
-helpers, OG image cards, and a CLI. Written in TypeScript, ships ESM + CJS +
-type defs.
+The **Saudi Riyal currency symbol (U+20C1) toolkit** — a web font, CSS, React,
+Vue 3, Svelte 5, React Native, Web Components, a Tailwind plugin, Next.js
+font helpers, OG image cards, and a CLI. Written in TypeScript, ships
+ESM + CJS + type defs.
 
 > Built around **U+20C1** (Saudi Riyal Sign) — the codepoint scheduled for
 > Unicode 17.0 (September 2025). Until OS fonts ship native support, this
@@ -28,8 +28,11 @@ type defs.
 - [Installation](#installation)
 - [Quick start](#quick-start)
 - [Core API](#core-api) — formatting, parsing, VAT, conversion, clipboard, error handling
+- [Cart & checkout primitives — `riyal/cart`](#cart--checkout-primitives--riyalcart) — `lineItem`, `cartTotal`, `formatLineItem`
 - [React](#react) — `RiyalSymbol`, `RiyalIcon`, `RiyalPrice`,
-  `AnimatedRiyalPrice`, `RiyalInput`, `useRiyalRate`
+  `AnimatedRiyalPrice`, `RiyalInput` (with masked mode), `useRiyalRate`
+- [Vue 3](#vue-3) — same surface, idiomatic Vue
+- [Svelte 5](#svelte-5) — same surface, runes-based components
 - [Web Components](#web-components) — attribute reference, events, shadow DOM styling
 - [React Native](#react-native)
 - [CSS / SCSS](#css--scss)
@@ -48,14 +51,26 @@ type defs.
 ## Features
 
 - ⚡ **Tiny** — tree-shakable ESM, ~58 kB packed (font included).
+- 🧮 **Masked currency input** — paste `"SAR 2,499.99"`, `"⃁ 2,499.99"`, or
+  `"٢٤٩٩٫٩٩"` and get a clean number plus a perfectly formatted display.
 - 🎨 **Multiple weights & families** — sans, serif, mono, arabic.
 - 🧮 **VAT helpers** — Saudi 15% default, configurable.
 - 💱 **Currency conversion** — SAR-based, in-memory cached.
 - 🔤 **`Intl.NumberFormat`** — `en-SA` and `ar-SA` (RTL) out of the box.
-- ⚛️ **React + React Native + Web Components** — pick your stack.
+- ⚛️ **React, Vue 3, Svelte 5, React Native, and Web Components** — pick your stack.
 - 🎯 **Tailwind v3 & v4 plugin**, **Next.js `next/font`** integration.
 - 🖼️ **OG cards** for share images.
 - 🛠️ **CLI** for quick lookups & copy-to-clipboard.
+
+### Framework matrix
+
+| Stack | Entry | Components |
+| --- | --- | --- |
+| React 18+ | `riyal/react` | `RiyalSymbol`, `RiyalIcon`, `RiyalPrice`, `AnimatedRiyalPrice`, `RiyalInput`, `useRiyalRate` |
+| Vue 3.4+ | `riyal/vue` | Same surface as React, idiomatic Vue with `defineComponent` + composables |
+| Svelte 5 | `riyal/svelte` | Same surface as React, native `.svelte` components using runes |
+| React Native 0.72+ | `riyal/react-native` | `RiyalSymbol`, `RiyalIcon`, `RiyalPrice` |
+| Vanilla / Angular / Solid / others | `riyal/web-component` | `<riyal-symbol>`, `<riyal-icon>`, `<riyal-price>`, `<riyal-animated-price>`, `<riyal-input>` |
 
 ---
 
@@ -77,12 +92,14 @@ bun add riyal
 
 Peer deps (all optional, only required for the entry you import):
 
-| Entry                | Peer                                           |
-| -------------------- | ---------------------------------------------- |
-| `riyal/react`        | `react ≥ 18`, `react-dom ≥ 18`                 |
+| Entry | Peer |
+| --- | --- |
+| `riyal/react` | `react ≥ 18`, `react-dom ≥ 18` |
+| `riyal/vue` | `vue ≥ 3.4` |
+| `riyal/svelte` | `svelte ≥ 5` |
 | `riyal/react-native` | `react-native ≥ 0.72`, `react-native-svg ≥ 13` |
-| `riyal/tailwind`     | `tailwindcss ≥ 3`                              |
-| `riyal/next`         | `next ≥ 13`                                    |
+| `riyal/tailwind` | `tailwindcss ≥ 3` |
+| `riyal/next` | `next ≥ 13` |
 
 Node ≥ 20 is required (for full ICU / `Intl` support).
 
@@ -160,6 +177,46 @@ getVAT(100); // 15
 addVAT(100, { rate: 0.05 }); // 105
 SAUDI_VAT_RATE; // 0.15
 ```
+
+### Cart & checkout primitives — `riyal/cart`
+
+Receipt-grade math for line items and cart totals, with Saudi-VAT defaults.
+
+```ts
+import { lineItem, cartTotal, formatLineItem } from "riyal/cart";
+
+const items = [
+  lineItem({ name: "Coffee Mug", unit: 45, qty: 2 }),
+  lineItem({ name: "Filter Pack", unit: 28, qty: 1 }),
+];
+
+const totals = cartTotal(items, { shipping: 20, discount: 10 });
+// → {
+//   subtotal: 118,        // sum of net
+//   vatSubtotal: 17.7,    // 15% of subtotal
+//   discount: 10,         // capped to grossSubtotal
+//   netTotal: 109.13,     // discount applied proportionally
+//   vat: 19.36,           // includes shipping VAT
+//   shipping: 20,
+//   total: 148.49,
+//   itemCount: 3,
+//   vatRate: 0.15
+// }
+
+formatLineItem(items[0]).gross; // → "⃁ 103.50"
+```
+
+Highlights:
+
+- `lineItem({ unit, qty, vatIncluded?, discount? }, { vatRate? })` — handles
+  both VAT-net (default) and VAT-inclusive catalogue prices, plus per-line
+  discount, and never produces a negative line.
+- `cartTotal(items, { discount?, shipping?, shippingIncludesVat?, vatRate? })`
+  — applies the cart-level discount proportionally to net + VAT (Saudi
+  receipt convention), adds shipping with VAT-on-top by default, and caps
+  discounts at the gross subtotal.
+- `formatLineItem(item, { format? })` — renders every numeric field through
+  `formatRiyal` for receipts, OG cards, and table rendering.
 
 ### Currency conversion (SAR base)
 
@@ -275,6 +332,39 @@ const [value, setValue] = useState<number | "">(0);
 <RiyalInput value={value} onValueChange={setValue} locale="ar-SA" />;
 ```
 
+#### Masked mode
+
+Pass `mask` to switch the input into a format-as-you-type field with paste
+cleanup, Arabic-numeral normalisation, thousand-separator grouping, and caret
+preservation:
+
+```tsx
+<RiyalInput mask value={value} onValueChange={setValue} />;
+```
+
+| User does | Input shows | `onValueChange` receives |
+| --- | --- | --- |
+| Types `1234` | `"1,234"` | `1234` |
+| Pastes `"SAR 2,499.99"` | `"2,499.99"` | `2499.99` |
+| Pastes `"⃁ 2,499.99"` | `"2,499.99"` | `2499.99` |
+| Pastes `"٢٤٩٩٫٩٩"` | `"2,499.99"` | `2499.99` |
+| Pastes `"99.90 ر.س"` | `"99.90"` | `99.9` |
+
+Add `allowNegative` to permit a leading `-`. The same `mask` and
+`allowNegative` props are available on the Vue and Svelte versions of
+`RiyalInput`.
+
+You can also call the underlying helper directly:
+
+```ts
+import { maskRiyal, normalizeRiyalDigits } from "riyal";
+
+const r = maskRiyal("SAR 2,499.99");
+// → { value: 2499.99, display: "2,499.99", caret: 8 }
+
+normalizeRiyalDigits("٢٤٩٩"); // "2499"
+```
+
 ### `useRiyalRate(target)`
 
 Tiny hook around `convertFromSAR`. Caches per target, refreshes hourly.
@@ -284,6 +374,71 @@ const { rate, convert, loading, error } = useRiyalRate("USD");
 
 return <span>{convert(2499.99)} USD</span>;
 ```
+
+---
+
+## Vue 3
+
+```bash
+pnpm add riyal vue
+```
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue";
+import { RiyalPrice, RiyalInput, useRiyalRate } from "riyal/vue";
+
+const amount = ref<number | "">(2499.99);
+const usd = useRiyalRate("USD");
+</script>
+
+<template>
+  <RiyalPrice :amount="2499.99" locale="ar-SA" />
+  <RiyalInput v-model="amount" mask />
+  <span v-if="usd.rate.value">{{ (Number(amount) * usd.rate.value).toFixed(2) }} USD</span>
+</template>
+```
+
+The Vue entry exposes the same surface as `riyal/react` —
+`RiyalSymbol`, `RiyalIcon`, `RiyalPrice`, `AnimatedRiyalPrice`,
+`RiyalInput` (with `mask` and `allowNegative` props), and the
+`useRiyalRate` composable. SSR-safe; works with Nuxt out of the box.
+
+`RiyalInput` uses `v-model` (binds to `modelValue`) and emits both
+`update:modelValue` and `change`.
+
+---
+
+## Svelte 5
+
+```bash
+pnpm add riyal svelte
+```
+
+```svelte
+<script lang="ts">
+  import {
+    RiyalPrice,
+    RiyalInput,
+    useRiyalRate,
+  } from "riyal/svelte";
+
+  let amount: number | "" = $state(2499.99);
+  const usd = useRiyalRate("USD");
+</script>
+
+<RiyalPrice amount={2499.99} locale="ar-SA" />
+<RiyalInput bind:value={amount} mask />
+{#if usd.rate}
+  <span>{((amount as number) * usd.rate).toFixed(2)} USD</span>
+{/if}
+```
+
+The Svelte entry ships `.svelte` source so your bundler (Vite,
+SvelteKit) compiles it natively. Components use Svelte 5 runes
+(`$props`, `$state`, `$derived`, `$effect`, `$bindable`); the
+`useRiyalRate` composable is a rune-based factory that returns
+read-only getters plus a `refresh()` method.
 
 ---
 

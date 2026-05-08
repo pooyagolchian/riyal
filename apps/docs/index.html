@@ -7,16 +7,17 @@
 		<meta name="color-scheme" content="dark" />
 
 		<title>
-			Riyal v1.1.0 · Saudi Riyal symbol (U+20C1) — WOFF2 font, React, Web
-			Components, Tailwind, Next.js, VAT helpers
+			Riyal v1.2.0 · Saudi Riyal symbol (U+20C1) — WOFF2 font, React, Vue 3,
+			Svelte 5, Web Components, Tailwind, Next.js, masked currency input, VAT,
+			cart helpers
 		</title>
 		<meta
 			name="description"
-			content="Riyal (v1.1.0) is a TypeScript toolkit for the official Saudi Riyal currency symbol (U+20C1, SAMA 2025). Ships real WOFF2/WOFF/TTF fonts, CSS, React components, React Native, Web Components, Tailwind plugin, Next.js font helper, OG image cards, VAT helpers, and a CLI — one npm install."
+			content="Riyal (v1.2.0) is a TypeScript toolkit for the official Saudi Riyal currency symbol (U+20C1, SAMA 2025). Ships real WOFF2/WOFF/TTF fonts, CSS, React, Vue 3, Svelte 5, React Native, and Web Component renderers; a masked currency input that accepts pasted SAR, ⃁, and Arabic-numeral strings; a Tailwind plugin; Next.js font helper; OG image cards; receipt-grade cart primitives (lineItem, cartTotal); VAT helpers; SAR-base currency conversion; and a CLI — one npm install."
 		/>
 		<meta
 			name="keywords"
-			content="saudi riyal symbol, saudi riyal sign, riyal currency symbol, SAR symbol, U+20C1, U20C1, unicode 17, saudi central bank, SAMA glyph, riyal font, riyal woff2, riyal woff, riyal ttf, ريال سعودي, ر.س, riyal react component, riyal web component, riyal tailwind plugin, riyal next.js font, react native riyal, saudi vat 15, sar formatter, intl numberformat sar, rtl currency formatting, og image saudi riyal, fintech saudi arabia, ksa payments, e-commerce saudi arabia, saudi checkout, formatRiyal, addVAT, convertFromSAR, useRiyalRate"
+			content="saudi riyal symbol, saudi riyal sign, riyal currency symbol, SAR symbol, U+20C1, U20C1, unicode 17, saudi central bank, SAMA glyph, riyal font, riyal woff2, riyal woff, riyal ttf, ريال سعودي, ر.س, riyal react component, riyal vue 3 component, riyal svelte 5, riyal web component, riyal tailwind plugin, riyal next.js font, react native riyal, masked currency input, react-number-format alternative, saudi cart primitives, lineItem, cartTotal, formatLineItem, saudi vat 15, sar formatter, intl numberformat sar, rtl currency formatting, og image saudi riyal, fintech saudi arabia, ksa payments, e-commerce saudi arabia, saudi checkout, formatRiyal, parseRiyal, maskRiyal, normalizeRiyalDigits, addVAT, convertFromSAR, useRiyalRate"
 		/>
 		<meta name="author" content="Pooya Golchian" />
 		<meta
@@ -25,7 +26,7 @@
 		/>
 		<meta name="googlebot" content="index, follow" />
 		<meta name="application-name" content="Riyal" />
-		<meta name="generator" content="riyal v1.1.0" />
+		<meta name="generator" content="riyal v1.2.0" />
 		<meta name="referrer" content="strict-origin-when-cross-origin" />
 
 		<link rel="canonical" href="https://riyal.js.org/" />
@@ -56,11 +57,11 @@
 		<meta property="og:site_name" content="Riyal" />
 		<meta
 			property="og:title"
-			content="Riyal · The Saudi Riyal symbol toolkit — font, React, VAT, OG cards"
+			content="Riyal v1.2 · Saudi Riyal symbol toolkit — React, Vue, Svelte, masked input, cart, VAT"
 		/>
 		<meta
 			property="og:description"
-			content="Ships real WOFF2 fonts for U+20C1, React drop-in components, 15% VAT helpers, currency conversion, OG cards, and a CLI — one npm install."
+			content="Real WOFF2 fonts for U+20C1, drop-in React/Vue 3/Svelte 5 components, masked currency input (paste SAR / ⃁ / Arabic digits), receipt-grade cart primitives, 15% VAT helpers, currency conversion, OG cards, and a CLI — one npm install."
 		/>
 		<meta property="og:url" content="https://riyal.js.org/" />
 		<meta property="og:locale" content="en_SA" />
@@ -84,11 +85,11 @@
 		<meta name="twitter:creator" content="@pooyagolchian" />
 		<meta
 			name="twitter:title"
-			content="Riyal · Saudi Riyal symbol toolkit — font, React, VAT, OG cards"
+			content="Riyal v1.2 · Saudi Riyal symbol toolkit — React, Vue, Svelte, masked input, cart"
 		/>
 		<meta
 			name="twitter:description"
-			content="WOFF2 fonts for U+20C1, React components, VAT helpers, currency conversion, OG cards — one npm install."
+			content="WOFF2 fonts for U+20C1, drop-in React/Vue/Svelte components, masked currency input that accepts pasted SAR/⃁/Arabic-numeral strings, cart + VAT primitives — one npm install."
 		/>
 		<meta name="twitter:image" content="https://riyal.js.org/og.png" />
 		<meta
@@ -135,9 +136,9 @@
 						"@type": "SoftwareSourceCode",
 						"@id": "https://riyal.js.org/#software",
 						"name": "riyal",
-						"version": "1.1.0",
+						"version": "1.2.0",
 						"alternateName": ["Saudi Riyal Symbol Toolkit", "SAR Symbol npm package"],
-						"description": "TypeScript npm package that ships the Saudi Riyal currency symbol (U+20C1) as WOFF2/WOFF/TTF web fonts, CSS, React components (RiyalPrice, AnimatedRiyalPrice, RiyalInput, useRiyalRate), React Native, Web Components, a Tailwind v3/v4 plugin, Next.js next/font helper, OG image card generators, Saudi 15% VAT utilities (addVAT, removeVAT, getVAT), SAR-base currency conversion (convertFromSAR, convertToSAR), and a CLI.",
+						"description": "TypeScript npm package that ships the Saudi Riyal currency symbol (U+20C1) as WOFF2/WOFF/TTF web fonts, CSS, React, Vue 3, and Svelte 5 components (RiyalPrice, AnimatedRiyalPrice, RiyalInput with masked-input mode, useRiyalRate), React Native, Web Components, a Tailwind v3/v4 plugin, Next.js next/font helper, OG image card generators, Saudi 15% VAT utilities (addVAT, removeVAT, getVAT), SAR-base currency conversion (convertFromSAR, convertToSAR), receipt-grade cart primitives (lineItem, cartTotal, formatLineItem) — riyal/cart, masked-input helpers (maskRiyal, normalizeRiyalDigits, cleanRiyalString) that handle paste of SAR/⃁/Arabic-numeral strings, and a CLI.",
 						"codeRepository": "https://github.com/pooyagolchian/riyal",
 						"programmingLanguage": ["TypeScript", "JavaScript", "CSS"],
 						"runtimePlatform": ["Node.js ≥ 20", "Browser", "React Native ≥ 0.72"],
@@ -145,12 +146,12 @@
 						"author": {
 							"@id": "https://riyal.js.org/#person"
 						},
-						"keywords": "saudi riyal, riyal symbol, U+20C1, SAR, SAMA, currency symbol, react, web component, tailwind, next.js, vat, intl, rtl, arabic, formatRiyal, addVAT, convertFromSAR, useRiyalRate",
+						"keywords": "saudi riyal, riyal symbol, U+20C1, SAR, SAMA, currency symbol, react, vue 3, svelte 5, web component, tailwind, next.js, masked currency input, cart primitives, lineItem, cartTotal, vat, intl, rtl, arabic, formatRiyal, parseRiyal, maskRiyal, addVAT, convertFromSAR, useRiyalRate",
 						"url": "https://riyal.js.org/",
 						"downloadUrl": "https://www.npmjs.com/package/riyal",
 						"installUrl": "https://www.npmjs.com/package/riyal",
 						"image": "https://riyal.js.org/og.png",
-						"dateModified": "2026-04-28"
+						"dateModified": "2026-05-08"
 					},
 					{
 						"@type": "FAQPage",
@@ -189,10 +190,26 @@
 							},
 							{
 								"@type": "Question",
-								"name": "Can I use the Saudi Riyal symbol in Vue, Angular or Svelte?",
+								"name": "Can I use the Saudi Riyal symbol in Vue 3, Svelte, Angular or Solid?",
 								"acceptedAnswer": {
 									"@type": "Answer",
-									"text": "Yes. Import defineRiyalElements from 'riyal/web-component' and call it once. This registers <riyal-symbol>, <riyal-price>, <riyal-animated-price>, and <riyal-input> as standard Custom Elements that work in any framework or plain HTML."
+									"text": "Yes. Vue 3 has a dedicated entry: import { RiyalPrice, RiyalInput, useRiyalRate } from 'riyal/vue' (peer dep vue ≥ 3.4). Svelte 5 has a dedicated entry: import { RiyalPrice, RiyalInput, useRiyalRate } from 'riyal/svelte' (ships .svelte source compiled by your bundler, peer dep svelte ≥ 5). For Angular, Solid, Qwik, or vanilla HTML, import defineRiyalElements from 'riyal/web-component' and call it once — this registers <riyal-symbol>, <riyal-price>, <riyal-animated-price>, and <riyal-input> as standard Custom Elements."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "Does riyal have a masked currency input like react-number-format?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Yes. Pass mask to <RiyalInput> in React, Vue, or Svelte: <RiyalInput mask value={v} onValueChange={setV} />. The masked mode handles paste of 'SAR 2,499.99', '⃁ 2,499.99', '٢٤٩٩٫٩٩', or '99.90 ر.س' and yields a clean numeric value plus a perfectly formatted display string. It also normalises Arabic-Indic and Persian-Indic digits, strips RTL marks, enforces a max-decimals window, and preserves caret position. The underlying helper maskRiyal(input, caret?, options?) is exported from the package root for non-input use cases."
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "How do I build a Saudi e-commerce cart total with VAT?",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "Use riyal/cart. Build line items with lineItem({ unit, qty, vatIncluded?, discount? }) and roll them up with cartTotal(items, { discount?, shipping?, shippingIncludesVat?, vatRate? }). cartTotal returns subtotal, vatSubtotal, discount, netTotal, vat, shipping, total, and itemCount, with the cart-level discount applied proportionally to net + VAT (matching Saudi receipt convention) and shipping VAT added on top by default. Defaults to SAUDI_VAT_RATE (15%); override per call for UAE 5% or other rates."
 								}
 							},
 							{
