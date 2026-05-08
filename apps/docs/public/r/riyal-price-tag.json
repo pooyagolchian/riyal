@@ -1,0 +1,15 @@
+{
+	"$schema": "https://ui.shadcn.com/schema/registry-item.json",
+	"name": "riyal-price-tag",
+	"type": "registry:component",
+	"title": "Riyal Price Tag",
+	"description": "Styled SAR price label with size and tone variants. Wraps <RiyalPrice> from riyal/react.",
+	"dependencies": ["riyal"],
+	"files": [
+		{
+			"path": "components/riyal/riyal-price-tag.tsx",
+			"type": "registry:component",
+			"content": "import * as React from \"react\";\nimport { RiyalPrice } from \"riyal/react\";\nimport { cn } from \"@/lib/utils\";\n\nconst sizeClasses = {\n\tsm: \"text-sm\",\n\tmd: \"text-base\",\n\tlg: \"text-2xl\",\n\txl: \"text-4xl tracking-[-0.02em]\",\n} as const;\n\nconst toneClasses = {\n\tdefault: \"text-foreground\",\n\tmuted: \"text-muted-foreground\",\n\temerald: \"text-emerald-500\",\n\tprimary: \"text-primary\",\n} as const;\n\nexport interface RiyalPriceTagProps extends React.HTMLAttributes<HTMLSpanElement> {\n\tamount: number;\n\tsize?: keyof typeof sizeClasses;\n\ttone?: keyof typeof toneClasses;\n\tlocale?: string;\n\tdecimals?: number;\n\tvatIncluded?: boolean;\n\tshowVatLabel?: boolean;\n}\n\nexport function RiyalPriceTag({\n\tamount,\n\tsize = \"md\",\n\ttone = \"default\",\n\tlocale,\n\tdecimals,\n\tvatIncluded = false,\n\tshowVatLabel = false,\n\tclassName,\n\t...rest\n}: RiyalPriceTagProps) {\n\treturn (\n\t\t<span\n\t\t\tclassName={cn(\n\t\t\t\t\"inline-flex items-baseline gap-1.5 font-semibold tabular-nums\",\n\t\t\t\tsizeClasses[size],\n\t\t\t\ttoneClasses[tone],\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t\t{...rest}\n\t\t>\n\t\t\t<RiyalPrice amount={amount} locale={locale} decimals={decimals} />\n\t\t\t{showVatLabel ? (\n\t\t\t\t<span className=\"text-[0.6em] font-medium uppercase tracking-wider text-muted-foreground\">\n\t\t\t\t\t{vatIncluded ? \"VAT incl.\" : \"VAT excl.\"}\n\t\t\t\t</span>\n\t\t\t) : null}\n\t\t</span>\n\t);\n}\n"
+		}
+	]
+}

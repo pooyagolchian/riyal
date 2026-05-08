@@ -1,0 +1,25 @@
+{
+	"$schema": "https://ui.shadcn.com/schema/registry.json",
+	"name": "riyal",
+	"homepage": "https://riyal.js.org",
+	"items": [
+		{
+			"name": "riyal-price-tag",
+			"type": "registry:component",
+			"title": "Riyal Price Tag",
+			"description": "Styled SAR price label with size and tone variants. Wraps <RiyalPrice> from riyal/react."
+		},
+		{
+			"name": "riyal-amount-input",
+			"type": "registry:component",
+			"title": "Riyal Amount Input",
+			"description": "Form-grade SAR input with label, hint, and error states. Uses the masked <RiyalInput mask /> from riyal/react so paste of \\\"SAR 2,499.99\\\" or \\\"٢٤٩٩٫٩٩\\\" yields a clean number."
+		},
+		{
+			"name": "riyal-checkout-summary",
+			"type": "registry:component",
+			"title": "Riyal Checkout Summary",
+			"description": "Receipt-style block with subtotal, discount, shipping, VAT, and grand total. Built on cartTotal from riyal/cart and <RiyalPrice> from riyal/react."
+		}
+	]
+}

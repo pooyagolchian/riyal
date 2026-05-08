@@ -25,7 +25,7 @@ ESM + CJS + type defs.
 ## Table of contents
 
 - [Features](#features)
-- [Installation](#installation)
+- [Installation](#installation) — including the [shadcn registry](#add-via-shadcn)
 - [Quick start](#quick-start)
 - [Core API](#core-api) — formatting, parsing, VAT, conversion, clipboard, error handling
 - [Cart & checkout primitives — `riyal/cart`](#cart--checkout-primitives--riyalcart) — `lineItem`, `cartTotal`, `formatLineItem`
@@ -102,6 +102,27 @@ Peer deps (all optional, only required for the entry you import):
 | `riyal/next` | `next ≥ 13` |
 
 Node ≥ 20 is required (for full ICU / `Intl` support).
+
+### Add via shadcn
+
+Riyal ships a [shadcn-compatible registry](https://riyal.js.org/r/registry.json)
+so you can pull production-ready components straight into your project with
+the shadcn CLI:
+
+```bash
+# Tailwind-styled SAR price tag (size + tone variants)
+npx shadcn@latest add https://riyal.js.org/r/riyal-price-tag.json
+
+# Form-grade SAR amount input (label, hint, error, masked editing)
+npx shadcn@latest add https://riyal.js.org/r/riyal-amount-input.json
+
+# Receipt-style cart summary (subtotal, VAT, shipping, grand total)
+npx shadcn@latest add https://riyal.js.org/r/riyal-checkout-summary.json
+```
+
+Each item drops a `.tsx` file into `components/riyal/` in your project so you
+own the source — and pulls `riyal` as an npm dependency for the underlying
+glyph, formatting, masking, and cart helpers.
 
 ---
 

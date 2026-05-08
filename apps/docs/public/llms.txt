@@ -81,6 +81,21 @@ copyRiyalSymbol(format?: "unicode"|"html"|"css")
 copyRiyalAmount(amount, options?)
 ```
 
+## shadcn registry
+
+Production-ready Tailwind components built on top of `riyal/react` + `riyal/cart`,
+installable with the shadcn CLI:
+
+```bash
+npx shadcn@latest add https://riyal.js.org/r/riyal-price-tag.json
+npx shadcn@latest add https://riyal.js.org/r/riyal-amount-input.json
+npx shadcn@latest add https://riyal.js.org/r/riyal-checkout-summary.json
+```
+
+Each command drops a `.tsx` file into `components/riyal/` in the consumer's
+project and adds `riyal` as an npm dependency. Registry index lives at
+`https://riyal.js.org/r/registry.json`.
+
 ## Cart primitives (riyal/cart)
 
 ```ts

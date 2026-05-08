@@ -46,6 +46,26 @@ Peer dependencies (all optional, only needed for the entry you import):
 | `riyal/tailwind` | `tailwindcss ≥ 3` |
 | `riyal/next` | `next ≥ 13` |
 
+### shadcn registry — *new in v1.2*
+
+Production-ready Tailwind components built on top of `riyal/react` + `riyal/cart`,
+installable with the shadcn CLI. Each command drops a `.tsx` file into
+`components/riyal/` in the consumer's project and adds `riyal` as an npm
+dependency.
+
+```bash
+# Tailwind-styled SAR price tag (size + tone variants)
+npx shadcn@latest add https://riyal.js.org/r/riyal-price-tag.json
+
+# Form-grade SAR amount input (label, hint, error, masked editing)
+npx shadcn@latest add https://riyal.js.org/r/riyal-amount-input.json
+
+# Receipt-style cart summary (subtotal, VAT, shipping, grand total)
+npx shadcn@latest add https://riyal.js.org/r/riyal-checkout-summary.json
+```
+
+Registry index: `https://riyal.js.org/r/registry.json`.
+
 ---
 
 ## 3. Constants (`riyal`)

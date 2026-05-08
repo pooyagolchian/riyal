@@ -4,9 +4,10 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
+		"dev": "node registry/build.mjs && vite",
 		"og": "node scripts/generate-og.mjs",
-		"build": "node scripts/generate-og.mjs && vite build && cp dist/index.html dist/404.html",
+		"registry": "node registry/build.mjs",
+		"build": "node registry/build.mjs && node scripts/generate-og.mjs && vite build && cp dist/index.html dist/404.html",
 		"preview": "vite preview",
 		"typecheck": "tsc --noEmit"
 	},

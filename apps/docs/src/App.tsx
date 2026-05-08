@@ -334,18 +334,23 @@ export function App() {
 					<Card>
 						<CardHeader>
 							<CardTitle>Imports</CardTitle>
-							<Badge>11 entries</Badge>
+							<Badge>13 entries</Badge>
 						</CardHeader>
 						<pre className="code-block">
 							<span className="tok-k">import</span>{" "}
-							<span className="tok-n">{"{ formatRiyal, addVAT }"}</span>{" "}
+							<span className="tok-n">{"{ formatRiyal, addVAT, maskRiyal }"}</span>{" "}
 							<span className="tok-k">from</span> <span className="tok-s">"riyal"</span>;{"\n"}
 							<span className="tok-k">import</span>{" "}
 							<span className="tok-n">{"{ RiyalPrice, RiyalInput }"}</span>{" "}
 							<span className="tok-k">from</span> <span className="tok-s">"riyal/react"</span>
 							{";"}
 							{"\n"}
-							<span className="tok-k">import</span> <span className="tok-s">"riyal/font.css"</span>
+							<span className="tok-k">import</span>{" "}
+							<span className="tok-n">{"{ lineItem, cartTotal }"}</span>{" "}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/cart"</span>
+							{";"}
+							{"\n"}
+							<span className="tok-k">import</span> <span className="tok-s">"riyal/css"</span>
 							{";"}
 							{"\n"}
 							<span className="tok-k">import</span>{" "}
@@ -355,6 +360,26 @@ export function App() {
 							<span className="tok-k">import</span> <span className="tok-n">riyalPlugin</span>{" "}
 							<span className="tok-k">from</span> <span className="tok-s">"riyal/tailwind"</span>
 							{";"}
+						</pre>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>shadcn registry · components/riyal/</CardTitle>
+							<Badge>v1.2 · NEW</Badge>
+						</CardHeader>
+						<pre className="code-block">
+							<span className="tok-c"># pull production-ready components into your project</span>
+							{"\n"}
+							<span className="tok-f">npx</span> shadcn@latest add{" "}
+							<span className="tok-s">https://riyal.js.org/r/riyal-price-tag.json</span>
+							{"\n"}
+							<span className="tok-f">npx</span> shadcn@latest add{" "}
+							<span className="tok-s">https://riyal.js.org/r/riyal-amount-input.json</span>
+							{"\n"}
+							<span className="tok-f">npx</span> shadcn@latest add{" "}
+							<span className="tok-s">https://riyal.js.org/r/riyal-checkout-summary.json</span>
+							{"\n\n"}
+							<span className="tok-c"># index: https://riyal.js.org/r/registry.json</span>
 						</pre>
 					</Card>
 				</Section>
