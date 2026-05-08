@@ -1,7 +1,7 @@
 {
 	"name": "riyal",
 	"version": "1.1.0",
-	"description": "The Saudi Riyal currency symbol (U+20C1) as a web font, CSS utility, React component, and Web Component for Vue, Angular, Svelte & vanilla JS. Includes VAT helpers, currency conversion, OG image cards, and more.",
+	"description": "The Saudi Riyal currency symbol (U+20C1) as a web font, CSS utility, React, Vue 3, Svelte 5, React Native, and Web Component, with a Tailwind plugin, Next.js font helper, OG cards, VAT helpers, and currency conversion.",
 	"license": "MIT",
 	"author": "Pooya Golchian",
 	"homepage": "https://riyal.js.org",
@@ -33,6 +33,12 @@
 		"icon",
 		"react",
 		"react-native",
+		"vue",
+		"vue3",
+		"nuxt",
+		"svelte",
+		"svelte5",
+		"sveltekit",
 		"web component",
 		"tailwind",
 		"next.js",
@@ -55,11 +61,7 @@
 		"sama"
 	],
 	"type": "module",
-	"sideEffects": [
-		"./dist/web-component/*",
-		"*.css",
-		"*.scss"
-	],
+	"sideEffects": ["./dist/web-component/*", "*.css", "*.scss"],
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
@@ -81,6 +83,16 @@
 			"types": "./dist/react-native/index.d.ts",
 			"import": "./dist/react-native/index.js",
 			"require": "./dist/react-native/index.cjs"
+		},
+		"./vue": {
+			"types": "./dist/vue/index.d.ts",
+			"import": "./dist/vue/index.js",
+			"require": "./dist/vue/index.cjs"
+		},
+		"./svelte": {
+			"svelte": "./src/svelte/index.ts",
+			"types": "./src/svelte/index.ts",
+			"default": "./src/svelte/index.ts"
 		},
 		"./web-component": {
 			"types": "./dist/web-component/index.d.ts",
@@ -115,6 +127,13 @@
 	"files": [
 		"dist",
 		"src/scss",
+		"src/svelte/*.svelte",
+		"src/svelte/index.ts",
+		"src/svelte/glyph.ts",
+		"src/svelte/riyalRate.svelte.ts",
+		"src/constants.ts",
+		"src/format.ts",
+		"src/conversion.ts",
 		"README.md",
 		"LICENSE"
 	],
@@ -133,7 +152,9 @@
 		"react-dom": ">=18",
 		"react-native": ">=0.72",
 		"react-native-svg": ">=13",
-		"tailwindcss": ">=3"
+		"svelte": ">=5",
+		"tailwindcss": ">=3",
+		"vue": ">=3.4"
 	},
 	"peerDependenciesMeta": {
 		"next": {
@@ -151,25 +172,36 @@
 		"react-native-svg": {
 			"optional": true
 		},
+		"svelte": {
+			"optional": true
+		},
 		"tailwindcss": {
+			"optional": true
+		},
+		"vue": {
 			"optional": true
 		}
 	},
 	"devDependencies": {
 		"@riyal/tsconfig": "workspace:*",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@testing-library/jest-dom": "^6.5.0",
 		"@testing-library/react": "^16.0.1",
+		"@testing-library/svelte": "^5.2.4",
 		"@types/node": "^22.7.5",
 		"@types/react": "^18.3.11",
 		"@types/react-dom": "^18.3.0",
+		"@vue/test-utils": "^2.4.6",
 		"happy-dom": "^15.7.4",
 		"next": "^14.2.15",
 		"opentype.js": "^1.3.4",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
+		"svelte": "^5.0.0",
 		"tsup": "^8.3.0",
 		"typescript": "^5.6.3",
 		"vitest": "^2.1.2",
+		"vue": "^3.4.0",
 		"wawoff2": "^2.0.1"
 	},
 	"publishConfig": {

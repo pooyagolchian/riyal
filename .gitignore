@@ -33,3 +33,7 @@ pnpm-debug.log*
 # Claude Code local overrides
 .claude/local
 .claude/settings.local.json
+CLAUDE.md
+
+# RTK
+.rtk/filters.toml

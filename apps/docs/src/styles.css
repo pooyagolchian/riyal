@@ -18,8 +18,7 @@
 	}
 
 	body {
-		font-family: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-			sans-serif;
+		font-family: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 		font-size: 15px;
 		line-height: 1.55;
 		overflow-x: clip;
@@ -54,21 +53,12 @@
 		font-feature-settings: "ss01", "ss02";
 	}
 	.bg-noir-grid {
-		background-image: linear-gradient(
-				to right,
-				rgba(255, 255, 255, 0.03) 1px,
-				transparent 1px
-			),
+		background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
 			linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 		background-size: 64px 64px;
 	}
 	.bg-noir-radial {
-		background: radial-gradient(
-				ellipse at top,
-				rgba(255, 255, 255, 0.04),
-				transparent 60%
-			),
-			#000;
+		background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.04), transparent 60%), #000;
 	}
 	.hide-spinner::-webkit-outer-spin-button,
 	.hide-spinner::-webkit-inner-spin-button {

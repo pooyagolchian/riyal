@@ -10,6 +10,7 @@ export default defineConfig({
 		"next/index": "src/next/index.ts",
 		"og/index": "src/og/index.tsx",
 		"cli/index": "src/cli/index.ts",
+		"vue/index": "src/vue/index.ts",
 	},
 	format: ["esm", "cjs"],
 	dts: true,
@@ -26,5 +27,6 @@ export default defineConfig({
 		"next/font/local",
 		"tailwindcss",
 		"tailwindcss/plugin",
+		"vue",
 	],
 });

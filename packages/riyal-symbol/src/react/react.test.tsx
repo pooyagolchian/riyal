@@ -1,7 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import * as React from "react";
 import { describe, expect, it } from "vitest";
 import { RIYAL_SYMBOL_TEXT } from "../constants";
-import { RiyalIcon, RiyalPrice, RiyalSymbol } from "./index";
+import { RiyalIcon, RiyalInput, RiyalPrice, RiyalSymbol } from "./index";
 
 describe("RiyalSymbol", () => {
 	it("renders the U+20C1 glyph", () => {
@@ -38,5 +39,33 @@ describe("RiyalPrice", () => {
 	it("respects useCode", () => {
 		render(<RiyalPrice amount={100} useCode data-testid="p" />);
 		expect(screen.getByTestId("p").textContent).toContain("SAR");
+	});
+});
+
+describe("RiyalInput · mask", () => {
+	function Harness({ initial = "" as number | "" }: { initial?: number | "" }) {
+		const [v, setV] = React.useState<number | "">(initial);
+		return <RiyalInput mask value={v} onValueChange={setV} data-testid="m" />;
+	}
+
+	it("formats typing as you go", () => {
+		render(<Harness />);
+		const el = screen.getByTestId("m") as HTMLInputElement;
+		fireEvent.change(el, { target: { value: "1234" } });
+		expect(el.value).toBe("1,234");
+	});
+
+	it("normalizes a paste of 'SAR 2,499.99'", () => {
+		render(<Harness />);
+		const el = screen.getByTestId("m") as HTMLInputElement;
+		fireEvent.change(el, { target: { value: "SAR 2,499.99" } });
+		expect(el.value).toBe("2,499.99");
+	});
+
+	it("converts Arabic digits to ASCII", () => {
+		render(<Harness />);
+		const el = screen.getByTestId("m") as HTMLInputElement;
+		fireEvent.change(el, { target: { value: "٢٤٩٩٫٩٩" } });
+		expect(el.value).toBe("2,499.99");
 	});
 });

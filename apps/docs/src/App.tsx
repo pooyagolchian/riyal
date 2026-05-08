@@ -149,7 +149,10 @@ export function App() {
 						<a className="hidden transition-colors hover:text-foreground sm:inline" href="#api">
 							API
 						</a>
-						<a className="hidden transition-colors hover:text-foreground lg:inline" href="#reference">
+						<a
+							className="hidden transition-colors hover:text-foreground lg:inline"
+							href="#reference"
+						>
 							Reference
 						</a>
 						<a
@@ -1078,26 +1081,20 @@ export function App() {
 								</thead>
 								<tbody className="divide-y divide-white/[0.04]">
 									{[
-										["locale", '"en-SA" | "ar-SA" | string', '"en-SA" — controls digit set and separator'],
+										[
+											"locale",
+											'"en-SA" | "ar-SA" | string',
+											'"en-SA" — controls digit set and separator',
+										],
 										["decimals", "number", "2"],
 										["symbol", "string", 'U+20C1 glyph — override with "ر.س"'],
 										["position", '"prefix" | "suffix"', "Locale-derived (always prefix per SAMA)"],
 										["compact", "boolean", 'false — "1.2K" / "1.2M" notation'],
-										[
-											"groupSeparator",
-											"string",
-											'Locale default ("," en-SA, "٬" ar-SA)',
-										],
-										[
-											"decimalSeparator",
-											"string",
-											'Locale default ("." en-SA, "٫" ar-SA)',
-										],
+										["groupSeparator", "string", 'Locale default ("," en-SA, "٬" ar-SA)'],
+										["decimalSeparator", "string", 'Locale default ("." en-SA, "٫" ar-SA)'],
 									].map(([opt, type, note]) => (
 										<tr key={opt}>
-											<td className="py-2.5 pr-4 font-mono text-[12px] text-foreground">
-												{opt}
-											</td>
+											<td className="py-2.5 pr-4 font-mono text-[12px] text-foreground">{opt}</td>
 											<td className="py-2.5 pr-4 font-mono text-[11px] text-muted-foreground">
 												{type}
 											</td>
@@ -1111,9 +1108,7 @@ export function App() {
 						</div>
 						<pre className="code-block">
 							<span className="tok-f">formatRiyal</span>(<span className="tok-n">2499.99</span>){" "}
-							<span className="tok-c">
-								{`// → "${formatRiyal(2499.99)}"`}
-							</span>
+							<span className="tok-c">{`// → "${formatRiyal(2499.99)}"`}</span>
 							{"\n"}
 							<span className="tok-f">formatRiyal</span>(<span className="tok-n">2499.99</span>,{" "}
 							<span className="tok-n">{'{ locale: "ar-SA", notation: "compact" }'}</span>){" "}
@@ -1239,9 +1234,7 @@ export function App() {
 											<td className="py-2.5 pr-4 font-mono text-[10px] text-muted-foreground">
 												{type}
 											</td>
-											<td className="py-2.5 font-mono text-[11px] text-muted-foreground">
-												{def}
-											</td>
+											<td className="py-2.5 font-mono text-[11px] text-muted-foreground">{def}</td>
 										</tr>
 									))}
 								</tbody>
@@ -1253,18 +1246,18 @@ export function App() {
 							</span>
 							{"\n"}
 							<span className="tok-c">
-								{'// <riyal-input> fires CustomEvent("riyal-change", { detail: { value: number } })'}
+								{
+									'// <riyal-input> fires CustomEvent("riyal-change", { detail: { value: number } })'
+								}
 							</span>
 							{"\n\n"}
-							<span className="tok-n">document</span>.
-							<span className="tok-f">querySelector</span>(
+							<span className="tok-n">document</span>.<span className="tok-f">querySelector</span>(
 							<span className="tok-s">"riyal-input"</span>).
 							<span className="tok-f">addEventListener</span>(
 							<span className="tok-s">"riyal-change"</span>, (e) =&gt; {"{"}
 							{"\n  "}
-							<span className="tok-n">console</span>.
-							<span className="tok-f">log</span>(e.detail.value);{" "}
-							<span className="tok-c">{"// number"}</span>
+							<span className="tok-n">console</span>.<span className="tok-f">log</span>
+							(e.detail.value); <span className="tok-c">{"// number"}</span>
 							{"\n"}
 							{"}"});
 						</pre>
@@ -1298,24 +1291,16 @@ export function App() {
 								{"// — Currency conversion (SAR base, 1h cached) —————"}
 							</span>
 							{"\n"}
-							<span className="tok-k">const</span> usd ={" "}
-							<span className="tok-k">await</span>{" "}
-							<span className="tok-f">convertFromSAR</span>(
-							<span className="tok-n">1000</span>,{" "}
+							<span className="tok-k">const</span> usd = <span className="tok-k">await</span>{" "}
+							<span className="tok-f">convertFromSAR</span>(<span className="tok-n">1000</span>,{" "}
 							<span className="tok-s">"USD"</span>);{"\n"}
-							<span className="tok-k">const</span> sar ={" "}
-							<span className="tok-k">await</span>{" "}
-							<span className="tok-f">convertToSAR</span>(
-							<span className="tok-n">100</span>,{" "}
+							<span className="tok-k">const</span> sar = <span className="tok-k">await</span>{" "}
+							<span className="tok-f">convertToSAR</span>(<span className="tok-n">100</span>,{" "}
 							<span className="tok-s">"EUR"</span>);{"\n"}
-							<span className="tok-c">
-								{"// Pass { rate } to skip the network entirely"}
-							</span>
+							<span className="tok-c">{"// Pass { rate } to skip the network entirely"}</span>
 							{"\n"}
-							<span className="tok-k">await</span>{" "}
-							<span className="tok-f">convertFromSAR</span>(
-							<span className="tok-n">1000</span>,{" "}
-							<span className="tok-s">"USD"</span>,{" "}
+							<span className="tok-k">await</span> <span className="tok-f">convertFromSAR</span>(
+							<span className="tok-n">1000</span>, <span className="tok-s">"USD"</span>,{" "}
 							<span className="tok-n">{"{ rate: 0.267 }"}</span>);
 						</pre>
 					</Card>
@@ -1335,29 +1320,20 @@ export function App() {
 						<pre className="code-block">
 							<span className="tok-k">import</span>{" "}
 							<span className="tok-n">{"{ convertFromSAR }"}</span>{" "}
-							<span className="tok-k">from</span>{" "}
-							<span className="tok-s">"riyal"</span>;{"\n\n"}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal"</span>;{"\n\n"}
 							<span className="tok-k">let</span> usd: <span className="tok-k">number</span>;{"\n"}
 							<span className="tok-k">try</span> {"{"}
 							{"\n  "}usd = <span className="tok-k">await</span>{" "}
-							<span className="tok-f">convertFromSAR</span>(
-							<span className="tok-n">1000</span>,{" "}
+							<span className="tok-f">convertFromSAR</span>(<span className="tok-n">1000</span>,{" "}
 							<span className="tok-s">"USD"</span>);{"\n"}
-							{"}"}{" "}
-							<span className="tok-k">catch</span> {"{"}
+							{"}"} <span className="tok-k">catch</span> {"{"}
 							{"\n  "}
-							<span className="tok-c">
-								{"// TypeError — network down"}
-							</span>
+							<span className="tok-c">{"// TypeError — network down"}</span>
 							{"\n  "}
-							<span className="tok-c">
-								{'// RangeError — unknown currency code e.g. "XYZ"'}
-							</span>
+							<span className="tok-c">{'// RangeError — unknown currency code e.g. "XYZ"'}</span>
 							{"\n  "}usd = <span className="tok-n">1000</span> *{" "}
 							<span className="tok-n">0.267</span>;{" "}
-							<span className="tok-c">
-								{"// last-known SAR/USD fallback"}
-							</span>
+							<span className="tok-c">{"// last-known SAR/USD fallback"}</span>
 							{"\n"}
 							{"}"}
 						</pre>
@@ -1370,31 +1346,26 @@ export function App() {
 						<pre className="code-block">
 							<span className="tok-k">import</span>{" "}
 							<span className="tok-n">{"{ useRiyalRate }"}</span>{" "}
-							<span className="tok-k">from</span>{" "}
-							<span className="tok-s">"riyal/react"</span>;{"\n\n"}
-							<span className="tok-k">function</span>{" "}
-							<span className="tok-f">CartCurrency</span>({"{"} sar {"}"}: {"{"} sar:{" "}
-							<span className="tok-k">number</span> {"}"}) {"{"}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/react"</span>;
+							{"\n\n"}
+							<span className="tok-k">function</span> <span className="tok-f">CartCurrency</span>(
+							{"{"} sar {"}"}: {"{"} sar: <span className="tok-k">number</span> {"}"}) {"{"}
 							{"\n  "}
-							<span className="tok-k">const</span> {"{"} convert, loading, error, refresh {"}"}{" "}
-							={" "}
-							<span className="tok-f">useRiyalRate</span>(
-							<span className="tok-s">"USD"</span>);{"\n\n  "}
-							<span className="tok-k">if</span> (loading){" "}
-							<span className="tok-k">return</span>{" "}
+							<span className="tok-k">const</span> {"{"} convert, loading, error, refresh {"}"} ={" "}
+							<span className="tok-f">useRiyalRate</span>(<span className="tok-s">"USD"</span>);
+							{"\n\n  "}
+							<span className="tok-k">if</span> (loading) <span className="tok-k">return</span>{" "}
 							<span className="tok-k">&lt;span&gt;</span>Loading…
 							<span className="tok-k">&lt;/span&gt;</span>;{"\n  "}
-							<span className="tok-k">if</span> (error){" "}
-							<span className="tok-k">return</span> ({"\n    "}
-							<span className="tok-k">&lt;button</span>{" "}
-							<span className="tok-n">onClick</span>=
+							<span className="tok-k">if</span> (error) <span className="tok-k">return</span> (
+							{"\n    "}
+							<span className="tok-k">&lt;button</span> <span className="tok-n">onClick</span>=
 							<span className="tok-n">{"{refresh}"}</span>
 							<span className="tok-k">&gt;</span>
 							Rates unavailable — retry
 							<span className="tok-k">&lt;/button&gt;</span>
 							{"\n  "});{"\n\n  "}
-							<span className="tok-k">return</span>{" "}
-							<span className="tok-k">&lt;span&gt;</span>
+							<span className="tok-k">return</span> <span className="tok-k">&lt;span&gt;</span>
 							{"${convert(sar).toFixed(2)} USD"}
 							<span className="tok-k">&lt;/span&gt;</span>;{"\n"}
 							{"}"}
@@ -1406,21 +1377,16 @@ export function App() {
 							<Badge>Next.js App Router</Badge>
 						</CardHeader>
 						<pre className="code-block">
-							<span className="tok-c">
-								{"// ✅ Server Component — no directive needed"}
-							</span>
+							<span className="tok-c">{"// ✅ Server Component — no directive needed"}</span>
 							{"\n"}
 							<span className="tok-k">import</span>{" "}
-							<span className="tok-n">{"{ RiyalPrice }"}</span>{" "}
-							<span className="tok-k">from</span>{" "}
+							<span className="tok-n">{"{ RiyalPrice }"}</span> <span className="tok-k">from</span>{" "}
 							<span className="tok-s">"riyal/react"</span>;{"\n\n"}
 							<span className="tok-k">export default function</span>{" "}
 							<span className="tok-f">ProductPage</span>() {"{"}
 							{"\n  "}
-							<span className="tok-k">return</span>{" "}
-							<span className="tok-k">&lt;RiyalPrice</span>{" "}
-							<span className="tok-n">amount</span>=
-							<span className="tok-n">{"{2499.99}"}</span>{" "}
+							<span className="tok-k">return</span> <span className="tok-k">&lt;RiyalPrice</span>{" "}
+							<span className="tok-n">amount</span>=<span className="tok-n">{"{2499.99}"}</span>{" "}
 							<span className="tok-k">/&gt;</span>;{"\n"}
 							{"}"}
 							{"\n\n"}
@@ -1431,8 +1397,8 @@ export function App() {
 							<span className="tok-s">"use client"</span>;{"\n"}
 							<span className="tok-k">import</span>{" "}
 							<span className="tok-n">{"{ AnimatedRiyalPrice, RiyalInput }"}</span>{" "}
-							<span className="tok-k">from</span>{" "}
-							<span className="tok-s">"riyal/react"</span>{";"}
+							<span className="tok-k">from</span> <span className="tok-s">"riyal/react"</span>
+							{";"}
 						</pre>
 					</Card>
 				</Section>

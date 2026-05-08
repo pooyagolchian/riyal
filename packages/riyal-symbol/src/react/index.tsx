@@ -2,6 +2,7 @@ import * as React from "react";
 import { RIYAL_DEFAULT_LOCALE, RIYAL_SYMBOL_TEXT } from "../constants";
 import { convertFromSAR, fetchExchangeRates } from "../conversion";
 import { type FormatRiyalOptions, formatRiyal } from "../format";
+import { maskRiyal } from "../mask";
 
 /**
  * Official SAMA (Saudi Central Bank) Saudi Riyal glyph paths, traced from the
@@ -192,27 +193,41 @@ export type RiyalInputProps = Omit<
 	onValueChange: (value: number) => void;
 	locale?: string;
 	decimals?: number;
+	/**
+	 * Enable format-as-you-type masking: paste cleanup, Arabic-numeral
+	 * normalisation, thousand-separator grouping, and caret preservation.
+	 */
+	mask?: boolean;
+	/** Allow negative values (only honoured when `mask` is true). */
+	allowNegative?: boolean;
 };
 
-/** Numeric input with riyal symbol prefix. */
-export const RiyalInput: React.FC<RiyalInputProps> = ({
+type WrapperStyle = React.CSSProperties;
+
+function getWrapperStyle(isRtl: boolean): WrapperStyle {
+	return {
+		display: "inline-flex",
+		alignItems: "center",
+		gap: "0.25rem",
+		direction: isRtl ? "rtl" : "ltr",
+	};
+}
+
+const NumericRiyalInput: React.FC<RiyalInputProps> = ({
 	value,
 	onValueChange,
 	locale = RIYAL_DEFAULT_LOCALE,
 	decimals = 2,
 	className,
+	mask: _mask,
+	allowNegative: _allowNegative,
 	...rest
 }) => {
 	const isRtl = locale.toLowerCase().startsWith("ar");
 	return (
 		<span
 			className={["riyal-input", className].filter(Boolean).join(" ")}
-			style={{
-				display: "inline-flex",
-				alignItems: "center",
-				gap: "0.25rem",
-				direction: isRtl ? "rtl" : "ltr",
-			}}
+			style={getWrapperStyle(isRtl)}
 		>
 			<RiyalSymbol />
 			<input
@@ -225,6 +240,77 @@ export const RiyalInput: React.FC<RiyalInputProps> = ({
 		</span>
 	);
 };
+
+const MaskedRiyalInput: React.FC<RiyalInputProps> = ({
+	value,
+	onValueChange,
+	locale = RIYAL_DEFAULT_LOCALE,
+	decimals = 2,
+	allowNegative = false,
+	className,
+	mask: _mask,
+	...rest
+}) => {
+	const isRtl = locale.toLowerCase().startsWith("ar");
+	const inputRef = React.useRef<HTMLInputElement | null>(null);
+	const pendingCaret = React.useRef<number | null>(null);
+
+	const [display, setDisplay] = React.useState(() =>
+		value === "" || !Number.isFinite(value)
+			? ""
+			: maskRiyal(String(value), undefined, { decimals, allowNegative }).display,
+	);
+
+	React.useEffect(() => {
+		if (value === "" || !Number.isFinite(value)) {
+			setDisplay("");
+			return;
+		}
+		const formatted = maskRiyal(String(value), undefined, { decimals, allowNegative }).display;
+		setDisplay((prev) => (prev === formatted ? prev : formatted));
+	}, [value, decimals, allowNegative]);
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: display change is the trigger; refs are read inside
+	React.useLayoutEffect(() => {
+		if (pendingCaret.current !== null && inputRef.current) {
+			const pos = pendingCaret.current;
+			inputRef.current.setSelectionRange(pos, pos);
+			pendingCaret.current = null;
+		}
+	}, [display]);
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const raw = e.target.value;
+		const caretAt = e.target.selectionStart ?? raw.length;
+		const result = maskRiyal(raw, caretAt, { decimals, allowNegative });
+		pendingCaret.current = result.caret;
+		setDisplay(result.display);
+		onValueChange(Number.isNaN(result.value) ? Number.NaN : result.value);
+	};
+
+	return (
+		<span
+			className={["riyal-input", className].filter(Boolean).join(" ")}
+			style={getWrapperStyle(isRtl)}
+		>
+			<RiyalSymbol />
+			<input
+				ref={inputRef}
+				type="text"
+				inputMode="decimal"
+				autoComplete="off"
+				dir={isRtl ? "rtl" : "ltr"}
+				value={display}
+				onChange={handleChange}
+				{...rest}
+			/>
+		</span>
+	);
+};
+
+/** Numeric input with riyal symbol prefix. Pass `mask` to enable masked editing. */
+export const RiyalInput: React.FC<RiyalInputProps> = (props) =>
+	props.mask ? <MaskedRiyalInput {...props} /> : <NumericRiyalInput {...props} />;
 
 export interface UseRiyalRateResult {
 	rate: number | null;

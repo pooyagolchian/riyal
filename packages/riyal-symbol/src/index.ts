@@ -8,6 +8,7 @@
  */
 export * from "./constants";
 export * from "./format";
+export * from "./mask";
 export * from "./clipboard";
 export * from "./vat";
 export * from "./conversion";
