@@ -94,7 +94,7 @@ export function RiyalPriceTag({
 	"riyal-amount-input": {
 		title: "Riyal Amount Input",
 		description:
-			'Form-grade SAR input with label, hint, and error states. Uses the masked <RiyalInput mask /> from riyal/react so paste of \\"SAR 2,499.99\\" or \\"٢٤٩٩٫٩٩\\" yields a clean number.',
+			'Form-grade SAR input with label, hint, and error states. Uses the masked <RiyalInput mask /> from riyal/react so paste of "SAR 2,499.99" or "٢٤٩٩٫٩٩" yields a clean number.',
 		type: "registry:component",
 		dependencies: ["riyal"],
 		files: [
